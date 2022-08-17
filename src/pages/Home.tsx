@@ -1,10 +1,35 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect } from 'react'
 
 type Props = {}
 
+const axiosConfig = {
+  withCredentials: true,
+}
 const Home = (props: Props) => {
+  useEffect(() => {
+    console.log("Hei")
+    const loadUser = async () => {
+      axios.get('http://localhost:8080/api/auth', axiosConfig)
+      .then(function (response) {
+        // handle success
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+    }
+    loadUser()
+  }, [])
+  
   return (
-    <div>Home</div>
+    <div>
+
+    </div>
   )
 }
 
