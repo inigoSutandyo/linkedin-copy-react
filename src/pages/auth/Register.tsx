@@ -1,9 +1,19 @@
-import React, { SyntheticEvent } from 'react'
-import { Link } from 'react-router-dom';
+import React, { SyntheticEvent, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 type Props = {}
 
 const Register = (props: Props) => {
+    const [error, setError] = useState("")
+    const axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        }
+    };
+
+    const navigate = useNavigate()
+
     const submit = (e: SyntheticEvent) => {
         e.preventDefault();
         const target = e.target as typeof e.target & {
@@ -16,30 +26,50 @@ const Register = (props: Props) => {
             email,
             password
         })
+        
+        axios.post('http://localhost:8080/api/register', {
+            email: email,
+            password: password,
+        
+        }, axiosConfig).then((response) => {
+            const msg = response.data.message
+            if (msg === "success") {
+                navigate('/')
+            } else {
+                setError(msg)
+            }
+            
+        }).catch(function (error) {
+            console.log(error);
+            setError(error)
+        }).then(function (response) {
+            // always executed
+        
+        });
     }
     
     return (
-    <div className='center-container'>
-        <div  className='input-form'>
-            <form action="POST" onSubmit={submit}>
-                <div className='input-container' style={{marginTop: "16px"}}>
-                    <label htmlFor="email" className='form-label-light'>Email</label>
-                    <input type="email" name="email" id="email" className='form-input-secondary'/>
-                </div>
+        <div className='center-container'>
+            <div  className='input-form'>
+                <form action="POST" onSubmit={submit}>
+                    <div className='input-container' style={{marginTop: "16px"}}>
+                        <label htmlFor="email" className='form-label-light'>Email</label>
+                        <input type="email" name="email" id="email" className='form-input-secondary'/>
+                    </div>
 
-                <div className='input-container'>
-                    <label htmlFor="password" className='form-label-light'>Password (6 or more characters)</label>
-                    <input type="password" name="password" id="password" className='form-input-secondary'/>
-                </div>
-                <div className='input-container'>
-                    
-                </div>
-                <div className='input-container'>
-                    <input type="submit" value="Agree & Join" />
-                </div>
-            </form>
+                    <div className='input-container'>
+                        <label htmlFor="password" className='form-label-light'>Password (6 or more characters)</label>
+                        <input type="password" name="password" id="password" className='form-input-secondary'/>
+                    </div>
+                    <div className='input-container'>
+                        
+                    </div>
+                    <div className='input-container'>
+                        <input type="submit" value="Agree & Join" />
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
     )
 }
 
