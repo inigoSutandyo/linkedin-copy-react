@@ -1,9 +1,19 @@
-import React, { SyntheticEvent } from 'react'
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import React, { SyntheticEvent, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import '../../styles/auth/auth.css'
 interface Props {}
 
 const Login = (props: Props) => {
+  const [error, setError] = useState("")
+  const navigate = useNavigate()
+
+  const axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true,
+  }
 
   const submit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -17,6 +27,30 @@ const Login = (props: Props) => {
       email,
       password
     })
+
+    axios.post('http://localhost:8080/api/login', {
+        email: email,
+        password: password,
+
+    }, axiosConfig)
+    .then((response) => {
+        const msg = response.data.message
+        const isError = response.data.isError
+        if (!isError) {
+            navigate('/')
+        } else {
+            setError(msg)
+        }
+        
+    })
+    .catch(function (error) {
+        console.log(error);
+        setError(error)
+    })
+    .then(function (response) {
+        // always executed
+    
+    });
   }
 
   return (

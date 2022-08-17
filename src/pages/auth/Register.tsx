@@ -34,7 +34,7 @@ const Register = (props: Props) => {
         }, axiosConfig).then((response) => {
             const msg = response.data.message
             if (msg === "success") {
-                navigate('/')
+                navigate('/auth/login')
             } else {
                 setError(msg)
             }
