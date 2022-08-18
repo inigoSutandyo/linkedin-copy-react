@@ -27,7 +27,7 @@ const Register = (props: Props) => {
             password
         })
         
-        axios.post('http://localhost:8080/api/register', {
+        axios.post('http://localhost:8080/api/auth/register', {
             email: email,
             password: password,
         

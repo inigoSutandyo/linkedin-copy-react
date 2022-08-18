@@ -31,7 +31,7 @@ const Login = (props: Props) => {
 
     axios
       .post(
-        "http://localhost:8080/api/login",
+        "http://localhost:8080/api/auth/login",
         {
           email: email,
           password: password,

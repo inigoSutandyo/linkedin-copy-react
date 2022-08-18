@@ -10,7 +10,7 @@ const Home = (props: Props) => {
   useEffect(() => {
     console.log("Hei")
     const loadUser = async () => {
-      axios.get('http://localhost:8080/api/auth', axiosConfig)
+      axios.get('http://localhost:8080/api/user/profile', axiosConfig)
       .then(function (response) {
         console.log(response.data)
       })
