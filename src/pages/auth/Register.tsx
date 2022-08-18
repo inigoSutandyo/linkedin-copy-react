@@ -54,12 +54,12 @@ const Register = (props: Props) => {
                 <form action="POST" onSubmit={submit}>
                     <div className='input-container' style={{marginTop: "16px"}}>
                         <label htmlFor="email" className='form-label-light'>Email</label>
-                        <input type="email" name="email" id="email" className='form-input-secondary'/>
+                        <input type="email" name="email" id="email" className='form-input-secondary' autoComplete="on"/>
                     </div>
 
                     <div className='input-container'>
                         <label htmlFor="password" className='form-label-light'>Password (6 or more characters)</label>
-                        <input type="password" name="password" id="password" className='form-input-secondary'/>
+                        <input type="password" name="password" id="password" className='form-input-secondary' autoComplete="on"/>
                     </div>
                     <div className='input-container'>
                         

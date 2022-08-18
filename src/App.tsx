@@ -10,7 +10,7 @@ import Register from './pages/auth/Register'
 
 function App() {
 
-
+  console.log("test")
   return (
     <BrowserRouter>
       <Navbar/>

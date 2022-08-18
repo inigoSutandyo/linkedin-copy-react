@@ -12,8 +12,7 @@ const Home = (props: Props) => {
     const loadUser = async () => {
       axios.get('http://localhost:8080/api/auth', axiosConfig)
       .then(function (response) {
-        // handle success
-        console.log(response.data);
+        console.log(response.data)
       })
       .catch(function (error) {
         // handle error

@@ -17,6 +17,8 @@ const Navbar = (props: Props) => {
             Profile
           </Link>
         </li>
+      </ul>
+      <ul>
         <li>
           <Link to={"/auth/login"}>
             Login

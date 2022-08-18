@@ -62,11 +62,11 @@ const Login = (props: Props) => {
         <label className='form-subtitle'>Stay updated on your professional world</label>
         <form action="POST" onSubmit={submit}>
           <div className='input-container'>
-            <input type="email" name="email" id="email" placeholder='Email' className='form-input-primary'/>
+            <input type="email" name="email" id="email" placeholder='Email' className='form-input-primary' autoComplete="on"/>
           </div>
 
           <div className='input-container'>
-            <input type="password" name="password" id="password" placeholder='Password' className='form-input-primary'/>
+            <input type="password" name="password" id="password" placeholder='Password' className='form-input-primary' autoComplete="on"/>
             <Link to={"/"} className="form-link">Forgot your password?</Link>
           </div>
           <div className='input-container'>
