@@ -65,7 +65,7 @@ const Register = (props: Props) => {
                         
                     </div>
                     <div className='input-container'>
-                        <input type="submit" value="Agree & Join" />
+                        <input type="submit" value="Agree & Join" className="btn-primary"/>
                     </div>
                 </form>
             </div>

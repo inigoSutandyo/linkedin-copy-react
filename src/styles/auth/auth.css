@@ -46,22 +46,6 @@
     color: rgba(78, 78, 78, 0.86)
 }
 
-.input-container > input[type=submit] {
-    align-self: center;
-    width: 100%;
-    color: white;
-    padding: 12px 4px 12px 4px;
-    background-color: rgb(42, 147, 238);
-    border-radius: 32px;
-    font-size: medium;
-    border: none;
-    cursor: pointer;
-}
-
-.input-container > input[type=submit]:hover {
-    color: white;
-    background-color: rgb(2, 91, 168);
-}
 
 .form-link {
     margin-top: 4px;
