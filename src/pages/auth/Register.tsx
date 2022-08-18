@@ -1,18 +1,28 @@
-import React, { SyntheticEvent, useState } from 'react'
+import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { useIsAuth } from '../../utils/Auth';
 
 type Props = {}
 
 const Register = (props: Props) => {
     const [error, setError] = useState("")
+
+    const navigate = useNavigate()
+    const auth = useIsAuth()
+
+    useEffect(() => {
+        if (auth === null) return
+        if (auth == true) {
+            navigate('/')
+        }
+    }, [auth])
+
     const axiosConfig = {
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
         }
     };
-
-    const navigate = useNavigate()
 
     const submit = (e: SyntheticEvent) => {
         e.preventDefault();

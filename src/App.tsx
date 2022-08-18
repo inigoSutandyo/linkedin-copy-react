@@ -10,8 +10,6 @@ import ForgetPassword from './pages/auth/ForgetPassword'
 
 
 function App() {
-
-  console.log("test")
   return (
     <BrowserRouter>
       <Navbar/>

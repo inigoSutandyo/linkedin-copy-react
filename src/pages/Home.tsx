@@ -23,6 +23,7 @@ const Home = (props: Props) => {
       });
     }
     loadUser()
+    // checkAuth()
   }, [])
   
   return (

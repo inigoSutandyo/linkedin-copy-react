@@ -1,13 +1,24 @@
 import axios from "axios";
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../../components/Error";
 import "../../styles/auth/auth.css";
+import { useIsAuth } from "../../utils/Auth";
 interface Props {}
 
 const Login = (props: Props) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const auth = useIsAuth()
+
+  useEffect(() => {
+    if (auth === null) return
+
+    if (auth == true) {
+      navigate('/')
+    }
+  }, [auth])
+  
 
   const axiosConfig = {
     headers: {
