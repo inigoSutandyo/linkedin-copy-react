@@ -16,7 +16,7 @@ const Home = (props: Props) => {
       })
       .catch(function (error) {
         // handle error
-        console.log(error);
+        console.log(error.response.data);
       })
       .then(function () {
         // always executed

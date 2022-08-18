@@ -16,8 +16,8 @@ export const useIsAuth = () => {
         })
         .catch(function (error) {
             // handle error
-            // console.log(error.response.data);
             console.clear()
+            console.log(error.response.data);
             setAuth(error.response.data.status)
         })
         .then(function () {

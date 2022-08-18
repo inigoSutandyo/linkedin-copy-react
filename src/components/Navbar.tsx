@@ -1,11 +1,38 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../styles/nav.css'
 import { useIsAuth } from "../utils/Auth";
 type Props = {};
 
 const Navbar = (props: Props) => {
   const auth = useIsAuth()
+  const navigate = useNavigate()
+  function logout() {
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    
+    axios.post(
+      "http://localhost:8080/api/auth/logout", {},
+      axiosConfig
+    )
+    .then((response) => {
+      console.log(response.data)
+      navigate("/")
+    })
+    .catch(function (error) {
+      console.log(error.response.data);
+      
+    })
+    .then(function (response) {
+
+    });
+  }
+
   return (
     <nav>
       <ul>
@@ -23,9 +50,9 @@ const Navbar = (props: Props) => {
       <ul>
         {auth ? (
           <li>
-            <Link to={"/auth/login"}>
+            <a href="" onClick={logout}>
               Logout
-            </Link>
+            </a>
           </li>
         ) : (
           <>

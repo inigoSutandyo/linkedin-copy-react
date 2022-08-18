@@ -20,26 +20,29 @@ const Login = (props: Props) => {
   }, [auth])
   
 
-  const axiosConfig = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    withCredentials: true,
-  };
-
   const submit = (e: SyntheticEvent) => {
     e.preventDefault();
+
     const target = e.target as typeof e.target & {
       email: { value: string };
       password: { value: string };
     };
+
     const email = target.email.value;
     const password = target.password.value;
+
     console.log({
       email,
       password,
     });
 
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    
     axios
       .post(
         "http://localhost:8080/api/auth/login",
