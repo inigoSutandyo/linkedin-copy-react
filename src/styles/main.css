@@ -35,11 +35,10 @@ body {
 
 .btn-primary {
     align-self: center;
-    width: 100%;
+    min-width: 64px;
     color: white;
     padding: 12px 4px 12px 4px;
     background-color: rgb(0, 0, 255);
-    border-radius: 32px;
     font-size: medium;
     border: none;
     cursor: pointer;

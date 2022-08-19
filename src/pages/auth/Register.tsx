@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { useIsAuth } from '../../utils/Auth';
 import "../../styles/forms/form.css";
+import Guestbar from '../../components/navbar/Guestbar';
 type Props = {}
 
 const Register = (props: Props) => {
@@ -59,27 +60,33 @@ const Register = (props: Props) => {
     }
     
     return (
-        <div className='center-container'>
-            <div  className='input-form'>
-                <form action="POST" onSubmit={submit}>
-                    <div className='input-container' style={{marginTop: "16px"}}>
-                        <label htmlFor="email" className='form-label-light'>Email</label>
-                        <input type="email" name="email" id="email" className='form-input-secondary' autoComplete="on"/>
-                    </div>
+        <>
+            <Guestbar/> 
+            <div className='center-container'>
+                <div  className='input-form'>
+                    <form action="POST" onSubmit={submit}>
+                        <div className='input-container' style={{marginTop: "16px"}}>
+                            <label htmlFor="email" className='form-label-light'>Email</label>
+                            <input type="email" name="email" id="email" className='form-input-secondary' autoComplete="on"/>
+                        </div>
 
-                    <div className='input-container'>
-                        <label htmlFor="password" className='form-label-light'>Password (6 or more characters)</label>
-                        <input type="password" name="password" id="password" className='form-input-secondary' autoComplete="on"/>
-                    </div>
-                    <div className='input-container'>
-                        
-                    </div>
-                    <div className='input-container'>
-                        <input type="submit" value="Agree & Join" className="btn-primary"/>
-                    </div>
-                </form>
+                        <div className='input-container'>
+                            <label htmlFor="password" className='form-label-light'>Password (6 or more characters)</label>
+                            <input type="password" name="password" id="password" className='form-input-secondary' autoComplete="on"/>
+                        </div>
+                        <div className='input-container'>
+                            
+                        </div>
+                        <div className='input-container'>
+                            <input type="submit" value="Agree & Join" className="btn-primary" style={{
+                                width: "100%",
+                                borderRadius: "32px"
+                            }}/>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

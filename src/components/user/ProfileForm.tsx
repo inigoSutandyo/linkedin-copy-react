@@ -42,6 +42,28 @@ const ProfileForm = (props: Props) => {
                     className="form-input-secondary"
                 />
             </div>
+            <div className="input-container">
+                <label htmlFor="phone" className="form-label-light">
+                    Last Name*
+                </label>
+                <input
+                    type="text"
+                    name="phone"
+                    id="phone"
+                    required={true}
+                    defaultValue={props.user.phone}
+                    className="form-input-secondary"
+                />
+            </div>
+            <div style={{
+                display: "flex",
+                justifyContent: "flex-end"
+            }}>
+                <input type="submit" value="Save" className="btn-primary" style={{
+                    width: "96px",
+                    borderRadius: "28px"
+                }}/>
+            </div>
         </form>
     );
 };

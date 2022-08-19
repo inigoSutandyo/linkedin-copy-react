@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import Navbar from '../components/Navbar'
+import Navbar from '../components/navbar/Navbar'
 
 import Profile from './user/Profile'
 
