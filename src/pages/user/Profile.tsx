@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Modal from '../../components/Modal'
 
+
+import ProfileForm from '../../components/user/ProfileForm'
 type User = {
   firstname: string
   lastname: string
@@ -12,18 +15,29 @@ interface Props {
 }
 
 const Profile = (props: Props) => {
-  console.log(props.user)
+  const [modal, setModal] = useState(false)
+  const closeModal = () => {
+    setModal(false)
+  }
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  }
+
   return (
-    <>
-      {props.user ? (
-        <div>
-          <p>Email : {props.user.email}</p>
-          <p>First Name : {props.user.firstname}</p>
-          <p>Last Name : {props.user.lastname}</p>
-        </div>
-      ) : <p>No user</p>}
-    </>
-  )
+    <div id='profile-page'>
+      <button onClick={() => setModal(true)}>Update Profile</button>
+      <Modal open={modal} title={"Update Profile"} closeModal={closeModal} child ={
+        <ProfileForm user={props.user}/>
+      }/>
+    </div>
+  ) 
 }
 
 export default Profile

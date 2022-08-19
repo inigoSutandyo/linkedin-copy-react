@@ -9,12 +9,15 @@ import Register from './pages/auth/Register'
 import ForgetPassword from './pages/auth/ForgetPassword'
 
 
-function App() {
+function App() {  
   return (
     <BrowserRouter>
-      <Navbar/>
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/' element={(
+          <>
+            <Home/>
+          </>
+        )}/>
         <Route path='/auth/login' element={<Login/>}/>
         <Route path='/auth/register' element={<Register/>}/>
         <Route path='/auth/forget' element={<ForgetPassword/>}/>

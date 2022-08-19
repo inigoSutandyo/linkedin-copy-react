@@ -3,7 +3,7 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import Cookies from 'universal-cookie'
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../../components/Error";
-import "../../styles/auth/auth.css";
+import "../../styles/forms/form.css";
 import { useIsAuth } from "../../utils/Auth";
 interface Props {}
 
@@ -55,16 +55,9 @@ const Login = (props: Props) => {
       )
       .then((response) => {
         const msg = response.data.message;
-        const token = response.data.token
         const isError = response.data.isError;
         if (!isError) {
-          const expire = new Date();  
-          expire.setDate(expire.getDate() + 1)     
-          expire.setTime(expire.getTime() + (60 * 60* 12 * 1000)); //expire in 12 hour
-          const cookie = new Cookies()
-          cookie.set("token", token, {path: '/', expires: expire})
           navigate("/");
-
         } else {
           setError(msg);
         }

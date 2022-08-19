@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react'
-import "../../styles/auth/auth.css";
+import "../../styles/forms/form.css";
 type Props = {}
 
 const ForgetPassword = (props: Props) => {

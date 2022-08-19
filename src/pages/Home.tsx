@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import Navbar from '../components/Navbar'
 
 import Profile from './user/Profile'
 
@@ -32,11 +33,12 @@ const Home = (props: Props) => {
   }, [])
   
   return (
-    <div>
+    <>
+      <Navbar/>
       {user ? <Profile user={user}/> : (
         <p>Empty</p>
       )}
-    </div>
+    </>
   )
 }
 
