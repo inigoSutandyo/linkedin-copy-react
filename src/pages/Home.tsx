@@ -1,5 +1,7 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+
+import Profile from './user/Profile'
 
 type Props = {}
 
@@ -7,11 +9,14 @@ const axiosConfig = {
   withCredentials: true,
 }
 const Home = (props: Props) => {
+  const [user, setUser] = useState(null)
+
   useEffect(() => {
-    console.log("Hei")
+
     const loadUser = async () => {
       axios.get('http://localhost:8080/api/user/profile', axiosConfig)
       .then(function (response) {
+        setUser(response.data.user)
         console.log(response.data)
       })
       .catch(function (error) {
@@ -28,7 +33,9 @@ const Home = (props: Props) => {
   
   return (
     <div>
-
+      {user ? <Profile user={user}/> : (
+        <p>Empty</p>
+      )}
     </div>
   )
 }

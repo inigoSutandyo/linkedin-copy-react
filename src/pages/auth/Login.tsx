@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { SyntheticEvent, useEffect, useState } from "react";
+import Cookies from 'universal-cookie'
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../../components/Error";
 import "../../styles/auth/auth.css";
@@ -54,22 +55,26 @@ const Login = (props: Props) => {
       )
       .then((response) => {
         const msg = response.data.message;
+        const token = response.data.token
         const isError = response.data.isError;
         if (!isError) {
+          const expire = new Date();  
+          expire.setDate(expire.getDate() + 1)     
+          expire.setTime(expire.getTime() + (60 * 60* 12 * 1000)); //expire in 12 hour
+          const cookie = new Cookies()
+          cookie.set("token", token, {path: '/', expires: expire})
           navigate("/");
-          window.location.reload()
+
         } else {
           setError(msg);
         }
       })
       .catch(function (error) {
-        // console.log(error.response.data);
         setError(error.response.data.message);
         
       })
       .then(function (response) {
-        // always executed
-        console.log(error)
+
       });
   };
 
