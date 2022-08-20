@@ -42,23 +42,24 @@ const Home = (props: Props) => {
   return (
     <>
       <Navbar/>
-      {user ? (
-        <div>
-          <Profile user={user} setUser={setUser}/>
-          <button style={{
-            marginTop: "10px",
-          }} onClick = {() => {
-            setModal(true)
-          }}>Add Post</button>
+      <div className='m-3'>
+        {user ? (
+          <div>
+            <Profile user={user} setUser={setUser}/>
+            <button className='btn-primary-outline' style={{
+              marginTop: "10px",
+              borderRadius: "8px"
+            }} onClick = {() => {
+              setModal(true)
+            }}>Add Post</button>
 
-          <Modal child={<AddPost user={user}/>} open={modal} closeModal={closeModal} title={"Add Post"} />
-        
-        </div>
-      ) : (
-        <p>Empty</p>
-      )}
-
-
+            <Modal child={<AddPost user={user}/>} open={modal} closeModal={closeModal} title={"Add Post"} />
+          
+          </div>
+        ) : (
+          <p>Empty</p>
+        )}
+      </div>
     </>
   )
 }

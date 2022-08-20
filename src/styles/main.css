@@ -37,7 +37,7 @@ body {
     align-self: center;
     min-width: 64px;
     color: white;
-    padding: 12px 4px 12px 4px;
+    padding: 12px 8px 12px 8px;
     background-color: rgb(0, 0, 255);
     font-size: medium;
     border: none;
@@ -48,6 +48,23 @@ body {
     background-color: rgb(35, 101, 255);
 }
 
+.btn-primary-outline {
+    align-self: center;
+    min-width: 64px;
+    background-color: white;
+    padding: 12px 8px 12px 8px;
+    color: rgb(0, 0, 255);
+    font-size: medium;
+    border: solid 2px rgb(0, 0, 255);
+    cursor: pointer;
+}
+
+.btn-primary-outline:hover {
+    background-color: rgb(35, 101, 255);
+    color: white;
+}
+
 .btn-secondary {
     color: black;
 }
+
