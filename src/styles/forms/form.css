@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: column;
     width: 320px;
-    margin: 32px 32px 32px 32px;
+    margin: 32px 32px 8px 32px;
     padding: 16px 16px 32px 16px;
-    border: solid 1px rgba(224, 224, 224, 0.832);
     background-color: white;
-    border-radius: 15px;
-    box-shadow: 0px 0px 10px 0.5px rgb(211, 211, 211);
+    border-radius: 8px;
+    /* border: solid 1px rgba(224, 224, 224, 0.832); */
+    box-shadow: 0px 0px 10px 2px rgb(211, 211, 211);
 }
 
 .form-title {
@@ -46,16 +46,4 @@
 
 .form-label-light {
     color: rgba(78, 78, 78, 0.86)
-}
-
-
-.form-link {
-    margin-top: 4px;
-    text-decoration: none;
-    color: rgb(16, 16, 254);
-}
-
-.form-link:hover {
-    text-decoration: none;
-    color: rgb(116, 185, 251);
 }

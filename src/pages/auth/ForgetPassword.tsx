@@ -1,14 +1,18 @@
 import React, { SyntheticEvent } from 'react'
+import { useNavigate } from 'react-router-dom';
 import "../../styles/forms/form.css";
 type Props = {}
 
 const ForgetPassword = (props: Props) => {
 
+    const navigate = useNavigate()
+    function submit(e: SyntheticEvent) {
+        
+    }
 
-  function submit(e: SyntheticEvent) {
-    
-  }
-
+    function handleBack() {
+        navigate('/auth/login')
+    }
     return (
         <div className='center-container'>
             <div className="input-form">
@@ -37,7 +41,7 @@ const ForgetPassword = (props: Props) => {
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}>
-                            <label style={{cursor: 'pointer'}}>Back</label>
+                            <label style={{cursor: 'pointer'}} onClick = {handleBack}>Back</label>
                         </div>
                     </div>
                 </form>

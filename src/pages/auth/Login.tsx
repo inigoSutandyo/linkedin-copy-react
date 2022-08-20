@@ -6,6 +6,7 @@ import Error from "../../components/Error";
 import "../../styles/forms/form.css";
 import { useIsAuth } from "../../utils/Auth";
 import Guestbar from "../../components/navbar/Guestbar";
+import FormLine from "../../components/util/FormLine";
 interface Props {}
 
 const Login = (props: Props) => {
@@ -73,7 +74,7 @@ const Login = (props: Props) => {
   };
 
   return (
-    <>
+    <div className="bg-light full-screen">
       <Guestbar/>
       <div className="center-container">
         <div className="input-form">
@@ -102,10 +103,10 @@ const Login = (props: Props) => {
                 className="form-input-primary"
                 autoComplete="on"
               />
-              <Link to={"/auth/forget"} className="form-link">
-                Forgot your password?
-              </Link>
             </div>
+            <Link to={"/auth/forget"} className="text-link">
+              Forgot password?
+            </Link>
             {error !== "" ? <Error message={error}/> : <></>}
             <div className="input-container">
               <input type="submit" value="Sign In" className="btn-primary" style={{
@@ -114,9 +115,15 @@ const Login = (props: Props) => {
               }}/>
             </div>
           </form>
+          <FormLine/>
+        </div>
+        <div className="my-3">
+            New to Linked In? <Link to={"/auth/register"} className="text-link">
+              Join now
+            </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

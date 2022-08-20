@@ -4,6 +4,7 @@ import axios from "axios";
 import { useIsAuth } from '../../utils/Auth';
 import "../../styles/forms/form.css";
 import Guestbar from '../../components/navbar/Guestbar';
+import FormLine from '../../components/util/FormLine';
 type Props = {}
 
 const Register = (props: Props) => {
@@ -63,7 +64,7 @@ const Register = (props: Props) => {
         <div className="bg-light full-screen"> 
             <Guestbar/> 
             <div className='center-container'>
-                <h1 style={{fontWeight : "lighter"}}>
+                <h1 style={{fontWeight : "lighter" }}>
                     Make the most of your professional life.
                 </h1>
                 <div  className='input-form'>
@@ -87,6 +88,23 @@ const Register = (props: Props) => {
                             }}/>
                         </div>
                     </form>
+                    <FormLine/>
+                    <div className="my-3" style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}>
+                        <div style={{
+                            padding: "4px 8px 4px 8px;"
+                        }}>
+                            Already on Linked In? 
+                        </div>
+                        <div>
+                            <Link to={"/auth/login"} className="text-link">
+                                Sign in
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
