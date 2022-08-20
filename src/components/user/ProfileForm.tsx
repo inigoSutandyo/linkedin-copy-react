@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import "../../styles/forms/form.css";
 type User = {
-    id: number
+    ID: number
     firstname: string
     lastname: string
     email: string
@@ -11,17 +11,25 @@ type User = {
 
 interface Props {
     user: User;
+    setUser: any
 }
 
 const ProfileForm = (props: Props) => {
+
+    const [fetching, setFetching] = useState(false)
+
     const update = (e: SyntheticEvent) => {
         e.preventDefault()
+        if (fetching) return
+
+        setFetching(true)
+        
         const target = e.target as typeof e.target & {
             firstname: {value: string};
             lastname: {value: string};
             phone: {value: string};
         };
-        // console.log(target.lastname.value)
+
         const axiosConfig = {
             headers: {
                 "Content-Type": "application/json",
@@ -33,14 +41,18 @@ const ProfileForm = (props: Props) => {
             firstname: target.firstname.value,
             lastname: target.lastname.value,
             phone: target.phone.value,
-            id: props.user.id
+            id: props.user.ID
         }, axiosConfig)
         .then((response) => {
             console.log(response)
+            props.user = response.data.user
+            props.setUser(response.data.user)
         })
         .catch(function (error) {
             console.log(error.response)
-        })
+        }).then(() => {
+            setFetching(false)
+        }) 
         
     }
     return (

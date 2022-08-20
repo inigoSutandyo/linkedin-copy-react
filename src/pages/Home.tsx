@@ -35,7 +35,7 @@ const Home = (props: Props) => {
   return (
     <>
       <Navbar/>
-      {user ? <Profile user={user}/> : (
+      {user ? <Profile user={user} setUser={setUser}/> : (
         <p>Empty</p>
       )}
     </>

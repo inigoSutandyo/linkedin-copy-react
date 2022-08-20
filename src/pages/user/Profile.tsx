@@ -4,7 +4,7 @@ import Modal from '../../components/Modal'
 
 import ProfileForm from '../../components/user/ProfileForm'
 type User = {
-  id: number
+  ID: number
   firstname: string
   lastname: string
   email: string
@@ -13,6 +13,7 @@ type User = {
 
 interface Props {
   user: User
+  setUser: any
 }
 
 const Profile = (props: Props) => {
@@ -33,10 +34,22 @@ const Profile = (props: Props) => {
 
   return (
     <div id='profile-page'>
-      <button onClick={() => setModal(true)}>Update Profile</button>
+      <button onClick={() => setModal(true)} className="btn-primary w-32-px">Update Profile</button>
       <Modal open={modal} title={"Update Profile"} closeModal={closeModal} child ={
-        <ProfileForm user={props.user}/>
+        <ProfileForm user={props.user} setUser={props.setUser}/>
       }/>
+      <p>
+        {props.user.ID}
+      </p>
+      <p>
+        {props.user.firstname}
+      </p>
+      <p>
+        {props.user.lastname}
+      </p>
+      <p>
+        {props.user.phone}
+      </p>
     </div>
   ) 
 }

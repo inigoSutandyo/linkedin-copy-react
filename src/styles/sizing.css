@@ -1,0 +1,52 @@
+.w-10 {
+    width: 100%;
+}
+
+.w-9 {
+    width: 90%;
+}
+
+.w-8 {
+    width: 80%;
+}
+
+.w-7 {
+    width: 70%;
+}
+
+.w-6 {
+    width: 60%;
+}
+
+.w-5 {
+    width: 50%;
+}
+
+.w-4 {
+    width: 40%;
+}
+
+.w-3 {
+    width: 30%;
+}
+
+.w-2 {
+    width: 20%;
+}
+
+.w-1 {
+    width: 10%;
+}
+
+
+.w-64-px {
+    min-width: 64px;
+}
+
+.w-32-px {
+    min-width: 32px;
+}
+
+.w-16-px {
+    min-width: 16px;
+}
