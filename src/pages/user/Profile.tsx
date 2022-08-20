@@ -4,6 +4,7 @@ import Modal from '../../components/Modal'
 
 import ProfileForm from '../../components/user/ProfileForm'
 type User = {
+  id: number
   firstname: string
   lastname: string
   email: string

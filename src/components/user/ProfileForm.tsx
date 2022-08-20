@@ -1,20 +1,50 @@
-import React from "react";
+import axios from "axios";
+import React, { SyntheticEvent } from "react";
 import "../../styles/forms/form.css";
 type User = {
-    firstname: string;
-    lastname: string;
-    email: string;
-    phone: string;
-};
+    id: number
+    firstname: string
+    lastname: string
+    email: string
+    phone: string
+}
 
 interface Props {
     user: User;
 }
 
 const ProfileForm = (props: Props) => {
-    // console.log(props.user);
+    const update = (e: SyntheticEvent) => {
+        e.preventDefault()
+        const target = e.target as typeof e.target & {
+            firstname: {value: string};
+            lastname: {value: string};
+            phone: {value: string};
+        };
+        // console.log(target.lastname.value)
+        const axiosConfig = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            withCredentials: true,
+        };
+
+        axios.post("http://localhost:8080/api/user/profile/update",{
+            firstname: target.firstname.value,
+            lastname: target.lastname.value,
+            phone: target.phone.value,
+            id: props.user.id
+        }, axiosConfig)
+        .then((response) => {
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log(error.response)
+        })
+        
+    }
     return (
-        <form>
+        <form onSubmit={update} action="POST">
             <p style={{fontWeight: "bold"}}>{props.user.email}</p>
             <div className="input-container">
                 <label htmlFor="firstname" className="form-label-light">
@@ -44,7 +74,7 @@ const ProfileForm = (props: Props) => {
             </div>
             <div className="input-container">
                 <label htmlFor="phone" className="form-label-light">
-                    Last Name*
+                    Phone
                 </label>
                 <input
                     type="text"
