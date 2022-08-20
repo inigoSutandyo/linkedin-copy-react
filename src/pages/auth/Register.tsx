@@ -60,9 +60,12 @@ const Register = (props: Props) => {
     }
     
     return (
-        <>
+        <div className="bg-light full-screen"> 
             <Guestbar/> 
             <div className='center-container'>
+                <h1 style={{fontWeight : "lighter"}}>
+                    Make the most of your professional life.
+                </h1>
                 <div  className='input-form'>
                     <form action="POST" onSubmit={submit}>
                         <div className='input-container' style={{marginTop: "16px"}}>
@@ -86,7 +89,7 @@ const Register = (props: Props) => {
                     </form>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

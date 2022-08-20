@@ -3,6 +3,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../../styles/components/nav.css'
 import { useIsAuth } from "../../utils/Auth";
+import iconSvg from "../../assets/logos/linkedin_main.png"
 type Props = {};
 
 const Guestbar = (props: Props) => {
@@ -10,11 +11,11 @@ const Guestbar = (props: Props) => {
   const navigate = useNavigate()
 
   return (
-    <nav className="bg-light">
+    <nav>
         <ul>
             <li>
                 <Link to={"/"} className="color-blue">
-                    LinkedIn
+                  <img className="nav-logo" src={iconSvg} alt="" />
                 </Link>
             </li>
         </ul>
