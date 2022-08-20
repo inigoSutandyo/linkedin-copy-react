@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import '../../styles/components/nav.css'
 import { useIsAuth } from "../../utils/Auth";
 import iconImg from "../../assets/logos/linkedin_main.png"
+import { ApiURL } from "../../utils/Server";
 type Props = {};
 
 const Navbar = (props: Props) => {
@@ -18,7 +19,7 @@ const Navbar = (props: Props) => {
     };
     
     axios.post(
-      "http://localhost:8080/api/auth/logout", {},
+      ApiURL("/auth/logout"), {},
       axiosConfig
     )
     .then((response) => {

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import Cookies from "universal-cookie"
+import { ApiURL } from "./Server";
 
 
 export const useIsAuth = () => {
@@ -12,7 +13,7 @@ export const useIsAuth = () => {
         const axiosConfig = {
             withCredentials: true,
         }
-        axios.get('http://localhost:8080/api/auth/isauth', axiosConfig)
+        axios.get(ApiURL("/auth/isauth"), axiosConfig)
         .then(function (response) {
             setAuth(response.data.status)
         })

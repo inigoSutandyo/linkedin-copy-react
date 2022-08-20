@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { SyntheticEvent, useState } from "react";
 import "../../styles/forms/form.css";
+import { ApiURL } from "../../utils/Server";
 type User = {
     ID: number
     firstname: string
@@ -37,7 +38,7 @@ const ProfileForm = (props: Props) => {
             withCredentials: true,
         };
 
-        axios.post("http://localhost:8080/api/user/profile/update",{
+        axios.post(ApiURL("/user/profile/update"),{
             firstname: target.firstname.value,
             lastname: target.lastname.value,
             phone: target.phone.value,

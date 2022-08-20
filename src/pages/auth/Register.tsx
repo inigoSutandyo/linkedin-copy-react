@@ -5,6 +5,7 @@ import { useIsAuth } from '../../utils/Auth';
 import "../../styles/forms/form.css";
 import Guestbar from '../../components/navbar/Guestbar';
 import FormLine from '../../components/util/FormLine';
+import { ApiURL } from '../../utils/Server';
 type Props = {}
 
 const Register = (props: Props) => {
@@ -39,7 +40,7 @@ const Register = (props: Props) => {
             password
         })
         
-        axios.post('http://localhost:8080/api/auth/register', {
+        axios.post(ApiURL("/auth/register"), {
             email: email,
             password: password,
         

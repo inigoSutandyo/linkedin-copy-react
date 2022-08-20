@@ -7,6 +7,7 @@ import "../../styles/forms/form.css";
 import { useIsAuth } from "../../utils/Auth";
 import Guestbar from "../../components/navbar/Guestbar";
 import FormLine from "../../components/util/FormLine";
+import { ApiURL } from "../../utils/Server";
 interface Props {}
 
 const Login = (props: Props) => {
@@ -48,7 +49,7 @@ const Login = (props: Props) => {
     
     axios
       .post(
-        "http://localhost:8080/api/auth/login",
+        ApiURL("/auth/login"),
         {
           email: email,
           password: password,

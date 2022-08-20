@@ -5,6 +5,7 @@ import Navbar from '../components/navbar/Navbar'
 import AddPost from '../components/post/AddPost'
 import Profile from './user/Profile'
 import '../styles/home/home.css'
+import { ApiURL } from '../utils/Server'
 
 type Props = {}
 
@@ -22,7 +23,7 @@ const Home = (props: Props) => {
   useEffect(() => {
 
     const loadUser = async () => {
-      axios.get('http://localhost:8080/api/user/profile', axiosConfig)
+      axios.get(ApiURL("/user/profile"), axiosConfig)
       .then(function (response) {
         setUser(response.data.user)
         console.log(response.data)
