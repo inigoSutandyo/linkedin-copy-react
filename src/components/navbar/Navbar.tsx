@@ -22,7 +22,7 @@ const Navbar = (props: Props) => {
     )
     .then((response) => {
       console.log(response.data)
-      navigate("/")
+      navigate("/auth/login")
     })
     .catch(function (error) {
       console.log(error.response.data);
@@ -34,7 +34,7 @@ const Navbar = (props: Props) => {
   }
 
   return (
-    <nav>
+    <nav className="bg-blue">
       <ul>
         <li>
           <Link to={"/"}>

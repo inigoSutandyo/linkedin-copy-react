@@ -10,10 +10,10 @@ const Guestbar = (props: Props) => {
   const navigate = useNavigate()
 
   return (
-    <nav>
+    <nav className="bg-light">
         <ul>
             <li>
-                <Link to={"/"}>
+                <Link to={"/"} className="color-blue">
                     LinkedIn
                 </Link>
             </li>
@@ -21,12 +21,12 @@ const Guestbar = (props: Props) => {
 
       <ul>
         <li>
-            <Link to={"/auth/login"}>
+            <Link to={"/auth/login"} className="color-blue">
                 Signin
             </Link>
         </li>
         <li>
-            <Link to={"/auth/register"}>
+            <Link to={"/auth/register"} className="color-blue">
                 Register
             </Link>
         </li>
