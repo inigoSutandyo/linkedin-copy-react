@@ -61,7 +61,7 @@ const Register = (props: Props) => {
     }
     
     return (
-        <div className="bg-light full-screen"> 
+        <div> 
             <Guestbar/> 
             <div className='center-container'>
                 <h1 style={{fontWeight : "lighter" }}>

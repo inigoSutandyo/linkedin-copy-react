@@ -74,7 +74,7 @@ const Login = (props: Props) => {
   };
 
   return (
-    <div className="bg-light full-screen">
+    <div>
       <Guestbar/>
       <div className="center-container">
         <div className="input-form">
