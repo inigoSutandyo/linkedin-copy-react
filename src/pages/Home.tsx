@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import Modal from '../components/Modal'
 import Navbar from '../components/navbar/Navbar'
+import AddPost from '../components/post/AddPost'
 
 import Profile from './user/Profile'
 
@@ -11,6 +13,11 @@ const axiosConfig = {
 }
 const Home = (props: Props) => {
   const [user, setUser] = useState(null)
+  const [modal, setModal] = useState(false)
+
+  const closeModal = () => {
+    setModal(false)
+  }
 
   useEffect(() => {
 
@@ -35,9 +42,23 @@ const Home = (props: Props) => {
   return (
     <>
       <Navbar/>
-      {user ? <Profile user={user} setUser={setUser}/> : (
+      {user ? (
+        <div>
+          <Profile user={user} setUser={setUser}/>
+          <button style={{
+            marginTop: "10px",
+          }} onClick = {() => {
+            setModal(true)
+          }}>Add Post</button>
+
+          <Modal child={<AddPost user={user}/>} open={modal} closeModal={closeModal} title={"Add Post"} />
+        
+        </div>
+      ) : (
         <p>Empty</p>
       )}
+
+
     </>
   )
 }
