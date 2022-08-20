@@ -3,6 +3,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../../styles/components/nav.css'
 import { useIsAuth } from "../../utils/Auth";
+import iconImg from "../../assets/logos/linkedin_main.png"
 type Props = {};
 
 const Navbar = (props: Props) => {
@@ -34,34 +35,34 @@ const Navbar = (props: Props) => {
   }
 
   return (
-    <nav className="bg-blue">
-      <ul>
-        <li>
+    <nav className="bg-blue py-3">
+      <ul className="mx-4">
+        <li className="list-hover mx-2">
           <Link to={"/"}>
-            Home
+            <img className="nav-logo" src={iconImg} alt="" />
           </Link>
         </li>
-        <li>
+        <li className="list-hover mx-2">
           <Link to={"/"}>
             Profile
           </Link>
         </li>
       </ul>
-      <ul>
+      <ul className="mx-4">
         {auth ? (
-          <li>
+          <li className="list-hover mx-2">
             <a href="" onClick={logout}>
               Logout
             </a>
           </li>
         ) : (
           <>
-            <li>
+            <li className="list-hover mx-2">
               <Link to={"/auth/login"}>
                 Login
               </Link>
             </li>
-            <li>
+            <li className="list-hover mx-2">
               <Link to={"/auth/register"}>
                 Register
               </Link>

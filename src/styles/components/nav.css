@@ -9,14 +9,17 @@ nav {
     max-width: 64px;
 }
 
+.nav-logo-huge {
+    max-width: 128px;
+}
+
 ul {
     display: flex;
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    margin-left: 32px;
-    margin-right: 32px;
+    align-items: center;
 }
 
 
@@ -24,11 +27,10 @@ li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
 }
 
-li a:hover {
+.list-hover:hover a {
     background-color: rgb(5, 43, 138);
     color: rgb(208, 242, 255);
 }
