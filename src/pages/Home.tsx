@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import Modal from '../components/Modal'
 import Navbar from '../components/navbar/Navbar'
 import AddPost from '../components/post/AddPost'
-
 import Profile from './user/Profile'
+import '../styles/home/home.css'
 
 type Props = {}
 
@@ -40,27 +40,35 @@ const Home = (props: Props) => {
   }, [])
   
   return (
-    <>
+    <div >
       <Navbar/>
-      <div className='m-3'>
+      <div className='my-3 home-layout'>
         {user ? (
-          <div>
-            <Profile user={user} setUser={setUser}/>
-            <button className='btn-primary-outline' style={{
-              marginTop: "10px",
-              borderRadius: "8px"
-            }} onClick = {() => {
-              setModal(true)
-            }}>Add Post</button>
+          <>
+            <div className='container-grow-1 home-container'>
+                <Profile user={user} setUser={setUser}/>
+            </div>
+
+            <div className='container-grow-4 home-container'>  
+              <button className='btn-primary-outline' style={{
+                marginTop: "10px",
+                borderRadius: "8px"
+              }} onClick = {() => {
+                setModal(true)
+              }}>Add Post</button>
+            </div>
+
+            <div className='container-grow-3 home-container'>
+              <p>Hei</p>
+            </div>
 
             <Modal child={<AddPost user={user}/>} open={modal} closeModal={closeModal} title={"Add Post"} />
-          
-          </div>
+          </>
         ) : (
           <p>Empty</p>
         )}
       </div>
-    </>
+    </div>
   )
 }
 

@@ -34,7 +34,7 @@ const Profile = (props: Props) => {
 
   return (
     <div id='profile-page'>
-      <button onClick={() => setModal(true)} className="btn-primary w-32-px">Update Profile</button>
+      <button onClick={() => setModal(true)} className="btn-primary w-8">Update Profile</button>
       <Modal open={modal} title={"Update Profile"} closeModal={closeModal} child ={
         <ProfileForm user={props.user} setUser={props.setUser}/>
       }/>

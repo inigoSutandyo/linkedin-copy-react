@@ -1,0 +1,38 @@
+.home-layout {
+    display: flex;
+    flex-direction: row;
+    padding-left: 5%;
+    padding-right: 5%;
+    align-items: stretch;
+}
+
+.home-container {
+    background-color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 32px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 196px;
+}
+
+.container-grow-2 {
+    flex-grow: 2;
+}
+
+.container-grow-4 {
+    flex-grow: 5;
+}
+
+.container-grow-3 {
+    flex-grow: 3;
+}
+
+@media only screen and (max-width: 1200px) {
+    .home-container {
+        min-width: none;
+    }
+}
