@@ -14,6 +14,7 @@ const axiosConfig = {
 }
 const Home = (props: Props) => {
   const [user, setUser] = useState(null)
+  const [post ,setPost] = useState(null)
   const [modal, setModal] = useState(false)
 
   const closeModal = () => {
@@ -21,11 +22,11 @@ const Home = (props: Props) => {
   }
 
   useEffect(() => {
-
-    const loadUser = async () => {
+    const loadData = async () => {
       axios.get(ApiURL("/user/profile"), axiosConfig)
       .then(function (response) {
         setUser(response.data.user)
+        setPost(response.data.post)
         console.log(response.data)
       })
       .catch(function (error) {
@@ -36,8 +37,8 @@ const Home = (props: Props) => {
         // always executed
       });
     }
-    loadUser()
-    // checkAuth()
+    
+    loadData()
   }, [])
   
   return (
@@ -51,12 +52,24 @@ const Home = (props: Props) => {
             </div>
 
             <div className='container-grow-4 home-container'>  
-              <button className='btn-primary-outline' style={{
-                marginTop: "10px",
-                borderRadius: "8px"
-              }} onClick = {() => {
-                setModal(true)
-              }}>Add Post</button>
+              <div className='container-header'>
+                <button className='btn-primary-outline' style={{
+                  marginTop: "10px",
+                  borderRadius: "8px"
+                }} onClick = {() => {
+                  setModal(true)
+                }}>
+                  Add Post
+                </button>
+              </div>
+
+              <div className='main-content'>
+                {post ? (
+                  <>
+                    
+                  </>
+                ) : <>No Post</>}
+              </div>
             </div>
 
             <div className='container-grow-3 home-container'>

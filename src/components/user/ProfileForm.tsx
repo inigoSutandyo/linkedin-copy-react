@@ -2,13 +2,6 @@ import axios from "axios";
 import React, { SyntheticEvent, useState } from "react";
 import "../../styles/forms/form.css";
 import { ApiURL } from "../../utils/Server";
-type User = {
-    ID: number
-    firstname: string
-    lastname: string
-    email: string
-    phone: string
-}
 
 interface Props {
     user: User;

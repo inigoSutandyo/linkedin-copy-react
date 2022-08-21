@@ -21,8 +21,8 @@ const AddPost = (props: Props) => {
   const [value, setValue] = useState("")
   const [error, setError] = useState("")
   function handleChange(content: any, delta: any, source: any, editor: any) {
-    if (editor.getLength() > 100) {
-      setError("Length of post exceeded limit of 100 characters")
+    if (editor.getLength() > 255) {
+      setError("Length of post exceeded limit of 255 characters")
     } else {
       setError("")
     }
@@ -63,16 +63,20 @@ const AddPost = (props: Props) => {
   return (
     <form action="POST" onSubmit={addPost}>
          <p style={{fontWeight: "bold"}}>Add New Post</p>
-          <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} style = {{
-            border: "1px solid",
-            overflow: "auto",
-            height: "250px",
-            maxHeight: "250px"
-          }} placeholder={"What are you thinking about?"}/>
+         <div id='editor-container' className='input-container'>
+            <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} bounds={"#editor-container"} style = {{
+              border: "1px solid",
+              overflow: "auto",
+              height: "128px",
+              maxHeight: "250px"
+            }} placeholder={"What are you thinking about?"}/>
+         </div>
           {/* <div className="input-container">
           </div> */}
           <div className='input-container'>
-            <input type="submit" value="Submit" className='btn-primary w-10' />
+            <input type="submit" value="Submit" className='btn-primary w-5' style={{
+              borderRadius: "16px"
+            }}/>
           </div>
           <div style={{color: "red"}}>
             {error}

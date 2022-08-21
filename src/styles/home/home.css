@@ -14,8 +14,8 @@
     padding: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
     min-width: 196px;
 }
 
@@ -29,6 +29,20 @@
 
 .container-grow-3 {
     flex-grow: 3;
+}
+
+.container-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.main-content {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 0;
+    align-items: center;
 }
 
 @media only screen and (max-width: 1200px) {

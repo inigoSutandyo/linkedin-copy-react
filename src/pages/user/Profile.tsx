@@ -3,13 +3,6 @@ import Modal from '../../components/Modal'
 
 
 import ProfileForm from '../../components/user/ProfileForm'
-type User = {
-  ID: number
-  firstname: string
-  lastname: string
-  email: string
-  phone: string
-}
 
 interface Props {
   user: User
