@@ -2,15 +2,18 @@ import axios from "axios";
 import React, { SyntheticEvent, useState } from "react";
 import "../../styles/forms/form.css";
 import { ApiURL } from "../../utils/Server";
+import { useSelector, useDispatch } from 'react-redux' 
+import { setUser } from '../../features/user/userSlice'
 
 interface Props {
-    user: User;
-    setUser: any
 }
 
 const ProfileForm = (props: Props) => {
 
     const [fetching, setFetching] = useState(false)
+
+    const user = useSelector((state: UserState) => state.user)
+    const dispatch = useDispatch() 
 
     const update = (e: SyntheticEvent) => {
         e.preventDefault()
@@ -35,12 +38,11 @@ const ProfileForm = (props: Props) => {
             firstname: target.firstname.value,
             lastname: target.lastname.value,
             phone: target.phone.value,
-            id: props.user.ID
+            id: user.ID
         }, axiosConfig)
         .then((response) => {
             console.log(response)
-            props.user = response.data.user
-            props.setUser(response.data.user)
+            dispatch(setUser(response.data.user))
         })
         .catch(function (error) {
             console.log(error.response)
@@ -51,7 +53,7 @@ const ProfileForm = (props: Props) => {
     }
     return (
         <form onSubmit={update} action="POST">
-            <p style={{fontWeight: "bold"}}>{props.user.email}</p>
+            <p style={{fontWeight: "bold"}}>{user.email}</p>
             <div className="input-container">
                 <label htmlFor="firstname" className="form-label-light">
                     First Name*
@@ -61,7 +63,7 @@ const ProfileForm = (props: Props) => {
                     name="firstname"
                     id="firstname"
                     required={true}
-                    defaultValue={props.user.firstname}
+                    defaultValue={user.firstname}
                     className="form-input-secondary"
                 />
             </div>
@@ -74,7 +76,7 @@ const ProfileForm = (props: Props) => {
                     name="lastname"
                     id="lastname"
                     required={true}
-                    defaultValue={props.user.lastname}
+                    defaultValue={user.lastname}
                     className="form-input-secondary"
                 />
             </div>
@@ -87,7 +89,7 @@ const ProfileForm = (props: Props) => {
                     name="phone"
                     id="phone"
                     required={true}
-                    defaultValue={props.user.phone}
+                    defaultValue={user.phone}
                     className="form-input-secondary"
                 />
             </div>

@@ -6,6 +6,8 @@ import AddPost from '../components/post/AddPost'
 import Profile from './user/Profile'
 import '../styles/home/home.css'
 import { ApiURL } from '../utils/Server'
+import {useDispatch, useSelector} from 'react-redux'
+import { setUser } from '../features/user/userSlice'
 
 type Props = {}
 
@@ -13,7 +15,10 @@ const axiosConfig = {
   withCredentials: true,
 }
 const Home = (props: Props) => {
-  const [user, setUser] = useState(null)
+
+  const user = useSelector((state: UserState) => state.user)
+  const dispatch = useDispatch() 
+
   const [post ,setPost] = useState(null)
   const [modal, setModal] = useState(false)
 
@@ -21,23 +26,29 @@ const Home = (props: Props) => {
     setModal(false)
   }
 
+  const sleep = async (delay: number) => {
+    await new Promise(r => setTimeout(r, delay));
+  }
+
   useEffect(() => {
-    const loadData = async () => {
+    const loadData = () => {
       axios.get(ApiURL("/user/profile"), axiosConfig)
       .then(function (response) {
-        setUser(response.data.user)
+        const data = response.data.user as User
+        console.log(data)
+        dispatch(setUser(data))
         setPost(response.data.post)
-        console.log(response.data)
+        console.log(post)
+        console.log(user)
       })
       .catch(function (error) {
-        // handle error
         console.log(error.response.data);
       })
-      .then(function () {
-        // always executed
+      .then(function (response) {
+        
       });
     }
-    
+    console.log(user)
     loadData()
   }, [])
   
@@ -48,7 +59,7 @@ const Home = (props: Props) => {
         {user ? (
           <>
             <div className='container-grow-1 home-container'>
-                <Profile user={user} setUser={setUser}/>
+                <Profile/>
             </div>
 
             <div className='container-grow-4 home-container'>  

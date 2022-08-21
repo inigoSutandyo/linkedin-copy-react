@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import Modal from '../../components/Modal'
-
-
+import { useSelector, useDispatch } from 'react-redux' 
+import { setUser } from '../../features/user/userSlice'
 import ProfileForm from '../../components/user/ProfileForm'
 
 interface Props {
-  user: User
-  setUser: any
 }
 
 const Profile = (props: Props) => {
   const [modal, setModal] = useState(false)
+
+  const isSignedIn = useSelector((state: UserState) => state.isSignedIn)
+  const user = useSelector((state: UserState) => state.user)
+
+  const dispatch = useDispatch() 
+
   const closeModal = () => {
     setModal(false)
   }
@@ -29,19 +33,19 @@ const Profile = (props: Props) => {
     <div id='profile-page'>
       <button onClick={() => setModal(true)} className="btn-primary w-8">Update Profile</button>
       <Modal open={modal} title={"Update Profile"} closeModal={closeModal} child ={
-        <ProfileForm user={props.user} setUser={props.setUser}/>
+        <ProfileForm/>
       }/>
       <p>
-        {props.user.ID}
+        {user.ID}
       </p>
       <p>
-        {props.user.firstname}
+        {user.firstname}
       </p>
       <p>
-        {props.user.lastname}
+        {user.lastname}
       </p>
       <p>
-        {props.user.phone}
+        {user.phone}
       </p>
     </div>
   ) 

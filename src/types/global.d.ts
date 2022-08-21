@@ -11,6 +11,6 @@ declare global {
 
   type UserState = {
     isSignedIn: boolean,
-    user: User | null
+    user: User
   }
 }
