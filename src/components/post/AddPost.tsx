@@ -21,17 +21,20 @@ const AddPost = (props: Props) => {
   const [value, setValue] = useState("")
   const [error, setError] = useState("")
   function handleChange(content: any, delta: any, source: any, editor: any) {
-    if (editor.getLength() > 255) {
-      setError("Length of post exceeded limit (255)")
+    if (editor.getLength() > 100) {
+      setError("Length of post exceeded limit of 100 characters")
     } else {
       setError("")
     }
-    setValue(editor.getContents());
+    console.log(content)
+    setValue(content);
     
   }
   const addPost = (e: SyntheticEvent) => {
     e.preventDefault()
-  
+    if (error !== "") return
+
+
     const axiosConfig = {
       headers: {
         "Content-Type": "application/json",
@@ -39,13 +42,9 @@ const AddPost = (props: Props) => {
       withCredentials: true,
     };
 
-
-    if (error !== "") return
-    const json = JSON.stringify(value)
-    const content = JSON.parse(json)
-    console.log(content)
+    console.log(value)
     axios.post(ApiURL("/home/post/add"), {
-      'content': content,
+      'content': value,
       'title': "",
       'attachment': "",
       'likes': 0
@@ -55,7 +54,7 @@ const AddPost = (props: Props) => {
         console.log(response.data)
     })  
     .catch(function (error) {
-        console.log(error.response.data.message);        
+        console.log(error.response.data);        
     })
     .then(function (response) {
 
@@ -64,14 +63,14 @@ const AddPost = (props: Props) => {
   return (
     <form action="POST" onSubmit={addPost}>
          <p style={{fontWeight: "bold"}}>Add New Post</p>
-          <div className="input-container">
-              <ReactQuill  theme='bubble' value={value} onChange={handleChange} style = {{
-                border: "1px solid",
-                overflow: "auto",
-                height: "250px",
-                maxHeight: "250px"
-              }} placeholder={"What are you thinking about?"}/>
-          </div>
+          <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} style = {{
+            border: "1px solid",
+            overflow: "auto",
+            height: "250px",
+            maxHeight: "250px"
+          }} placeholder={"What are you thinking about?"}/>
+          {/* <div className="input-container">
+          </div> */}
           <div className='input-container'>
             <input type="submit" value="Submit" className='btn-primary w-10' />
           </div>
