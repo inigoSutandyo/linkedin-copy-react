@@ -8,4 +8,9 @@ declare global {
     email: string
     phone: string
   }
+
+  type UserState = {
+    isSignedIn: boolean,
+    user: User | null
+  }
 }
