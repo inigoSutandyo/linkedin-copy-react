@@ -8,6 +8,8 @@ import '../styles/home/home.css'
 import { ApiURL } from '../utils/Server'
 import {useDispatch, useSelector} from 'react-redux'
 import { setUser } from '../features/user/userSlice'
+import { RootState } from '../app/store'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
 
 type Props = {}
 
@@ -16,30 +18,27 @@ const axiosConfig = {
 }
 const Home = (props: Props) => {
 
-  const user = useSelector((state: UserState) => state.user)
-  const dispatch = useDispatch() 
+  const user = useAppSelector((state) => state.user.user)
+  const dispatch = useAppDispatch() 
 
-  const [post ,setPost] = useState(null)
+
+  const [post ,setPost] = useState()
   const [modal, setModal] = useState(false)
 
   const closeModal = () => {
     setModal(false)
   }
 
-  const sleep = async (delay: number) => {
-    await new Promise(r => setTimeout(r, delay));
-  }
-
   useEffect(() => {
     const loadData = () => {
       axios.get(ApiURL("/user/profile"), axiosConfig)
       .then(function (response) {
-        const data = response.data.user as User
-        console.log(data)
-        dispatch(setUser(data))
-        setPost(response.data.post)
-        console.log(post)
-        console.log(user)
+
+        // dispatch(setUser(data))
+        setPost(response.data.posts)
+        console.log(response.data)
+        dispatch(setUser(response.data.user))
+        // console.log(user)
       })
       .catch(function (error) {
         console.log(error.response.data);
@@ -48,18 +47,25 @@ const Home = (props: Props) => {
         
       });
     }
-    console.log(user)
+    // console.log(user)
     loadData()
   }, [])
   
+
+  useEffect(() => {
+    console.log(post)
+  }, [post])
+  
+
   return (
     <div >
       <Navbar/>
       <div className='my-3 home-layout'>
-        {user ? (
+        {user.email ? (
           <>
             <div className='container-grow-1 home-container'>
-                <Profile/>
+                {/* <Profile/> */}
+                {user.email}
             </div>
 
             <div className='container-grow-4 home-container'>  
@@ -77,7 +83,7 @@ const Home = (props: Props) => {
               <div className='main-content'>
                 {post ? (
                   <>
-                    
+                    Post
                   </>
                 ) : <>No Post</>}
               </div>
