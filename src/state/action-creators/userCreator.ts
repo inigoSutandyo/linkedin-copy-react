@@ -3,7 +3,7 @@ import { Dispatch } from 'redux'
 import { UserAction } from "../actions/userAction"
 
 
-const updateUser = (user: User) => {
+export const updateUser = (user: User) => {
 
     return (dispatch: Dispatch<UserAction>) => {
         dispatch({
