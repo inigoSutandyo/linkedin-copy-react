@@ -4,6 +4,7 @@ import "../../styles/forms/form.css";
 import { ApiURL } from "../../utils/Server";
 import { useSelector, useDispatch } from 'react-redux' 
 import { setUser } from '../../features/user/userSlice'
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 interface Props {
 }
@@ -12,8 +13,8 @@ const ProfileForm = (props: Props) => {
 
     const [fetching, setFetching] = useState(false)
 
-    const user = useSelector((state: UserState) => state.user)
-    const dispatch = useDispatch() 
+    const user = useAppSelector((state) => state.user.user)
+    const dispatch = useAppDispatch() 
 
     const update = (e: SyntheticEvent) => {
         e.preventDefault()

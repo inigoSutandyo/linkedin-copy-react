@@ -3,6 +3,7 @@ import Modal from '../../components/Modal'
 import { useSelector, useDispatch } from 'react-redux' 
 import { setUser } from '../../features/user/userSlice'
 import ProfileForm from '../../components/user/ProfileForm'
+import { useAppSelector } from '../../app/hooks'
 
 interface Props {
 }
@@ -10,10 +11,8 @@ interface Props {
 const Profile = (props: Props) => {
   const [modal, setModal] = useState(false)
 
-  const isSignedIn = useSelector((state: UserState) => state.isSignedIn)
-  const user = useSelector((state: UserState) => state.user)
+  const user = useAppSelector((state) => state.user.user)
 
-  const dispatch = useDispatch() 
 
   const closeModal = () => {
     setModal(false)
@@ -36,7 +35,7 @@ const Profile = (props: Props) => {
         <ProfileForm/>
       }/>
       <p>
-        {user.ID}
+        {user.email}
       </p>
       <p>
         {user.firstname}

@@ -34,11 +34,11 @@ const Home = (props: Props) => {
       axios.get(ApiURL("/user/profile"), axiosConfig)
       .then(function (response) {
 
-        // dispatch(setUser(data))
+
         setPost(response.data.posts)
         console.log(response.data)
         dispatch(setUser(response.data.user))
-        // console.log(user)
+
       })
       .catch(function (error) {
         console.log(error.response.data);
@@ -52,10 +52,6 @@ const Home = (props: Props) => {
   }, [])
   
 
-  useEffect(() => {
-    console.log(post)
-  }, [post])
-  
 
   return (
     <div >
@@ -64,8 +60,8 @@ const Home = (props: Props) => {
         {user.email ? (
           <>
             <div className='container-grow-1 home-container'>
-                {/* <Profile/> */}
-                {user.email}
+                <Profile/>
+                {/* {user.email} */}
             </div>
 
             <div className='container-grow-4 home-container'>  
