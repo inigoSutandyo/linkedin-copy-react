@@ -31,7 +31,7 @@ const Navbar = (props: Props) => {
     .then((response) => {
       console.log(response.data)
       dispatch(logoutUser())
-      navigate("/auth/login")
+      navigate("/")
     })
     .catch(function (error) {
       console.log(error.response.data);

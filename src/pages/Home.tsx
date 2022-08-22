@@ -50,7 +50,8 @@ const Home = (props: Props) => {
     const loadPosts = () => {
       axios.get(ApiURL("/home/post"), axiosConfig)
       .then(function (response) {
-          setPosts(response.data.posts)
+        console.log(response.data)
+        setPosts(response.data.posts)
       })
       .catch(function (error) {
         console.log(error.response.data)        
@@ -72,13 +73,13 @@ const Home = (props: Props) => {
       <div className='my-3 home-layout'>
         {user ? (
           <>
-            <div className='container-grow-1 home-container'>
+            <div className='container-grow-1 home-container bg-white'>
                 <Profile/>
                 {/* {user.email} */}
             </div>
 
-            <div className='container-grow-4 home-container'>  
-              <div className='container-header'>
+            <div className='container-grow-4 home-container '>  
+              <div className='container-header bg-white'>
                 <button className='btn-primary-outline' style={{
                   marginTop: "10px",
                   borderRadius: "8px"
@@ -94,9 +95,7 @@ const Home = (props: Props) => {
                   <>
                     {posts.map((p,i) => {
                       return (
-                        <div key={p.ID}>
-                          <PostComponent post={p}/>
-                        </div>
+                        <PostComponent post={p} key={i}/>
                       )
                     })}
                   </>
@@ -104,7 +103,7 @@ const Home = (props: Props) => {
               </div>
             </div>
 
-            <div className='container-grow-3 home-container'>
+            <div className='container-grow-3 home-container bg-white'>
               <p>Hei</p>
             </div>
 

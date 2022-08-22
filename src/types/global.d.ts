@@ -18,6 +18,7 @@ declare global {
     ID: number,
     content: string,
     attachments: string,
-    likes: number
+    likes: number,
+    user: User
   }
 }
