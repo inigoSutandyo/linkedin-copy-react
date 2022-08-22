@@ -4,13 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import '../../styles/components/nav.css'
 import iconImg from "../../assets/logos/linkedin_main.png"
 import { ApiURL } from "../../utils/Server";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { logoutUser } from "../../features/user/userSlice"
 type Props = {};
 
 const Navbar = (props: Props) => {
 
   const navigate = useNavigate()
   const auth = useAppSelector((state) => state.user.isSignedIn)
+  const dispatch = useAppDispatch() 
 
   function logout() {
     const axiosConfig = {
@@ -26,7 +28,7 @@ const Navbar = (props: Props) => {
     )
     .then((response) => {
       console.log(response.data)
-      
+      dispatch(logoutUser())
       navigate("/auth/login")
     })
     .catch(function (error) {
