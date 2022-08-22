@@ -7,7 +7,7 @@ import iconImg from "../../assets/logos/linkedin_secondary.png"
 import { ApiURL } from "../../utils/Server";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { logoutUser } from "../../features/user/userSlice"
-import { FaHome } from "react-icons/fa";
+import { FaBell, FaBriefcase, FaHome, FaRegCommentDots, FaUserFriends } from "react-icons/fa";
 type Props = {};
 
 const Navbar = (props: Props) => {
@@ -62,6 +62,26 @@ const Navbar = (props: Props) => {
             <li className="list-hover mx-2 color-black">
               <Link to={"/"}>
                 <FaHome/>
+              </Link>
+            </li>
+            <li className="list-hover mx-2 color-black">
+              <Link to={"/"}>
+                <FaUserFriends/>
+              </Link>
+            </li>
+            <li className="list-hover mx-2 color-black">
+              <Link to={"/"}>
+                <FaBriefcase/>
+              </Link>
+            </li>
+            <li className="list-hover mx-2 color-black">
+              <Link to={"/"}>
+                <FaRegCommentDots/>
+              </Link>
+            </li>
+            <li className="list-hover mx-2 color-black">
+              <Link to={"/"}>
+                <FaBell/>
               </Link>
             </li>
             <li className="list-hover mx-2 color-black">

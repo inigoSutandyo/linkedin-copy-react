@@ -29,7 +29,7 @@ const Home = (props: Props) => {
   }
 
   useEffect(() => {
-    const loadData = () => {
+    const loadUser = () => {
       const axiosConfig = {
           withCredentials: true,
       }
@@ -38,7 +38,18 @@ const Home = (props: Props) => {
       .then(function (response) {
           console.log(response.data.user)
           dispatch(setUser(response.data.user))
-          console.log(response.data.posts)
+      })
+      .catch(function (error) {
+        console.log(error.response.data)        
+      })
+      .then(function () {
+          // always executed
+      });
+    }
+
+    const loadPosts = () => {
+      axios.get(ApiURL("/home/post"), axiosConfig)
+      .then(function (response) {
           setPosts(response.data.posts)
       })
       .catch(function (error) {
@@ -48,12 +59,12 @@ const Home = (props: Props) => {
           // always executed
       });
     }
-    loadData()
-    
+    loadUser()
+    loadPosts()
     console.log(posts)
   }, [])
   
-
+  
 
   return (
     <div >
