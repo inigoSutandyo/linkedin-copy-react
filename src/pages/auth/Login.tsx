@@ -4,24 +4,18 @@ import Cookies from 'universal-cookie'
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../../components/Error";
 import "../../styles/forms/form.css";
-import { useIsAuth } from "../../utils/Auth";
 import Guestbar from "../../components/navbar/Guestbar";
 import FormLine from "../../components/util/FormLine";
 import { ApiURL } from "../../utils/Server";
+import { useAppSelector } from "../../app/hooks";
+import { checkAuth, checkSignIn } from "../../utils/Auth";
 interface Props {}
 
 const Login = (props: Props) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const auth = useIsAuth()
-
-  useEffect(() => {
-    if (auth === null) return
-
-    if (auth == true) {
-      navigate('/')
-    }
-  }, [auth])
+  
+  checkAuth()
   
 
   const submit = (e: SyntheticEvent) => {

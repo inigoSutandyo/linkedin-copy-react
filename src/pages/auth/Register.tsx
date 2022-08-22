@@ -1,25 +1,20 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { useIsAuth } from '../../utils/Auth';
 import "../../styles/forms/form.css";
 import Guestbar from '../../components/navbar/Guestbar';
 import FormLine from '../../components/util/FormLine';
 import { ApiURL } from '../../utils/Server';
+import { useAppSelector } from '../../app/hooks';
+import { checkAuth } from '../../utils/Auth';
 type Props = {}
 
 const Register = (props: Props) => {
     const [error, setError] = useState("")
 
     const navigate = useNavigate()
-    const auth = useIsAuth()
+    checkAuth()
 
-    useEffect(() => {
-        if (auth === null) return
-        if (auth == true) {
-            navigate('/')
-        }
-    }, [auth])
 
     const axiosConfig = {
         headers: {

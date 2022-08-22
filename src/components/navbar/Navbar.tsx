@@ -1,15 +1,17 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../../styles/components/nav.css'
-import { useIsAuth } from "../../utils/Auth";
 import iconImg from "../../assets/logos/linkedin_main.png"
 import { ApiURL } from "../../utils/Server";
+import { useAppSelector } from "../../app/hooks";
 type Props = {};
 
 const Navbar = (props: Props) => {
-  const auth = useIsAuth()
+
   const navigate = useNavigate()
+  const auth = useAppSelector((state) => state.user.isSignedIn)
+
   function logout() {
     const axiosConfig = {
       headers: {
@@ -24,6 +26,7 @@ const Navbar = (props: Props) => {
     )
     .then((response) => {
       console.log(response.data)
+      
       navigate("/auth/login")
     })
     .catch(function (error) {

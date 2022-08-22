@@ -6,10 +6,9 @@ import AddPost from '../components/post/AddPost'
 import Profile from './user/Profile'
 import '../styles/home/home.css'
 import { ApiURL } from '../utils/Server'
-import {useDispatch, useSelector} from 'react-redux'
 import { setUser } from '../features/user/userSlice'
-import { RootState } from '../app/store'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {}
 
@@ -20,35 +19,33 @@ const Home = (props: Props) => {
 
   const user = useAppSelector((state) => state.user.user)
   const dispatch = useAppDispatch() 
+  const navigate = useNavigate()
 
-
-  const [post ,setPost] = useState()
   const [modal, setModal] = useState(false)
-
+  const [post, setPost] = useState()
   const closeModal = () => {
     setModal(false)
   }
 
   useEffect(() => {
     const loadData = () => {
-      axios.get(ApiURL("/user/profile"), axiosConfig)
-      .then(function (response) {
-
-
-        setPost(response.data.posts)
-        console.log(response.data)
-        dispatch(setUser(response.data.user))
-
-      })
-      .catch(function (error) {
-        console.log(error.response.data);
-      })
-      .then(function (response) {
-        
-      });
+      const axiosConfig = {
+        withCredentials: true,
     }
-    // console.log(user)
+    axios.get(ApiURL("/user/profile"), axiosConfig)
+    .then(function (response) {
+        console.log(response.data.user)
+        dispatch(setUser(response.data.user))
+    })
+    .catch(function (error) {
+      console.log(error.response.data)        
+    })
+    .then(function () {
+        // always executed
+    });
+    }
     loadData()
+    console.log(user)
   }, [])
   
 
@@ -57,7 +54,7 @@ const Home = (props: Props) => {
     <div >
       <Navbar/>
       <div className='my-3 home-layout'>
-        {user.email ? (
+        {user ? (
           <>
             <div className='container-grow-1 home-container'>
                 <Profile/>
