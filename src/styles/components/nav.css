@@ -1,12 +1,21 @@
 nav {
     width: 100%;
+}
+
+.nav-main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .nav-logo {
     max-width: 64px;
+}
+
+.nav-logo-small {
+    max-width: 32px;
 }
 
 .nav-logo-huge {
@@ -25,12 +34,20 @@ ul {
 
 li a {
     display: block;
-    color: white;
+    color: #595C5F;
     text-align: center;
     text-decoration: none;
+    padding: 3px;
 }
 
 .list-hover:hover a {
-    background-color: rgb(5, 43, 138);
-    color: rgb(208, 242, 255);
+    color: #A0A3A6
+}
+
+.search-nav {
+    border-radius: 4px;
+    border: none;
+    padding: 8px;
+    font-size: medium;
+    background-color: #edf9fe;
 }

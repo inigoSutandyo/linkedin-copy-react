@@ -13,4 +13,11 @@ declare global {
     isSignedIn: boolean,
     user: User
   }
+
+  type Post = {
+    ID: number,
+    content: string,
+    attachments: string,
+    likes: number
+  }
 }

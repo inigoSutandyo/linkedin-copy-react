@@ -9,6 +9,7 @@ import { ApiURL } from '../utils/Server'
 import { setUser } from '../features/user/userSlice'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { useNavigate } from 'react-router-dom'
+import PostComponent from '../components/post/PostComponent'
 
 type Props = {}
 
@@ -22,7 +23,7 @@ const Home = (props: Props) => {
   const navigate = useNavigate()
 
   const [modal, setModal] = useState(false)
-  const [post, setPost] = useState()
+  const [posts, setPosts] = useState<Array<Post>>()
   const closeModal = () => {
     setModal(false)
   }
@@ -30,22 +31,26 @@ const Home = (props: Props) => {
   useEffect(() => {
     const loadData = () => {
       const axiosConfig = {
-        withCredentials: true,
-    }
-    axios.get(ApiURL("/user/profile"), axiosConfig)
-    .then(function (response) {
-        console.log(response.data.user)
-        dispatch(setUser(response.data.user))
-    })
-    .catch(function (error) {
-      console.log(error.response.data)        
-    })
-    .then(function () {
-        // always executed
-    });
+          withCredentials: true,
+      }
+
+      axios.get(ApiURL("/user/profile"), axiosConfig)
+      .then(function (response) {
+          console.log(response.data.user)
+          dispatch(setUser(response.data.user))
+          console.log(response.data.posts)
+          setPosts(response.data.posts)
+      })
+      .catch(function (error) {
+        console.log(error.response.data)        
+      })
+      .then(function () {
+          // always executed
+      });
     }
     loadData()
-    console.log(user)
+    
+    console.log(posts)
   }, [])
   
 
@@ -74,9 +79,15 @@ const Home = (props: Props) => {
               </div>
 
               <div className='main-content'>
-                {post ? (
+                {posts ? (
                   <>
-                    Post
+                    {posts.map((p,i) => {
+                      return (
+                        <div key={p.ID}>
+                          <PostComponent post={p}/>
+                        </div>
+                      )
+                    })}
                   </>
                 ) : <>No Post</>}
               </div>

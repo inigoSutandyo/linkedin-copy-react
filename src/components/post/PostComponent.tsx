@@ -1,13 +1,22 @@
 import React from 'react'
+import parse from 'html-react-parser';
 
-
-type Props = {}
+type Props = {
+  post: Post
+}
 
 const PostComponent = (props: Props) => {
+  console.log(props.post)
   return (
-    <div className='post-component'>
-
-    </div>
+    <>
+      {props.post && props.post.content? (
+        <div className='post-component'>
+          <div>
+            {parse(props.post.content)}
+          </div>
+        </div>
+      ) : <>undefined</>}
+    </>
   )
 }
 
