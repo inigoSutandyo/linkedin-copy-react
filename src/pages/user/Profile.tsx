@@ -29,7 +29,7 @@ const Profile = (props: Props) => {
   }
 
   return (
-    <div id='profile-page'>
+    <div id='profile-layout'>
       <button onClick={() => setModal(true)} className="btn-primary w-8">Update Profile</button>
       <Modal open={modal} title={"Update Profile"} closeModal={closeModal} child ={
         <ProfileForm/>
@@ -38,13 +38,12 @@ const Profile = (props: Props) => {
         {user.email}
       </p>
       <p>
-        {user.firstname}
+        {user.firstname} {user.lastname}
       </p>
-      <p>
-        {user.lastname}
-      </p>
-      <p>
-        {user.phone}
+      <p style={{
+        fontWeight: "lighter"
+      }}>
+        {user.headline}
       </p>
     </div>
   ) 

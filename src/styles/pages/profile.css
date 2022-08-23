@@ -1,0 +1,6 @@
+.profile-layout {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10%;
+    padding-right: 10%;
+}

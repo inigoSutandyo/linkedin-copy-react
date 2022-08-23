@@ -25,6 +25,7 @@ const ProfileForm = (props: Props) => {
         const target = e.target as typeof e.target & {
             firstname: {value: string};
             lastname: {value: string};
+            headline: {value: string};
             phone: {value: string};
         };
 
@@ -38,6 +39,7 @@ const ProfileForm = (props: Props) => {
         axios.post(ApiURL("/user/profile/update"),{
             firstname: target.firstname.value,
             lastname: target.lastname.value,
+            headline: target.headline.value,
             phone: target.phone.value,
             id: user.ID
         }, axiosConfig)
@@ -78,6 +80,19 @@ const ProfileForm = (props: Props) => {
                     id="lastname"
                     required={true}
                     defaultValue={user.lastname}
+                    className="form-input-secondary"
+                />
+            </div>
+            <div className="input-container">
+                <label htmlFor="headline" className="form-label-light">
+                    Headline
+                </label>
+                <input
+                    type="text"
+                    name="headline"
+                    id="headline"
+                    required={true}
+                    defaultValue={user.headline}
                     className="form-input-secondary"
                 />
             </div>

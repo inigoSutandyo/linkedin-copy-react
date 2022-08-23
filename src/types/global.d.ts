@@ -5,6 +5,7 @@ declare global {
     ID: number
     firstname: string
     lastname: string
+    headline: string
     email: string
     phone: string
   }

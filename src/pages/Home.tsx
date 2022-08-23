@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import Modal from '../components/Modal'
 import Navbar from '../components/navbar/Navbar'
 import AddPost from '../components/post/AddPost'
-import Profile from './user/Profile'
-import '../styles/home/home.css'
+import '../styles/pages/home.css'
 import { ApiURL } from '../utils/Server'
 import { setUser } from '../features/user/userSlice'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { useNavigate } from 'react-router-dom'
 import PostComponent from '../components/post/PostComponent'
+import ProfileDisplay from '../components/user/ProfileDisplay'
 
 type Props = {}
 
@@ -65,7 +65,7 @@ const Home = (props: Props) => {
     console.log(posts)
   }, [])
   
-  
+
 
   return (
     <div >
@@ -73,8 +73,11 @@ const Home = (props: Props) => {
       <div className='my-3 home-layout'>
         {user ? (
           <>
-            <div className='container-grow-1 home-container bg-white'>
-                <Profile/>
+            <div className='container-grow-1 home-container bg-white' style={{
+              maxHeight: "256px",
+              position: "sticky"
+            }}>
+                <ProfileDisplay/>
                 {/* {user.email} */}
             </div>
 
