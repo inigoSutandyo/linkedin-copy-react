@@ -89,7 +89,6 @@ const Home = (props: Props) => {
                   Add Post
                 </button>
               </div>
-
               <div className='main-content'>
                 {posts ? (
                   <>
@@ -100,6 +99,9 @@ const Home = (props: Props) => {
                     })}
                   </>
                 ) : <>No Post</>}
+              </div>
+              <div className='overflow'>
+
               </div>
             </div>
 

@@ -5,7 +5,7 @@
 
 .post-container {
     width: 100%;
-    border: none;
+    border: solid 1px rgb(221, 221, 221);
     padding: 8px 4px 4px 4px;
     margin-top: 4px;
     margin-bottom: 24px;
@@ -27,7 +27,9 @@
 
 .content-container {
     width: 100%;
-    min-height: 128px;
+    min-height: 64px;
+    max-height: 128px;
+    overflow-y: auto;
 }
 
 .post-content {
@@ -39,3 +41,39 @@
     padding: 2px 4px;
 }
 
+.line-container {
+    width: 100%;
+}
+
+.line {
+    color: #b6b6b6;
+    width: 98%;
+    clear: both;
+}
+
+.content-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.like-count {
+    display: flex;
+    align-items: center;
+}
+
+.likes {
+    margin-left: 4px;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: pointer;
+    min-height: 32px;
+}
+
+.post-actions > p {
+    margin-left: 4px;
+}
