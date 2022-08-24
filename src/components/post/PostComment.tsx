@@ -1,47 +1,96 @@
-import {useState} from 'react'
-import ReactQuill from 'react-quill'
-import Modal from '../ModalComponent'
+import axios from 'axios'
+import {useState, useEffect, useRef} from 'react'
+import ReactQuill ,{QuillOptions} from 'react-quill'
 
-type Props = {}
+import { ApiURL } from '../../utils/Server'
+
+type Props = {
+  postid: number
+}
 
 const PostComment = (props: Props) => {
+
   const [value, setValue] = useState("")
+  const [button, setButton] = useState(false)
   const [error, setError] = useState("")
+
   function handleChange(content: any, delta: any, source: any, editor: any) {
+    
+    if (content.replace(/<(.|\n)*?>/g, '').trim().length > 1) setButton(true)
+    else setButton(false)
+
     if (editor.getLength() > 255) {
         setError("Length of comment exceeded limit of 255 characters")
     } else {
         setError("")
     }
-    console.log(content)
     setValue(content)
   }
 
+
+  useEffect(() => {
+    axios.get(ApiURL("/home/post/comment"), {
+      params: {
+        id: props.postid
+      }
+    })
+    .then((response) => {
+      console.log(response.data)
+    }) 
+    .catch(function (error) {
+      console.log(error.response.data);        
+    })
+  }, [])
+  
+
   const addComment = () => {
 
+    if (error !== "") return
+    if (value.replace(/<(.|\n)*?>/g, '').trim().length < 1) return 
+
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+
+    axios.post(ApiURL("/home/post/comment/add"), {
+      "content": value,
+      "likes": 0,
+      "postid": props.postid,
+    }, axiosConfig)
+    .then((response) => {
+      console.log(response.data)
+    }) 
+    .catch(function (error) {
+      console.log(error.response.data);        
+    })
+    setValue("")
   }
 
   return (
-    <form action="POST" onSubmit={addComment}>
-         <p style={{fontWeight: "bold"}}>Add New Post</p>
+    <div style={{
+      width: "100%"
+    }}>
          <div id='editor-container' className='input-container'>
             <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} bounds={"#editor-container"} style = {{
-              border: "1px solid",
+              border: "1px solid rgba(0,0,0,.15)",
               overflow: "auto",
-              height: "128px",
-              maxHeight: "250px"
+              minHeight: "28px",
+              maxHeight: "250px",
+              borderRadius: "32px"
             }} placeholder={"What are you thinking about?"}/>
          </div>
-
-          <div className='input-container'>
-            <input type="submit" value="Submit" className='btn-primary w-5' style={{
-              borderRadius: "16px"
-            }}/>
-          </div>
+          {button ? (
+            <div>
+              <button type="submit" onClick={addComment}>Post</button>
+            </div>
+          ) : <></>}
           <div style={{color: "red"}}>
             {error}
           </div>
-    </form>
+    </div>
   )
 }
 

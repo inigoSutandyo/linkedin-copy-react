@@ -9,6 +9,7 @@ import { ApiURL } from '../../utils/Server'
 import '../../styles/pages/profile.css'
 import { MdModeEditOutline } from 'react-icons/md'
 import { IconContext } from 'react-icons'
+import ModalComponent from '../../components/ModalComponent'
 
 interface Props {
 }
@@ -47,12 +48,12 @@ const Profile = (props: Props) => {
   }, [])
 
   return (
-    <>
+    <div id='profile-page'>
       <Navbar/>
       <div className='profile-layout'>
         <div className='main-container'>
           <div className='main-content'>
-            <div className='edit-profile'>
+            <div className='edit-profile' onClick={() => setModal(true)}>
               <IconContext.Provider value={{
                 size: "24px"
               }}>
@@ -60,10 +61,6 @@ const Profile = (props: Props) => {
               </IconContext.Provider>
               {/* <button onClick={() => setModal(true)} className="btn-primary w-8">Update Profile</button> */}
             </div>
-    
-            {/* <Modal open={modal} title={"Update Profile"} closeModal={closeModal} child ={
-              <ProfileForm/>
-            }/> */}
             <div className='user-info'>
               <h1>{user.firstname} {user.lastname}</h1>
               <h3>{user.headline}</h3>
@@ -75,7 +72,10 @@ const Profile = (props: Props) => {
           Hello
         </div>
       </div>
-    </>
+      <ModalComponent isOpen={modal} appElement={"#profile-page"} closeModal={closeModal} contentLabel='Update Profile'>
+        <ProfileForm/>
+      </ModalComponent>
+    </div>
   ) 
 }
 

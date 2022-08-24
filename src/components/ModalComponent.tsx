@@ -29,9 +29,7 @@ const ModalComponent = (props: Props) => {
         >
             <div className='modal-header'>
                 <h3>{props.contentLabel}</h3>
-                <div onClick={props.closeModal} style={{
-                    cursor: "pointer"
-                }}>
+                <div onClick={props.closeModal} className="close-modal">
                     <IconContext.Provider value={{
                         color: "black",
                         size: "25px"

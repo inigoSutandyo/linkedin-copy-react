@@ -20,6 +20,15 @@ declare global {
     content: string,
     attachments: string,
     likes: number,
-    user: User
+    user: User,
+    comments: PostComment
+  }
+
+  type PostComment = {
+    ID: number,
+    content: string,
+    likes: number,
+    user: User,
+    post: Post
   }
 }

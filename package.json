@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
+    "@types/quill": "^2.0.9",
     "@types/react-modal": "^3.13.1",
     "html-react-parser": "^3.0.3",
     "react": "^18.2.0",

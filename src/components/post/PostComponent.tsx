@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import parse from 'html-react-parser';
 import "../../styles/components/post.css"
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai'
@@ -7,6 +7,11 @@ import { RiShareForwardLine } from 'react-icons/ri'
 import { IoIosSend } from 'react-icons/io'
 import { IconContext } from 'react-icons';
 import ReactModal from 'react-modal';
+import 'react-quill/dist/quill.bubble.css';
+import PostComment from './PostComment';
+import Comment from './Comment';
+import axios from 'axios';
+import { ApiURL } from '../../utils/Server';
 
 type Props = {
   post: Post
@@ -15,15 +20,19 @@ type Props = {
 const PostComponent = (props: Props) => {
   // console.log(props.post)
   ReactModal.setAppElement("#home-page")
-  const [modal, setModal] = useState(false)
+  const [comment, setComment] = useState(false)
 
-  const handleOpenModal = () => {
-    setModal(true)
-    console.log(modal)
+  // useEffect(() => {
+  //   axios.get(ApiURL("/"))
+  // }, [])
+  
+
+  const handleOpenComment = () => {
+    setComment(true)
   }
 
-  const handleCloseModal = () => {
-    setModal(false)
+  const handleCloseComment = () => {
+    setComment(false)
   }
 
   return (
@@ -62,7 +71,7 @@ const PostComponent = (props: Props) => {
               <AiOutlineLike/>
               <p>Like</p>
             </div>
-            <div className='post-actions' onClick={()=>handleOpenModal()}>
+            <div className='post-actions' onClick={()=>handleOpenComment()}>
               <FaRegCommentDots/>
               <p>Comment</p>
             </div>
@@ -74,15 +83,15 @@ const PostComponent = (props: Props) => {
               <IoIosSend/>
               <p>Send</p>
             </div>
-
           </div>
+          {comment ? (
+            <div className='comment-container'>
+              <PostComment postid={props.post.ID}/>
+              {/* <Comment comment={}/> */}
+            </div>
+          ) : <></>}
         </div>
       ) : <>undefined</>}
-      <ReactModal isOpen = {modal} contentLabel="Comments" >
-        <div>
-
-        </div>
-      </ReactModal>
     </>
   )
 }

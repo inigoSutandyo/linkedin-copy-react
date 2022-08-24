@@ -33,7 +33,7 @@ const AddPost = (props: Props) => {
   const addPost = (e: SyntheticEvent) => {
     e.preventDefault()
     if (error !== "") return
-
+    if (value.replace(/<(.|\n)*?>/g, '').trim().length < 1) return 
 
     const axiosConfig = {
       headers: {
