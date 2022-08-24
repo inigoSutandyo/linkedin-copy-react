@@ -1,3 +1,4 @@
+import HTMLReactParser from 'html-react-parser'
 import React from 'react'
 
 type Props = {
@@ -7,9 +8,9 @@ type Props = {
 const Comment = (props: Props) => {
   return (
     <div>
-        <p>
-            {props.comment.content}
-        </p>
+        <div>
+            {HTMLReactParser(props.comment.content)}
+        </div>
     </div>
   )
 }

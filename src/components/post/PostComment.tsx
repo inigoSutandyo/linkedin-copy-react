@@ -3,6 +3,7 @@ import {useState, useEffect, useRef} from 'react'
 import ReactQuill ,{QuillOptions} from 'react-quill'
 
 import { ApiURL } from '../../utils/Server'
+import Comment from './Comment'
 
 type Props = {
   postid: number
@@ -13,6 +14,7 @@ const PostComment = (props: Props) => {
   const [value, setValue] = useState("")
   const [button, setButton] = useState(false)
   const [error, setError] = useState("")
+  const [comments, setComments] = useState<Array<PostComment>>()
 
   function handleChange(content: any, delta: any, source: any, editor: any) {
     
@@ -29,13 +31,15 @@ const PostComment = (props: Props) => {
 
 
   useEffect(() => {
+    // console.log(props.postid)
     axios.get(ApiURL("/home/post/comment"), {
       params: {
         id: props.postid
       }
     })
     .then((response) => {
-      console.log(response.data)
+      console.log(response.data.message)
+      setComments(response.data.comments)
     }) 
     .catch(function (error) {
       console.log(error.response.data);        
@@ -89,6 +93,11 @@ const PostComment = (props: Props) => {
           ) : <></>}
           <div style={{color: "red"}}>
             {error}
+          </div>
+          <div>
+            {comments?.map((c, i) => (
+              <Comment comment={c} key={i}/>
+            ))}
           </div>
     </div>
   )

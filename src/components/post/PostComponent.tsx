@@ -87,7 +87,6 @@ const PostComponent = (props: Props) => {
           {comment ? (
             <div className='comment-container'>
               <PostComment postid={props.post.ID}/>
-              {/* <Comment comment={}/> */}
             </div>
           ) : <></>}
         </div>
