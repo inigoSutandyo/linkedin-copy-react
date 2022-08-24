@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import Modal from '../components/Modal'
+import Modal from '../components/ModalComponent'
 import Navbar from '../components/navbar/Navbar'
 import AddPost from '../components/post/AddPost'
 import '../styles/pages/home.css'
@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { useNavigate } from 'react-router-dom'
 import PostComponent from '../components/post/PostComponent'
 import ProfileDisplay from '../components/user/ProfileDisplay'
+import ModalComponent from '../components/ModalComponent'
 
 type Props = {}
 
@@ -68,7 +69,7 @@ const Home = (props: Props) => {
 
 
   return (
-    <div >
+    <div id='home-page'>
       <Navbar/>
       <div className='my-3 home-layout'>
         {user ? (
@@ -92,7 +93,7 @@ const Home = (props: Props) => {
                   Add Post
                 </button>
               </div>
-              <div className='main-content'>
+              <div className='home-main-content'>
                 {posts ? (
                   <>
                     {posts.map((p,i) => {
@@ -103,16 +104,15 @@ const Home = (props: Props) => {
                   </>
                 ) : <>No Post</>}
               </div>
-              <div className='overflow'>
-
-              </div>
             </div>
 
             <div className='container-grow-3 home-container bg-white'>
               <p>Hei</p>
             </div>
-
-            <Modal child={<AddPost user={user}/>} open={modal} closeModal={closeModal} title={"Add Post"} />
+            
+            <ModalComponent isOpen={modal} closeModal={closeModal} contentLabel={"Add Post"} appElement={"#home-page"}>
+              <AddPost user={user}/>
+            </ModalComponent>
           </>
         ) : (
           <p>Empty</p>

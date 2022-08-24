@@ -1,4 +1,4 @@
-import React from 'react'
+import {useState} from 'react'
 import parse from 'html-react-parser';
 import "../../styles/components/post.css"
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai'
@@ -6,18 +6,31 @@ import { FaRegCommentDots } from 'react-icons/fa'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { IoIosSend } from 'react-icons/io'
 import { IconContext } from 'react-icons';
+import ReactModal from 'react-modal';
+
 type Props = {
   post: Post
 }
 
 const PostComponent = (props: Props) => {
   // console.log(props.post)
+  ReactModal.setAppElement("#home-page")
+  const [modal, setModal] = useState(false)
+
+  const handleOpenModal = () => {
+    setModal(true)
+    console.log(modal)
+  }
+
+  const handleCloseModal = () => {
+    setModal(false)
+  }
+
   return (
     <>
       {props.post && props.post.content? (
         <div className='post-container'>
           <div className='post-header'>
-
             {props.post.user.email}
           </div>
           
@@ -49,7 +62,7 @@ const PostComponent = (props: Props) => {
               <AiOutlineLike/>
               <p>Like</p>
             </div>
-            <div className='post-actions'>
+            <div className='post-actions' onClick={()=>handleOpenModal()}>
               <FaRegCommentDots/>
               <p>Comment</p>
             </div>
@@ -65,6 +78,11 @@ const PostComponent = (props: Props) => {
           </div>
         </div>
       ) : <>undefined</>}
+      <ReactModal isOpen = {modal} contentLabel="Comments" >
+        <div>
+
+        </div>
+      </ReactModal>
     </>
   )
 }

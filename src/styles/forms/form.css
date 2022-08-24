@@ -30,6 +30,15 @@
     margin-bottom: 16px;
 }
 
+.editor-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.submit-container {
+    display: flex;
+}
+
 .form-input-primary{
     border-radius: 12px;
     border: solid 1px rgb(146, 146, 146);

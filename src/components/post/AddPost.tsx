@@ -62,19 +62,18 @@ const AddPost = (props: Props) => {
   }
   return (
     <form action="POST" onSubmit={addPost}>
-         <p style={{fontWeight: "bold"}}>Add New Post</p>
-         <div id='editor-container' className='input-container'>
+         <div id='editor-container' className='editor-container'>
             <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} bounds={"#editor-container"} style = {{
-              border: "1px solid",
               overflow: "auto",
+              width: "95%",
               height: "128px",
               maxHeight: "250px"
             }} placeholder={"What are you thinking about?"}/>
          </div>
           {/* <div className="input-container">
           </div> */}
-          <div className='input-container'>
-            <input type="submit" value="Submit" className='btn-primary w-5' style={{
+          <div className='submit-container justify-end'>
+            <input type="submit" value="Post" className='btn-primary w-1' style={{
               borderRadius: "16px"
             }}/>
           </div>
