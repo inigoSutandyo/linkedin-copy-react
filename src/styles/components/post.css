@@ -85,3 +85,19 @@
     align-items: flex-start;
     width: 100%;
 }
+
+.comment-header {
+    border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+.comment-item {
+    padding: 4px 6px;
+    margin: 4px;
+}
+
+.comment-card {
+    background-color: #eaebec;
+    border-radius: 0px 4px 4px 4px;
+    padding: 4px 6px;
+    margin: 4px;
+}

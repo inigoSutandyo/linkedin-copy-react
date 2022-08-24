@@ -6,8 +6,13 @@ type Props = {
 }
 
 const Comment = (props: Props) => {
+  console.log(props.comment)
   return (
-    <div>
+    <div className='comment-card'>
+        {props.comment.user.email}
+        <p>
+            {props.comment.user.headline}
+        </p>
         <div>
             {HTMLReactParser(props.comment.content)}
         </div>

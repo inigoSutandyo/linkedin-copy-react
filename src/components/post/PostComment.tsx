@@ -77,6 +77,7 @@ const PostComment = (props: Props) => {
     <div style={{
       width: "100%"
     }}>
+        <div className='comment-header'>
          <div id='editor-container' className='input-container'>
             <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} bounds={"#editor-container"} style = {{
               border: "1px solid rgba(0,0,0,.15)",
@@ -94,11 +95,14 @@ const PostComment = (props: Props) => {
           <div style={{color: "red"}}>
             {error}
           </div>
-          <div>
-            {comments?.map((c, i) => (
-              <Comment comment={c} key={i}/>
-            ))}
-          </div>
+        </div>
+        <div>
+          {comments?.map((c, i) => (
+            <div className='comment-item' key={c.ID}>
+              <Comment comment={c}/>
+            </div>
+          ))}
+        </div>
     </div>
   )
 }
