@@ -9,9 +9,9 @@ import { IconContext } from 'react-icons';
 import ReactModal from 'react-modal';
 import 'react-quill/dist/quill.bubble.css';
 import PostComment from './PostComment';
-import Comment from './Comment';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import axios from 'axios';
-import { ApiURL } from '../../utils/Server';
+import { setLikedPost } from '../../features/user/userSlice';
 
 type Props = {
   post: Post
@@ -33,6 +33,19 @@ const PostComponent = (props: Props) => {
 
   const handleCloseComment = () => {
     setComment(false)
+  }
+  const user = useAppSelector((state) => state.user.user)
+  const dispatch = useAppDispatch() 
+
+  const likePost = () => {
+    const axiosConfig = {
+      withCredentials: true,
+    }
+    axios.post("home/post/like", axiosConfig)
+    .then((response) => {
+      console.log(response.data)
+      setLikedPost(response.data.likepost)
+    })
   }
 
   return (
@@ -67,7 +80,7 @@ const PostComponent = (props: Props) => {
             <hr className='line'/>
           </div>
           <div className='content-footer'>
-            <div className='post-actions'>
+            <div className='post-actions' onClick={likePost}>
               <AiOutlineLike/>
               <p>Like</p>
             </div>

@@ -37,7 +37,7 @@ const Home = (props: Props) => {
 
       axios.get(ApiURL("/user/profile"), axiosConfig)
       .then(function (response) {
-          console.log(response.data.user)
+          console.log(response.data)
           dispatch(setUser(response.data.user))
       })
       .catch(function (error) {

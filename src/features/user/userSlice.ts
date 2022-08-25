@@ -7,7 +7,7 @@ const initialState : UserState = {
 }
 
 export const userSlice = createSlice({
-    name: 'auth',
+    name: 'user',
     initialState: initialState,
     reducers: {
         setUser: (state: UserState, action: PayloadAction<User>) => {
@@ -17,9 +17,12 @@ export const userSlice = createSlice({
         logoutUser: (state: UserState) => {
             state.user = {} as User
             state.isSignedIn = false
+        },
+        setLikedPost: (state: UserState, action: PayloadAction<Array<number>>) => {
+            state.user.likeposts = action.payload
         }
     }
 })
 
-export const { setUser, logoutUser } = userSlice.actions;
+export const { setUser, logoutUser, setLikedPost } = userSlice.actions;
 export default userSlice.reducer;
