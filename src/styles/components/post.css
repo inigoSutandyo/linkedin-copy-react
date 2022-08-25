@@ -99,5 +99,24 @@
     background-color: #eaebec;
     border-radius: 0px 4px 4px 4px;
     padding: 4px 6px;
-    margin: 4px;
+    margin: 4px 4px 2px 4px;
+}
+
+.reply-items {
+    margin: 8px 4px 4px 32px;
+    background-color: #eaebec;
+    border-radius: 0px 4px 4px 4px;
+    padding: 4px 6px;
+}
+
+.comment-card-actions {
+    display: flex;
+    font-size: x-small;
+    align-items: center;
+    margin-left: 4px;
+}
+
+.comment-card-actions > div {
+    margin-left: 4px;
+    margin-right: 4px;
 }

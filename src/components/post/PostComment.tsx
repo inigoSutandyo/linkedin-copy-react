@@ -38,7 +38,7 @@ const PostComment = (props: Props) => {
       }
     })
     .then((response) => {
-      console.log(response.data.message)
+      console.log(response.data)
       setComments(response.data.comments)
     }) 
     .catch(function (error) {

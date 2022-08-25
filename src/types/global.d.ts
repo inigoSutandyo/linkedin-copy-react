@@ -31,4 +31,11 @@ declare global {
     user: User,
     post: Post
   }
+
+  type PostReply = {
+    ID: number,
+    content: string,
+    user: User,
+    comment: Comment
+  }
 }
