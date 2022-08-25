@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import PostComponent from '../components/post/PostComponent'
 import ProfileDisplay from '../components/user/ProfileDisplay'
 import ModalComponent from '../components/ModalComponent'
+import { setPosts } from '../features/post/postSlice'
 
 type Props = {}
 
@@ -20,11 +21,10 @@ const axiosConfig = {
 const Home = (props: Props) => {
 
   const user = useAppSelector((state) => state.user.user)
+  const posts = useAppSelector((state) => state.post)
   const dispatch = useAppDispatch() 
-  const navigate = useNavigate()
-
+ 
   const [modal, setModal] = useState(false)
-  const [posts, setPosts] = useState<Array<Post>>()
   const closeModal = () => {
     setModal(false)
   }
@@ -53,7 +53,7 @@ const Home = (props: Props) => {
       axios.get(ApiURL("/home/post"), axiosConfig)
       .then(function (response) {
         console.log(response.data)
-        setPosts(response.data.posts)
+        dispatch(setPosts(response.data.posts))
       })
       .catch(function (error) {
         console.log(error.response.data)        

@@ -19,14 +19,9 @@ type Props = {
 }
 
 const PostComponent = (props: Props) => {
-  // console.log(props.post)
+
   ReactModal.setAppElement("#home-page")
   const [comment, setComment] = useState(false)
-
-  // useEffect(() => {
-  //   axios.get(ApiURL("/"))
-  // }, [])
-  
 
   const handleOpenComment = () => {
     setComment(true)
@@ -36,6 +31,8 @@ const PostComponent = (props: Props) => {
     setComment(false)
   }
   const user = useAppSelector((state) => state.user.user)
+  
+
   const dispatch = useAppDispatch() 
   console.log(user.likedposts)
   const likePost = () => {

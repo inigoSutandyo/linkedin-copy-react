@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const initialState : Array<Post> = [] as Array<Post>
 
-export const postSLice = createSlice({
+export const postSlice = createSlice({
     name: 'posts',
     initialState: initialState,
     reducers: {
@@ -15,5 +15,5 @@ export const postSLice = createSlice({
     }
 })
 
-// export const { setUser, logoutUser, setLikedPost } = userSlice.actions;
-// export default userSlice.reducer;
+export const { setPosts, addPost } = postSlice.actions;
+export default postSlice.reducer;

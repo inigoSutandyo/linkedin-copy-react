@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { SyntheticEvent, useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { addPost } from '../../features/post/postSlice';
 import "../../styles/forms/form.css";
 import { ApiURL } from '../../utils/Server';
 
@@ -20,6 +22,9 @@ interface Props {
 const AddPost = (props: Props) => {
   const [value, setValue] = useState("")
   const [error, setError] = useState("")
+  const posts = useAppSelector((state) => state.post)
+  const dispatch = useAppDispatch() 
+
   function handleChange(content: any, delta: any, source: any, editor: any) {
     if (editor.getLength() > 255) {
       setError("Length of post exceeded limit of 255 characters")
@@ -30,7 +35,7 @@ const AddPost = (props: Props) => {
     setValue(content);
     
   }
-  const addPost = (e: SyntheticEvent) => {
+  const handleAddPost = (e: SyntheticEvent) => {
     e.preventDefault()
     if (error !== "") return
     if (value.replace(/<(.|\n)*?>/g, '').trim().length < 1) return 
@@ -50,7 +55,7 @@ const AddPost = (props: Props) => {
       'likes': 0
     }, axiosConfig)
     .then((response) => {
-        const msg = response.data.message;
+        dispatch(addPost(response.data.post))
         console.log(response.data)
     })  
     .catch(function (error) {
@@ -61,7 +66,7 @@ const AddPost = (props: Props) => {
     });
   }
   return (
-    <form action="POST" onSubmit={addPost}>
+    <form action="POST" onSubmit={handleAddPost}>
          <div id='editor-container' className='editor-container'>
             <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} bounds={"#editor-container"} style = {{
               overflow: "auto",
