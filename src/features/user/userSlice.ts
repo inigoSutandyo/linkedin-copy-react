@@ -11,12 +11,16 @@ export const userSlice = createSlice({
     initialState: initialState,
     reducers: {
         setUser: (state: UserState, action: PayloadAction<User>) => {
-            state.user = action.payload,
-            state.isSignedIn = true
+            return {
+                isSignedIn: true,
+                user: action.payload
+            }
         },
         logoutUser: (state: UserState) => {
-            state.user = {} as User
-            state.isSignedIn = false
+            return {
+                isSignedIn: false,
+                user: {} as User
+            }
         },
         setLikedPost: (state: UserState, action: PayloadAction<Array<Number>>) => {
             state.user.likedposts = action.payload ? action.payload : [] as Array<Number>
