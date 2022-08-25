@@ -37,11 +37,11 @@ const Comment = (props: Props) => {
           </div>
       </div>
       <div className='comment-card-actions'>
-        <div>
+        <div className='card-action'>
           Like
         </div>
-        <div>
-          Replies
+        <div className='card-action'>
+          Reply
         </div>
       </div>
       {replies && replies.length > 0 ? (
