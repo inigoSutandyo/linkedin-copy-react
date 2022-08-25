@@ -8,7 +8,7 @@ declare global {
     headline: string
     email: string
     phone: string
-    likeposts: Array<Number>
+    likedposts: Array<Number>
   }
 
   type UserState = {

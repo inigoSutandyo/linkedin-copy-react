@@ -12,6 +12,7 @@ import PostComment from './PostComment';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import axios from 'axios';
 import { setLikedPost } from '../../features/user/userSlice';
+import { ApiURL } from '../../utils/Server';
 
 type Props = {
   post: Post
@@ -36,16 +37,47 @@ const PostComponent = (props: Props) => {
   }
   const user = useAppSelector((state) => state.user.user)
   const dispatch = useAppDispatch() 
-
+  console.log(user.likedposts)
   const likePost = () => {
     const axiosConfig = {
       withCredentials: true,
+      params: {
+        id: props.post.ID
+      }
     }
-    axios.post("home/post/like", axiosConfig)
-    .then((response) => {
-      console.log(response.data)
-      setLikedPost(response.data.likepost)
-    })
+
+    if (user.likedposts.indexOf(props.post.ID) !== -1) {
+      axios.post(ApiURL("/home/post/dislike"), {}, axiosConfig)
+      .then((response) => {
+        const likedPosts = user.likedposts
+        for (let i = 0; i < likedPosts.length; i++) {
+          const like = likedPosts[i];
+          if (like === response.data.postId) {
+            likedPosts.splice(i, 1)
+            break
+          }
+          
+        }
+        dispatch(setLikedPost(likedPosts))
+      }).catch((error) => {
+        console.log(error.response)
+      }).then((response) => {
+        
+      }) 
+    } else {
+      console.log(props.post.ID)
+      axios.post(ApiURL("/home/post/like"), {}, axiosConfig)
+      .then((response) => {
+        console.log(response.data)
+        const likedPosts = user.likedposts
+        likedPosts.push(response.data.likepost)
+        dispatch(setLikedPost(likedPosts))
+      }).catch((error) => {
+        console.log(error.response)
+      }).then((response) => {
+        
+      }) 
+    }
   }
 
   return (
@@ -81,7 +113,11 @@ const PostComponent = (props: Props) => {
           </div>
           <div className='content-footer'>
             <div className='post-actions' onClick={likePost}>
-              <AiOutlineLike/>
+              {user.likedposts?.indexOf(props.post.ID) !== -1 ? (
+                <AiFillLike/>
+              ) : (
+                <AiOutlineLike/>
+              )}
               <p>Like</p>
             </div>
             <div className='post-actions' onClick={()=>handleOpenComment()}>

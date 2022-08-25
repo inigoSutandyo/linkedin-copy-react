@@ -5,7 +5,7 @@ import Navbar from '../components/navbar/Navbar'
 import AddPost from '../components/post/AddPost'
 import '../styles/pages/home.css'
 import { ApiURL } from '../utils/Server'
-import { setUser } from '../features/user/userSlice'
+import { setLikedPost, setUser } from '../features/user/userSlice'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { useNavigate } from 'react-router-dom'
 import PostComponent from '../components/post/PostComponent'
@@ -39,13 +39,14 @@ const Home = (props: Props) => {
       .then(function (response) {
           console.log(response.data)
           dispatch(setUser(response.data.user))
+          const posts = response.data.likedposts as Array<Number>
+
+          console.log(posts)
+          dispatch(setLikedPost(posts))
       })
       .catch(function (error) {
         console.log(error.response.data)        
       })
-      .then(function () {
-          // always executed
-      });
     }
 
     const loadPosts = () => {

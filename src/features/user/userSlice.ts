@@ -18,8 +18,8 @@ export const userSlice = createSlice({
             state.user = {} as User
             state.isSignedIn = false
         },
-        setLikedPost: (state: UserState, action: PayloadAction<Array<number>>) => {
-            state.user.likeposts = action.payload
+        setLikedPost: (state: UserState, action: PayloadAction<Array<Number>>) => {
+            state.user.likedposts = action.payload ? action.payload : [] as Array<Number>
         }
     }
 })
