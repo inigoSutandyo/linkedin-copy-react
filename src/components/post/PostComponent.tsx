@@ -11,7 +11,7 @@ import 'react-quill/dist/quill.bubble.css';
 import PostComment from './PostComment';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import axios from 'axios';
-import { addLikedPost, removeLikedPost, setLikedPost } from '../../features/user/userSlice';
+import { addLikedPost, removeLikedPost, setLikedPost, setUser } from '../../features/user/userSlice';
 import { ApiURL } from '../../utils/Server';
 import { resolve } from 'path';
 import { setPosts, updateSinglePost } from '../../features/post/postSlice';
@@ -22,10 +22,9 @@ type Props = {
 
 const PostComponent = (props: Props) => {
 
-  ReactModal.setAppElement("#home-page")
   const [comment, setComment] = useState(false)
   const [processing, setProcessing] = useState(false)
-
+  const [isLiked, setIsLiked] = useState(false)
   const handleOpenComment = () => {
     setComment(true)
   }
@@ -70,45 +69,63 @@ const PostComponent = (props: Props) => {
 
     setProcessing(true)
     if (user.likedposts.indexOf(props.post.ID) !== -1) {
+      console.log("dislike")
       dislikePost()
       .then((response: any) => {
         const num = response.data.likepost as Number
         const post = response.data.post as Post
+        setIsLiked(false)
         dispatch(removeLikedPost(num))
         dispatch(updateSinglePost(post))
-        setProcessing(false)
       })
       .catch((error: any) => {
         console.log(error)
+        
+      })
+      .finally(() => {
         setProcessing(false)
       })
     } else {
+      console.log("like")
+      console.log(isLiked)
       likePost()
       .then((response: any) => {
         const num = response.data.likepost as Number
         const post = response.data.post as Post
+        setIsLiked(true)
         dispatch(addLikedPost(num))
         dispatch(updateSinglePost(post))
-        setProcessing(false)
       })
       .catch((error: any) => {
         console.log(error)
+      }).finally(() => {
         setProcessing(false)
       })
     }
   }
 
   useEffect(() => {
-    // console.log(user.likedposts)
-  }, [user.likedposts])
+    console.log(user.likedposts)
+    if (user.likedposts.indexOf(props.post.ID) !== -1) {
+      setIsLiked(true)
+    } else {
+      setIsLiked(false)
+    }
+  }, [user])
   
+
 
   return (
     <>
       {props.post && props.post.content? (
         <div className='post-container'>
-          <div className='post-header'>
-            {props.post.user.email}
+          <div className='post-user'>
+            <div className='post-header'>
+              {props.post.user.firstname} {props.post.user.lastname}
+            </div>
+            <div className='post-subheader'>
+              {props.post.user.headline}
+            </div>
           </div>
           
           <div className='line-container'>
@@ -136,7 +153,7 @@ const PostComponent = (props: Props) => {
           </div>
           <div className='content-footer'>
             <div className='post-actions' onClick={handleLikePost}>
-              {user.likedposts?.indexOf(props.post.ID) !== -1 ? (
+              {isLiked ? (
                 <AiFillLike/>
               ) : (
                 <AiOutlineLike/>

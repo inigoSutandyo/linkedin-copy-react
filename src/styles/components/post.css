@@ -21,8 +21,17 @@
     font-size: small;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    padding: 4px 8px;
+    align-items: flex-start;
+}
+
+.post-subheader {
+    font-size: smaller;
+    color: #595959;
+}
+.post-user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .content-container {
