@@ -24,6 +24,7 @@ const PostComponent = (props: Props) => {
 
   ReactModal.setAppElement("#home-page")
   const [comment, setComment] = useState(false)
+  const [processing, setProcessing] = useState(false)
 
   const handleOpenComment = () => {
     setComment(true)
@@ -65,17 +66,21 @@ const PostComponent = (props: Props) => {
   })
 
   const handleLikePost = () => {
+    if (processing) return
+
+    setProcessing(true)
     if (user.likedposts.indexOf(props.post.ID) !== -1) {
       dislikePost()
       .then((response: any) => {
         const num = response.data.likepost as Number
         const post = response.data.post as Post
-        console.log(num)
         dispatch(removeLikedPost(num))
         dispatch(updateSinglePost(post))
+        setProcessing(false)
       })
       .catch((error: any) => {
         console.log(error)
+        setProcessing(false)
       })
     } else {
       likePost()
@@ -84,9 +89,11 @@ const PostComponent = (props: Props) => {
         const post = response.data.post as Post
         dispatch(addLikedPost(num))
         dispatch(updateSinglePost(post))
+        setProcessing(false)
       })
       .catch((error: any) => {
         console.log(error)
+        setProcessing(false)
       })
     }
   }

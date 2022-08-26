@@ -51,7 +51,7 @@ export const userSlice = createSlice({
                     newArr.splice(i, 1)
                 }
             }
-            console.log(newArr)
+            // console.log(newArr)
             return {
                 ...state,
                 user: {
