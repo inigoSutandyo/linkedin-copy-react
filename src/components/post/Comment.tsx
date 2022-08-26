@@ -16,6 +16,26 @@ const Comment = (props: Props) => {
   const [button, setButton] = useState(false)
   const [error, setError] = useState("")
 
+  
+  useEffect(() => {
+    axios.get(ApiURL("/home/post/comment/reply"), {
+      params: {
+        id: props.comment.ID
+      }
+    })
+    .then((response) => {
+      // console.log(response.data)
+      setReplies(response.data.replies)
+    }) 
+    .catch(function (error) {
+      console.log(error.response.data);        
+    })
+  }, [])
+  
+  const handleOpenReply = () => {
+    setOpenReply(true)
+  }
+
   function handleChange(content: any, delta: any, source: any, editor: any) {
     
     if (content.replace(/<(.|\n)*?>/g, '').trim().length > 1) setButton(true)
@@ -29,26 +49,27 @@ const Comment = (props: Props) => {
     setValue(content)
   }
 
-  useEffect(() => {
-    // console.log(props.postid)
-    axios.get(ApiURL("/home/post/comment/reply"), {
-      params: {
-        id: props.comment.ID
-      }
-    })
+  const handleAddReply = () => {
+    if (error !== "") return
+    if (value.replace(/<(.|\n)*?>/g, '').trim().length < 1) return 
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    axios.post(ApiURL("/home/post/comment/reply/add"), {
+      "content": value,
+      "commentid": props.comment.ID,
+    }, axiosConfig)
     .then((response) => {
-      console.log(response.data)
-      setReplies(response.data.replies)
+      console.log(response.data.reply)
     }) 
     .catch(function (error) {
       console.log(error.response.data);        
     })
-  }, [])
-
-  const handleOpenReply = () => {
-    setOpenReply(true)
+    setValue("")
   }
-
   return (
     <>
       <div className='comment-card'>
@@ -72,14 +93,19 @@ const Comment = (props: Props) => {
         {openReply ? (
           <div>
             <div id='editor-container' className='input-container'>
-            <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} bounds={"#editor-container"} style = {{
-              border: "1px solid rgba(0,0,0,.15)",
-              overflow: "auto",
-              minHeight: "28px",
-              maxHeight: "250px",
-              borderRadius: "32px"
-            }} placeholder={"Reply here"}/>
-         </div>
+              <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} bounds={"#editor-container"} style = {{
+                border: "1px solid rgba(0,0,0,.15)",
+                overflow: "auto",
+                minHeight: "28px",
+                maxHeight: "250px",
+                borderRadius: "32px"
+              }} placeholder={"Reply here"}/>
+            </div>
+            {button ? (
+              <div>
+                <button type="submit" onClick={handleAddReply}>Post</button>
+              </div>
+            ) : <></>}
           </div>
         ) : <></>}
         {replies && replies.length > 0 ? (

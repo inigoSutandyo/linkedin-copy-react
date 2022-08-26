@@ -22,7 +22,7 @@ declare global {
     attachments: string,
     likes: number,
     user: User,
-    comments: PostComment
+    comments: Array<PostComment>
   }
 
   type PostComment = {
@@ -31,6 +31,7 @@ declare global {
     likes: number,
     user: User,
     post: Post
+    replies: Array<PostReply>
   }
 
   type PostReply = {

@@ -105,7 +105,7 @@ const PostComponent = (props: Props) => {
   }
 
   useEffect(() => {
-    console.log(user.likedposts)
+    // console.log(user.likedposts)
     if (user.likedposts.indexOf(props.post.ID) !== -1) {
       setIsLiked(true)
     } else {
