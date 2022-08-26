@@ -11,8 +11,10 @@ import 'react-quill/dist/quill.bubble.css';
 import PostComment from './PostComment';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import axios from 'axios';
-import { setLikedPost } from '../../features/user/userSlice';
+import { addLikedPost, removeLikedPost, setLikedPost } from '../../features/user/userSlice';
 import { ApiURL } from '../../utils/Server';
+import { resolve } from 'path';
+import { setPosts, updateSinglePost } from '../../features/post/postSlice';
 
 type Props = {
   post: Post
@@ -34,48 +36,65 @@ const PostComponent = (props: Props) => {
   
 
   const dispatch = useAppDispatch() 
-  console.log(user.likedposts)
-  const likePost = () => {
-    const axiosConfig = {
-      withCredentials: true,
-      params: {
-        id: props.post.ID
-      }
-    }
 
-    if (user.likedposts.indexOf(props.post.ID) !== -1) {
-      axios.post(ApiURL("/home/post/dislike"), {}, axiosConfig)
-      .then((response) => {
-        const likedPosts = user.likedposts
-        for (let i = 0; i < likedPosts.length; i++) {
-          const like = likedPosts[i];
-          if (like === response.data.postId) {
-            likedPosts.splice(i, 1)
-            break
-          }
-          
-        }
-        dispatch(setLikedPost(likedPosts))
-      }).catch((error) => {
-        console.log(error.response)
-      }).then((response) => {
-        
-      }) 
-    } else {
-      console.log(props.post.ID)
-      axios.post(ApiURL("/home/post/like"), {}, axiosConfig)
-      .then((response) => {
-        console.log(response.data)
-        const likedPosts = user.likedposts
-        likedPosts.push(response.data.likepost)
-        dispatch(setLikedPost(likedPosts))
-      }).catch((error) => {
-        console.log(error.response)
-      }).then((response) => {
-        
-      }) 
+  const axiosConfig = {
+    withCredentials: true,
+    params: {
+      id: props.post.ID
     }
   }
+  
+  const dislikePost = () => new Promise((resolve: any, reject: any)=> {
+    axios.post(ApiURL("/home/post/dislike"), {}, axiosConfig)
+      .then((response) => {
+        resolve(response)
+        
+      }).catch((error) => {
+        reject(error)
+      
+      })
+  })
+
+  const likePost = () => new Promise((resolve: any, reject: any) => {
+    axios.post(ApiURL("/home/post/like"), {}, axiosConfig)
+    .then((response) => {
+      resolve(response)
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+
+  const handleLikePost = () => {
+    if (user.likedposts.indexOf(props.post.ID) !== -1) {
+      dislikePost()
+      .then((response: any) => {
+        const num = response.data.likepost as Number
+        const post = response.data.post as Post
+        console.log(num)
+        dispatch(removeLikedPost(num))
+        dispatch(updateSinglePost(post))
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
+    } else {
+      likePost()
+      .then((response: any) => {
+        const num = response.data.likepost as Number
+        const post = response.data.post as Post
+        dispatch(addLikedPost(num))
+        dispatch(updateSinglePost(post))
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
+    }
+  }
+
+  useEffect(() => {
+    // console.log(user.likedposts)
+  }, [user.likedposts])
+  
 
   return (
     <>
@@ -109,7 +128,7 @@ const PostComponent = (props: Props) => {
             <hr className='line'/>
           </div>
           <div className='content-footer'>
-            <div className='post-actions' onClick={likePost}>
+            <div className='post-actions' onClick={handleLikePost}>
               {user.likedposts?.indexOf(props.post.ID) !== -1 ? (
                 <AiFillLike/>
               ) : (

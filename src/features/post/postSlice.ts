@@ -12,8 +12,12 @@ export const postSlice = createSlice({
         addPost: (state: Array<Post>, action: PayloadAction<Post>) => {
             state.push(action.payload)
         },
+        updateSinglePost: (state: Array<Post>, action: PayloadAction<Post>) => {
+            const newState = state.map(p => p.ID === action.payload.ID ? {...action.payload} : p)
+            return [...newState]
+        }
     }
 })
 
-export const { setPosts, addPost } = postSlice.actions;
+export const { setPosts, addPost, updateSinglePost } = postSlice.actions;
 export default postSlice.reducer;

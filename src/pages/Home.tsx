@@ -45,8 +45,8 @@ const Home = (props: Props) => {
           dispatch(setLikedPost(posts))
       })
       .catch(function (error) {
-        console.log(error.response.data)        
-      })
+        console.log(error)        
+      }).then(() => {})
     }
 
     const loadPosts = () => {

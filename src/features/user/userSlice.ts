@@ -3,7 +3,7 @@ import { Reducer } from "react";
 
 const initialState : UserState = {
     isSignedIn: false,
-    user: {} as User
+    user: {} as User,
 }
 
 export const userSlice = createSlice({
@@ -12,7 +12,7 @@ export const userSlice = createSlice({
     reducers: {
         setUser: (state: UserState, action: PayloadAction<User>) => {
             return {
-                isSignedIn: true,
+                ...state,
                 user: action.payload
             }
         },
@@ -23,10 +23,45 @@ export const userSlice = createSlice({
             }
         },
         setLikedPost: (state: UserState, action: PayloadAction<Array<Number>>) => {
-            state.user.likedposts = action.payload ? action.payload : [] as Array<Number>
-        }
+            const arr = action.payload ? action.payload : [] as Array<Number>
+    
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    likedposts: arr
+                }
+            }
+        },
+        addLikedPost: (state: UserState, action: PayloadAction<Number>) => {
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    likedposts: [...state.user.likedposts, action.payload]
+                }
+            }
+        },
+        removeLikedPost: (state: UserState, action: PayloadAction<Number>) => {
+            const newArr = [] as Array<Number>
+            for (let i = 0; i < state.user.likedposts.length; i++) {
+                const element = state.user.likedposts[i];
+                if (element === action.payload) {
+                    newArr.push(...state.user.likedposts)
+                    newArr.splice(i, 1)
+                }
+            }
+            console.log(newArr)
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    likedposts: [...newArr]
+                }
+            }
+        }, 
     }
 })
 
-export const { setUser, logoutUser, setLikedPost } = userSlice.actions;
+export const { setUser, logoutUser, setLikedPost, addLikedPost, removeLikedPost } = userSlice.actions;
 export default userSlice.reducer;
