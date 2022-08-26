@@ -7,7 +7,7 @@ export const postSlice = createSlice({
     initialState: initialState,
     reducers: {
         setPosts: (state: Array<Post>, action: PayloadAction<Array<Post>>) => {
-            return action.payload 
+            return [...action.payload ]
         },
         addPost: (state: Array<Post>, action: PayloadAction<Post>) => {
             state.push(action.payload)

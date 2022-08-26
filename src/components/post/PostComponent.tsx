@@ -17,7 +17,8 @@ import { resolve } from 'path';
 import { setPosts, updateSinglePost } from '../../features/post/postSlice';
 
 type Props = {
-  post: Post
+  post: Post,
+  index: number
 }
 
 const PostComponent = (props: Props) => {
@@ -175,7 +176,7 @@ const PostComponent = (props: Props) => {
           </div>
           {comment ? (
             <div className='comment-container'>
-              <PostComment postid={props.post.ID}/>
+              <PostComment postid={props.post.ID} index={props.index}/>
             </div>
           ) : <></>}
         </div>

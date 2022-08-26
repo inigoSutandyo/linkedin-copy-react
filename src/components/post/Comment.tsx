@@ -9,7 +9,7 @@ type Props = {
 }
 
 const Comment = (props: Props) => {
-  const [replies, setReplies] = useState<Array<PostReply>>()
+  const [replies, setReplies] = useState<Array<PostReply>>([])
   const [openReply, setOpenReply] = useState(false)
   
   const [value, setValue] = useState("")
@@ -25,7 +25,7 @@ const Comment = (props: Props) => {
     })
     .then((response) => {
       // console.log(response.data)
-      setReplies(response.data.replies)
+      setReplies([...response.data.replies])
     }) 
     .catch(function (error) {
       console.log(error.response.data);        
@@ -63,6 +63,7 @@ const Comment = (props: Props) => {
       "commentid": props.comment.ID,
     }, axiosConfig)
     .then((response) => {
+      setReplies([...replies, response.data.reply])
       console.log(response.data.reply)
     }) 
     .catch(function (error) {

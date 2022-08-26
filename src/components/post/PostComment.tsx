@@ -1,12 +1,14 @@
 import axios from 'axios'
 import {useState, useEffect, useRef} from 'react'
 import ReactQuill ,{QuillOptions} from 'react-quill'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 
 import { ApiURL } from '../../utils/Server'
 import Comment from './Comment'
 
 type Props = {
-  postid: number
+  postid: number,
+  index: number,
 }
 
 const PostComment = (props: Props) => {
@@ -14,7 +16,7 @@ const PostComment = (props: Props) => {
   const [value, setValue] = useState("")
   const [button, setButton] = useState(false)
   const [error, setError] = useState("")
-  const [comments, setComments] = useState<Array<PostComment>>()
+  const [comments, setComments] = useState<Array<PostComment>>([])
 
   function handleChange(content: any, delta: any, source: any, editor: any) {
     
@@ -39,7 +41,8 @@ const PostComment = (props: Props) => {
     })
     .then((response) => {
       console.log(response.data)
-      setComments(response.data.comments)
+      setComments([...response.data.comments])
+
     }) 
     .catch(function (error) {
       console.log(error.response.data);        
@@ -65,7 +68,9 @@ const PostComment = (props: Props) => {
       "postid": props.postid,
     }, axiosConfig)
     .then((response) => {
+      setComments([...comments, response.data.comment])
       console.log(response.data)
+
     }) 
     .catch(function (error) {
       console.log(error.response.data);        

@@ -99,7 +99,7 @@ const Home = (props: Props) => {
                   <>
                     {posts.map((p,i) => {
                       return (
-                        <PostComponent post={p} key={i}/>
+                        <PostComponent post={p} key={i} index={i}/>
                       )
                     })}
                   </>
