@@ -12,6 +12,8 @@ import PostComponent from '../components/post/PostComponent'
 import ProfileDisplay from '../components/user/ProfileDisplay'
 import ModalComponent from '../components/ModalComponent'
 import { setPosts } from '../features/post/postSlice'
+import { checkAuth } from '../utils/Auth'
+import { Cookies } from 'react-cookie'
 
 type Props = {}
 
@@ -20,6 +22,7 @@ const axiosConfig = {
 }
 const Home = (props: Props) => {
 
+  const navigate = useNavigate()
   const user = useAppSelector((state) => state.user.user)
   const posts = useAppSelector((state) => state.post)
   const dispatch = useAppDispatch() 
@@ -30,9 +33,14 @@ const Home = (props: Props) => {
   }
 
   useEffect(() => {
+    const cookie = new Cookies()
+
+    if (!cookie.get("auth")) {
+      navigate("/auth/login")
+    }
     const loadUser = () => {
       const axiosConfig = {
-          withCredentials: true,
+        withCredentials: true,
       }
 
       axios.get(ApiURL("/user/profile"), axiosConfig)
@@ -45,6 +53,7 @@ const Home = (props: Props) => {
           dispatch(setLikedPost(posts))
       })
       .catch(function (error) {
+        navigate('/auth/login')
         console.log(error)        
       }).then(() => {})
     }

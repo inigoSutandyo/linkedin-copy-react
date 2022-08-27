@@ -19,26 +19,22 @@ export const checkSignIn = (target: boolean) => {
     
 }
 
+
 export const checkAuth = () => {
-    const navigate = useNavigate()
+    let isAuth = false
     const axiosConfig = {
         withCredentials: true,
     }
     axios.get(ApiURL("/auth/isauth"), axiosConfig)
     .then(function (response) {
-        if (response.data.status === true) {
-            navigate('/')
-        }
+        isAuth = response.data.status
     })
     .catch(function (error) {
-        // handle error
-        console.clear()
         console.log(error.response.data);
-        if (error.response.data.status === true) {
-            navigate('/')
-        }
+        isAuth = error.response.data.status
     })
     .then(function () {
         // always executed
     });
+    return isAuth
 }

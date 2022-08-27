@@ -15,7 +15,12 @@ const Login = (props: Props) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   
-  checkAuth()
+  useEffect(() => {
+    if (checkAuth()) {
+      navigate("/")
+    }
+  }, [])
+  
   
 
   const submit = (e: SyntheticEvent) => {
@@ -55,6 +60,7 @@ const Login = (props: Props) => {
         const isError = response.data.isError;
         if (!isError) {
           navigate("/");
+          window.location.reload()
         } else {
           setError(msg);
         }
