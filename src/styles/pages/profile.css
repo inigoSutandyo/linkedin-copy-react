@@ -21,10 +21,35 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 16px;
+    /* padding: 16px; */
     border-radius: 12px;
     margin-top: 8px;
     border: 1px solid ;
+}
+
+.user-banner {
+    display: inline-block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.user-img {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin-top: -100px;
+    margin-left: 20px;
+    border: 5px solid white;
 }
 
 .secondary-container {
@@ -38,7 +63,9 @@
 .edit-profile {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
+    align-self: flex-end;
+    width: 95%;
+    margin-right: 12px;
 }
 
 .user-info {
@@ -59,3 +86,8 @@
     font-weight: lighter;
     color: rgb(126, 126, 126);
 }
+
+/* .img-container {
+
+} */
+

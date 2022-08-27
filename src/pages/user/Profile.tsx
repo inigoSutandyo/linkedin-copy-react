@@ -10,6 +10,8 @@ import '../../styles/pages/profile.css'
 import { MdModeEditOutline } from 'react-icons/md'
 import { IconContext } from 'react-icons'
 import ModalComponent from '../../components/ModalComponent'
+import placeholderProfile from '../../assets/placeholders/user.png'
+import placeholderBanner from '../../assets/placeholders/banner.jpg'
 
 interface Props {
 }
@@ -53,6 +55,8 @@ const Profile = (props: Props) => {
       <div className='profile-layout'>
         <div className='main-container'>
           <div className='main-content'>
+            <div className='user-banner' style={{backgroundImage:`url(${placeholderBanner})`}}></div>
+            <div className='user-img' style={{backgroundImage:`url(${placeholderProfile})`}}></div>
             <div className='edit-profile' onClick={() => setModal(true)}>
               <IconContext.Provider value={{
                 size: "24px"
@@ -61,10 +65,12 @@ const Profile = (props: Props) => {
               </IconContext.Provider>
               {/* <button onClick={() => setModal(true)} className="btn-primary w-8">Update Profile</button> */}
             </div>
-            <div className='user-info'>
-              <h1>{user.firstname} {user.lastname}</h1>
-              <h3>{user.headline}</h3>
-              <p>{user.email}</p>
+            <div className='p-4'>
+              <div className='user-info'>
+                <h1>{user.firstname} {user.lastname}</h1>
+                <h3>{user.headline}</h3>
+                <p>{user.email}</p>
+              </div>
             </div>
           </div>
         </div>
