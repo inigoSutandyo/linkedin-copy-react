@@ -110,10 +110,20 @@ const Comment = (props: Props) => {
           </div>
         ) : <></>}
         {replies && replies.length > 0 ? (
-          <div className='reply-cards'>
+          <div>
             {replies?.map((r) => (
               <div key={r.ID}>
-                {HTMLReactParser(r.content)}
+                <div className='reply-cards'>
+                  {HTMLReactParser(r.content)}
+                </div>
+                <div className='comment-card-actions'>
+                  <div className='card-action'>
+                    Like
+                  </div>
+                  <div className='card-action' onClick={handleOpenReply}>
+                    Reply
+                  </div>
+                </div>
               </div>
             ))}
           </div>
