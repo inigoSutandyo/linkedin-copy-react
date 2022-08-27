@@ -16,7 +16,8 @@ type User = {
 }
 
 interface Props {
-  user: User  
+  user: User ,
+  closeModal: any,
 }
 
 const AddPost = (props: Props) => {
@@ -57,6 +58,7 @@ const AddPost = (props: Props) => {
     .then((response) => {
         dispatch(addPost(response.data.post))
         console.log(response.data)
+        props.closeModal()
     })  
     .catch(function (error) {
         console.log(error.response.data);        

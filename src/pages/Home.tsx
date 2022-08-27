@@ -31,6 +31,44 @@ const Home = (props: Props) => {
   const closeModal = () => {
     setModal(false)
   }
+  const loadUser = () => {
+    const axiosConfig = {
+      withCredentials: true,
+    }
+
+    axios.get(ApiURL("/user/profile"), axiosConfig)
+    .then(function (response) {
+        console.log(response.data)
+        dispatch(setUser(response.data.user))
+        const posts = response.data.likedposts as Array<Number>
+
+        console.log(posts)
+        dispatch(setLikedPost(posts))
+    })
+    .catch(function (error) {
+      navigate('/auth/login')
+      console.log(error)        
+    }).then(() => {})
+  }
+
+  const loadPosts = () => {
+    axios.get(ApiURL("/home/post"), {
+      withCredentials: true,
+      params: {
+        limit: 3
+      }
+    })
+    .then(function (response) {
+      console.log(response.data)
+      dispatch(setPosts(response.data.posts))
+    })
+    .catch(function (error) {
+      console.log(error.response.data)        
+    })
+    .then(function () {
+        // always executed
+    });
+  }
 
   useEffect(() => {
     const cookie = new Cookies()
@@ -38,39 +76,7 @@ const Home = (props: Props) => {
     if (!cookie.get("auth")) {
       navigate("/auth/login")
     }
-    const loadUser = () => {
-      const axiosConfig = {
-        withCredentials: true,
-      }
-
-      axios.get(ApiURL("/user/profile"), axiosConfig)
-      .then(function (response) {
-          console.log(response.data)
-          dispatch(setUser(response.data.user))
-          const posts = response.data.likedposts as Array<Number>
-
-          console.log(posts)
-          dispatch(setLikedPost(posts))
-      })
-      .catch(function (error) {
-        navigate('/auth/login')
-        console.log(error)        
-      }).then(() => {})
-    }
-
-    const loadPosts = () => {
-      axios.get(ApiURL("/home/post"), axiosConfig)
-      .then(function (response) {
-        console.log(response.data)
-        dispatch(setPosts(response.data.posts))
-      })
-      .catch(function (error) {
-        console.log(error.response.data)        
-      })
-      .then(function () {
-          // always executed
-      });
-    }
+     
     loadUser()
     loadPosts()
     console.log(posts)
@@ -121,7 +127,7 @@ const Home = (props: Props) => {
             </div>
             
             <ModalComponent isOpen={modal} closeModal={closeModal} contentLabel={"Add Post"} appElement={"#home-page"}>
-              <AddPost user={user}/>
+              <AddPost user={user} closeModal={closeModal}/>
             </ModalComponent>
           </>
         ) : (
