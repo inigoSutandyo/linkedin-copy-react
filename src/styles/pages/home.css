@@ -50,6 +50,10 @@
     border: none;
 }
 
+.infinite-scroll-component__outerdiv {
+    width: 100%;
+}
+
 @media only screen and (max-width: 1200px) {
     .home-container {
         min-width: none;

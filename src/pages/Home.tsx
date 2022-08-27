@@ -11,9 +11,11 @@ import { useNavigate } from 'react-router-dom'
 import PostComponent from '../components/post/PostComponent'
 import ProfileDisplay from '../components/user/ProfileDisplay'
 import ModalComponent from '../components/ModalComponent'
-import { setPosts } from '../features/post/postSlice'
+import { appendPost, setPosts } from '../features/post/postSlice'
 import { checkAuth } from '../utils/Auth'
 import { Cookies } from 'react-cookie'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import Loading from '../components/Loading'
 
 type Props = {}
 
@@ -21,6 +23,11 @@ const axiosConfig = {
   withCredentials: true,
 }
 const Home = (props: Props) => {
+  const limit = 5
+
+  const [hasMore, setHasMore] = useState(true)
+  const [offset, setOffset] = useState(0)
+
 
   const navigate = useNavigate()
   const user = useAppSelector((state) => state.user.user)
@@ -52,21 +59,29 @@ const Home = (props: Props) => {
   }
 
   const loadPosts = () => {
+    // console.log(posts.length)
     axios.get(ApiURL("/home/post"), {
       withCredentials: true,
       params: {
-        limit: 3
+        offset: offset,
+        limit: limit
       }
     })
     .then(function (response) {
-      console.log(response.data)
-      dispatch(setPosts(response.data.posts))
+      console.log(posts.length)
+      if (posts && posts.length > 0) {
+        dispatch(appendPost(response.data.posts))
+      } else {
+        dispatch(setPosts(response.data.posts))
+      }
+      setOffset(offset + limit)
+      setHasMore(response.data.hasmore)
     })
     .catch(function (error) {
       console.log(error.response.data)        
     })
     .then(function () {
-        // always executed
+        console.log(posts)
     });
   }
 
@@ -81,8 +96,6 @@ const Home = (props: Props) => {
     loadPosts()
     console.log(posts)
   }, [])
-  
-
 
   return (
     <div id='home-page'>
@@ -110,15 +123,30 @@ const Home = (props: Props) => {
                 </button>
               </div>
               <div className='home-main-content'>
-                {posts ? (
-                  <>
-                    {posts.map((p,i) => {
-                      return (
-                        <PostComponent post={p} key={i} index={i}/>
-                      )
-                    })}
-                  </>
-                ) : <>No Post</>}
+                <InfiniteScroll
+                  dataLength={posts.length}
+                  next={loadPosts}
+                  hasMore={hasMore}
+                  loader={<Loading/>}
+                  style={{
+                    minWidth: "100%",
+                  }}
+                  endMessage={
+                    <p style={{ textAlign: "center" }}>
+                      <b>Congratulations! You have seen it all</b>
+                    </p>
+                  }
+                >
+                  {posts ? (
+                    <>
+                      {posts.map((p,i) => {
+                        return (
+                          <PostComponent post={p} key={i} index={i}/>
+                        )
+                      })}
+                    </>
+                  ) : <>No Post</>}
+                </InfiniteScroll>
               </div>
             </div>
 
