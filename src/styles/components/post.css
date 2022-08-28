@@ -21,7 +21,23 @@
     font-size: small;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: flex-end;
+}
+
+.post-header-image {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.post-header-name {
+    margin-left: 5px;
+    display: flex;
 }
 
 .post-subheader {

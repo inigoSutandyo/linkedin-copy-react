@@ -1,20 +1,19 @@
 import {useState, useEffect} from 'react'
 import parse from 'html-react-parser';
-import "../../styles/components/post.css"
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai'
 import { FaRegCommentDots } from 'react-icons/fa'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { IoIosSend } from 'react-icons/io'
 import { IconContext } from 'react-icons';
-import ReactModal from 'react-modal';
 import 'react-quill/dist/quill.bubble.css';
 import PostComment from './PostComment';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import axios from 'axios';
 import { addLikedPost, removeLikedPost, setLikedPost, setUser } from '../../features/user/userSlice';
 import { ApiURL } from '../../utils/Server';
-import { resolve } from 'path';
-import { setPosts, updateSinglePost } from '../../features/post/postSlice';
+import { updateSinglePost } from '../../features/post/postSlice';
+import PostUser from './PostUser';
+import "../../styles/components/post.css"
 
 type Props = {
   post: Post,
@@ -120,15 +119,7 @@ const PostComponent = (props: Props) => {
     <>
       {props.post && props.post.content? (
         <div className='post-container'>
-          <div className='post-user'>
-            <div className='post-header'>
-              {props.post.user.firstname} {props.post.user.lastname}
-            </div>
-            <div className='post-subheader'>
-              {props.post.user.headline}
-            </div>
-          </div>
-          
+          <PostUser user={props.post.user}/>          
           <div className='line-container'>
             <hr className='line'/>
           </div>

@@ -77,7 +77,7 @@ const Home = (props: Props) => {
       }
     })
     .then(function (response) {
-      // console.log(posts.length)
+
       if (posts && posts.length > 0) {
         dispatch(appendPost(response.data.posts))
       } else {
@@ -90,7 +90,6 @@ const Home = (props: Props) => {
       console.log(error.response.data)        
     })
     .then(function () {
-        // console.log(posts)
     });
   }
 
@@ -103,7 +102,6 @@ const Home = (props: Props) => {
      
     loadUser()
     loadPosts()
-    // console.log(posts)
   }, [])
 
   return (
