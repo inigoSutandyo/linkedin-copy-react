@@ -55,10 +55,8 @@ const Home = (props: Props) => {
           user.imageUrl = `data:${type};base64,` + response.data.user.image
         }
         dispatch(setUser(user))
-        // console.log(user)
-        const posts = response.data.likedposts as Array<Number>
 
-        // console.log(posts)
+        const posts = response.data.likedposts as Array<Number>
         dispatch(setLikedPost(posts))
     })
     .catch(function (error) {

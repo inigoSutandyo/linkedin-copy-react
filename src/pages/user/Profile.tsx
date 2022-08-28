@@ -19,7 +19,7 @@ interface Props {}
 const Profile = (props: Props) => {
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
-
+  
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
@@ -40,8 +40,14 @@ const Profile = (props: Props) => {
       axios
         .get(ApiURL("/user/profile"), axiosConfig)
         .then(function (response) {
-          console.log(response.data.user);
-          dispatch(setUser(response.data.user));
+          const user = response.data.user as User
+          const type = response.data.image_type 
+          if (!type.startsWith('image')) {
+            user.imageUrl = placeholderProfile
+          } else {
+            user.imageUrl = `data:${type};base64,` + response.data.user.image
+          }
+          dispatch(setUser(user))
         })
         .catch(function (error) {
           console.log(error.response.data);
@@ -66,7 +72,7 @@ const Profile = (props: Props) => {
             ></div>
             <div
               className="user-img"
-              style={{ backgroundImage: `url(${placeholderProfile})` }}
+              style={{ backgroundImage: `url(${user.imageUrl})` }}
               onClick={() => handleOpenModal("Profile Picture")}
             ></div>
             <div
