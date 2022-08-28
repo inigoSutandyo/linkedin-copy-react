@@ -47,7 +47,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    flex-wrap: wrap;
     padding: 2px 4px;
+}
+
+.post-content > p {
+    word-break: break-all;
+    white-space: normal;
 }
 
 .line-container {
