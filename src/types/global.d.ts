@@ -8,6 +8,7 @@ declare global {
     headline: string
     email: string
     phone: string
+    imageUrl: string
     likedposts: Array<Number>
   }
 

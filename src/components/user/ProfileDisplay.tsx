@@ -19,6 +19,7 @@ const ProfileDisplay = (props: Props) => {
       }}>
         {user.headline}
       </p>
+      {/* <img src="{}" alt="" /> */}
     </div>
   )
 }

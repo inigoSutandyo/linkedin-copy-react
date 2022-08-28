@@ -148,3 +148,10 @@
 .card-action:hover {
     background-color: rgba(197, 197, 197, 0.3);
 }
+
+.image-preview {
+    width: 100%;
+    display: flex;
+    justify-items: center;
+    margin: 12px;
+}
