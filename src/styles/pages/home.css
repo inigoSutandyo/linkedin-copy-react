@@ -24,7 +24,7 @@
     flex-grow: 2;
 }
 
-.container-grow-4 {
+.container-grow-5 {
     flex-grow: 5;
 }
 
@@ -57,5 +57,19 @@
 @media only screen and (max-width: 1200px) {
     .home-container {
         min-width: none;
+    }
+    .container-grow-2 {
+        visibility: hidden;
+    }
+
+    #profile-preview {
+        visibility: hidden;
+        display: none;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #others-preview {
+        visibility: hidden;
+        display: none;
     }
 }

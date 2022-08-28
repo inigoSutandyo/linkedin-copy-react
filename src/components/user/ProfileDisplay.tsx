@@ -1,13 +1,17 @@
 import React from 'react'
 import { useAppSelector } from '../../app/hooks'
-
+import "../../styles/pages/profile.css";
 type Props = {}
 
 const ProfileDisplay = (props: Props) => {
   const user = useAppSelector((state) => state.user.user)
   
   return (
-    <div>
+    <div className='profile-display'>
+      <div
+        className="user-img-display"
+        style={{ backgroundImage: `url(${user.imageUrl})` }}
+      ></div>
       <p>
         {user.email}
       </p>
@@ -19,7 +23,6 @@ const ProfileDisplay = (props: Props) => {
       }}>
         {user.headline}
       </p>
-      {/* <img src="{}" alt="" /> */}
     </div>
   )
 }

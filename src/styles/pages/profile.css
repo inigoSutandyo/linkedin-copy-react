@@ -91,3 +91,20 @@
 
 } */
 
+.profile-display {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.user-img-display {
+    display: inline-block;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}

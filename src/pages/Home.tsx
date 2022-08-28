@@ -45,11 +45,19 @@ const Home = (props: Props) => {
 
     axios.get(ApiURL("/user/profile"), axiosConfig)
     .then(function (response) {
-        console.log(response.data)
-        dispatch(setUser(response.data.user))
+        // console.log(response.data)
+        const user = response.data.user as User
+        const type = response.data.image_type 
+        if (!type.startsWith('image')) {
+          user.imageUrl = ''
+        } else {
+          user.imageUrl = `data:${type};base64,` + response.data.user.image
+        }
+        dispatch(setUser(user))
+        // console.log(user)
         const posts = response.data.likedposts as Array<Number>
 
-        console.log(posts)
+        // console.log(posts)
         dispatch(setLikedPost(posts))
     })
     .catch(function (error) {
@@ -68,7 +76,7 @@ const Home = (props: Props) => {
       }
     })
     .then(function (response) {
-      console.log(posts.length)
+      // console.log(posts.length)
       if (posts && posts.length > 0) {
         dispatch(appendPost(response.data.posts))
       } else {
@@ -81,7 +89,7 @@ const Home = (props: Props) => {
       console.log(error.response.data)        
     })
     .then(function () {
-        console.log(posts)
+        // console.log(posts)
     });
   }
 
@@ -94,7 +102,7 @@ const Home = (props: Props) => {
      
     loadUser()
     loadPosts()
-    console.log(posts)
+    // console.log(posts)
   }, [])
 
   return (
@@ -103,15 +111,14 @@ const Home = (props: Props) => {
       <div className='my-3 home-layout'>
         {user ? (
           <>
-            <div className='container-grow-1 home-container bg-white' style={{
+            <div className='container-grow-2 home-container bg-white' id='profile-preview' style={{
               maxHeight: "256px",
               position: "sticky"
             }}>
                 <ProfileDisplay/>
-                {/* {user.email} */}
             </div>
 
-            <div className='container-grow-4 home-container '>  
+            <div className='container-grow-5 home-container '>  
               <div className='container-header bg-white'>
                 <button className='btn-primary-outline' style={{
                   marginTop: "10px",
@@ -150,7 +157,7 @@ const Home = (props: Props) => {
               </div>
             </div>
 
-            <div className='container-grow-3 home-container bg-white'>
+            <div className='container-grow-3 home-container bg-white' id='others-preview'>
               <p>Hei</p>
             </div>
             
