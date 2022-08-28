@@ -30,6 +30,13 @@
     margin-bottom: 16px;
 }
 
+.input-container-row {
+    display: flex;
+    flex-direction: row;
+    margin: 12px 8px 16px 8px;
+    align-items: center;
+}
+
 .editor-container {
     display: flex;
     flex-direction: column;
@@ -55,4 +62,11 @@
 
 .form-label-light {
     color: rgba(78, 78, 78, 0.86)
+}
+
+.form-preview-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 12px 3px;
 }

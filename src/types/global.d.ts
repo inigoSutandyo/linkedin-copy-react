@@ -25,6 +25,9 @@ declare global {
     attachments: string,
     likes: number,
     user: User,
+    file: Uint8Array,
+    fileUrl: string,
+    mime: string,
     comments: Array<PostComment>
   }
 

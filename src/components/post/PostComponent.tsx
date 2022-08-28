@@ -25,6 +25,14 @@ const PostComponent = (props: Props) => {
   const [comment, setComment] = useState(false)
   const [processing, setProcessing] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
+  const [imageUrl, setImageUrl] = useState("")
+  useEffect(() => {
+    if (props.post.mime && props.post.mime.startsWith("image")) {
+      setImageUrl(`data:${props.post.mime};base64,` + props.post.file)
+    }
+  }, [])
+  
+
   const handleOpenComment = () => {
     setComment(true)
   }
@@ -129,7 +137,17 @@ const PostComponent = (props: Props) => {
               {parse(props.post.content)}
             </div>
           </div>
-          
+          <div style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            width: "100%",
+            margin: "8px"
+          }}>
+            <img src={imageUrl} alt="" style={{
+              width: "95%",
+              maxWidth: "300px"
+            }}/>
+          </div>
           <div className='like-count'>
             <IconContext.Provider value={{
               color: "blue"
