@@ -3,6 +3,7 @@ import HTMLReactParser from 'html-react-parser'
 import {useEffect, useState} from 'react'
 import ReactQuill from 'react-quill'
 import { ApiURL } from '../../utils/Server'
+import PostUser from './PostUser'
 
 type Props = {
     comment: PostComment
@@ -74,10 +75,7 @@ const Comment = (props: Props) => {
   return (
     <>
       <div className='comment-card'>
-          {props.comment.user.email}
-          <p>
-              {props.comment.user.headline}
-          </p>
+          <PostUser user={props.comment.user}/>
           <div>
               {HTMLReactParser(props.comment.content)}
           </div>
@@ -114,6 +112,7 @@ const Comment = (props: Props) => {
             {replies?.map((r) => (
               <div key={r.ID}>
                 <div className='reply-cards'>
+                  <PostUser user={props.comment.user}/>
                   {HTMLReactParser(r.content)}
                 </div>
                 <div className='comment-card-actions'>
