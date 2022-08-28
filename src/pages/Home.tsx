@@ -16,6 +16,7 @@ import { checkAuth } from '../utils/Auth'
 import { Cookies } from 'react-cookie'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/Loading'
+import placeholderProfile from "../assets/placeholders/user.png";
 
 type Props = {}
 
@@ -49,7 +50,7 @@ const Home = (props: Props) => {
         const user = response.data.user as User
         const type = response.data.image_type 
         if (!type.startsWith('image')) {
-          user.imageUrl = ''
+          user.imageUrl = placeholderProfile
         } else {
           user.imageUrl = `data:${type};base64,` + response.data.user.image
         }
