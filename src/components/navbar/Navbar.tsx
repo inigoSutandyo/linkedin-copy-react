@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { SyntheticEvent, useEffect, useState } from "react";
+import { generatePath, Link, useNavigate } from "react-router-dom";
 import '../../styles/components/nav.css'
 import '../../styles/forms/form.css'
 import iconImg from "../../assets/logos/linkedin_secondary.png"
@@ -10,9 +10,14 @@ import { logoutUser } from "../../features/user/userSlice"
 import { FaBell, FaBriefcase, FaHome, FaRegCommentDots, FaUserFriends } from "react-icons/fa";
 type Props = {};
 
+
+
 const Navbar = (props: Props) => {
 
   const navigate = useNavigate()
+
+  const [queryParam, setQueryParam] = useState("")
+
   const auth = useAppSelector((state) => state.user.isSignedIn)
   const dispatch = useAppDispatch() 
 
@@ -42,6 +47,17 @@ const Navbar = (props: Props) => {
     });
   }
 
+  const onChange = (e: SyntheticEvent) => {
+    const target = e.target as HTMLInputElement
+    setQueryParam(target.value)
+  }
+
+  function search(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key != "Enter") return 
+    if (queryParam == "") return
+    navigate(`/search/${queryParam}`)
+  }
+
   return (
     <nav className="py-3 bg-white">
       <div className="nav-main">
@@ -53,7 +69,7 @@ const Navbar = (props: Props) => {
               </Link>
             </li>
             <li className="list-hover mx-2 color-black">
-              <input type="text" name="" id="" placeholder="Search" className="search-nav"/>
+              <input type="text" name="" id="" placeholder="Search" className="search-nav" onKeyDown={search} onChange={onChange}/>
             </li>
           </ul>
         </div>
