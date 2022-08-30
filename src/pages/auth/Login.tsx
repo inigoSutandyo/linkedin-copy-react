@@ -60,7 +60,7 @@ const Login = (props: Props) => {
         const isError = response.data.isError;
         if (!isError) {
           navigate("/");
-          window.location.reload()
+          // window.location.reload()
         } else {
           setError(msg);
         }

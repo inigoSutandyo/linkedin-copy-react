@@ -10,7 +10,7 @@ const ProfileDisplay = (props: Props) => {
     <div className='profile-display'>
       <div
         className="user-img-display"
-        style={{ backgroundImage: `url(${user.imageUrl})` }}
+        style={{ backgroundImage: `url(${user.imageurl})` }}
       ></div>
       <p>
         {user.email}

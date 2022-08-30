@@ -13,11 +13,11 @@ const PostUser = (props: Props) => {
   const fileReader = new FileReader()
   useEffect(() => {
     const user = props.user
-    if (!user.image) {
+    if (!user.imageurl || user.imageurl == "") {
         setImageUrl(placeholder)
         return
     } else {
-        setImageUrl(`data:${user.imagemime};base64,` + user.image)
+        setImageUrl(user.imageurl)
     }   
     
   }, [])

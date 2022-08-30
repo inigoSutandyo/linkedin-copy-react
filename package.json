@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.4.2",
+    "@cloudinary/url-gen": "^1.8.6",
     "@reduxjs/toolkit": "^1.8.5",
     "@types/quill": "^2.0.9",
     "@types/react-modal": "^3.13.1",

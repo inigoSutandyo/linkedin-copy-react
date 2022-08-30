@@ -46,13 +46,10 @@ const Home = (props: Props) => {
 
     axios.get(ApiURL("/user/profile"), axiosConfig)
     .then(function (response) {
-        // console.log(response.data)
+        console.log(response.data)
         const user = response.data.user as User
-        const type = response.data.image_type 
-        if (!type.startsWith('image')) {
-          user.imageUrl = placeholderProfile
-        } else {
-          user.imageUrl = `data:${type};base64,` + response.data.user.image
+        if (user.imageurl == "" || !user.imageurl) {
+          user.imageurl = placeholderProfile
         }
         dispatch(setUser(user))
 
@@ -85,7 +82,7 @@ const Home = (props: Props) => {
       setHasMore(response.data.hasmore)
     })
     .catch(function (error) {
-      console.log(error.response.data)        
+      console.log(error)        
     })
     .then(function () {
     });

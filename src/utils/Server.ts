@@ -1,4 +1,8 @@
-export const ApiURL = (route: string) => {
+export const ApiURL = (path: string) => {
     const api = "http://localhost:8080/api"
-    return api+route
+    return api+path
+}
+
+export const CloudinaryURL = () => {
+    return `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_NAME}/image/upload`
 }

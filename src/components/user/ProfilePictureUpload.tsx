@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { SyntheticEvent, useState } from 'react'
 import "../../styles/forms/form.css";
-import { ApiURL } from '../../utils/Server';
+import { ApiURL, CloudinaryURL } from '../../utils/Server';
 
 type Props = {}
 
@@ -10,27 +10,43 @@ const ProfilePictureUpload = (props: Props) => {
   const [error, setError] = useState("")
   const [imageUrl, setImageUrl] = useState("")
 
+  const uploadToDatabase = (imageUrl: string) => {
+
+    axios.post(ApiURL("/user/profile/image"), {}, {
+        withCredentials: true,
+        params: {
+            url: imageUrl
+        }
+    })
+    .then((response) => {
+        console.log(response.data)
+        // window.location.reload()
+    })
+    .catch((error) => {
+        console.log(error.response)
+    })
+  }
   const uploadProfilePicture = (e: SyntheticEvent) => {
     e.preventDefault()
     if (!file) return
     const bodyFormData = new FormData();
-    bodyFormData.append("picture", file)
-    // console.log(file)
+    bodyFormData.append("file", file)
+    bodyFormData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_USER_PROFILE)
+    bodyFormData.append("folder", "users/profiles")
+    
     axios({
         method: "post",
-        url: ApiURL("/user/profile/image"),
+        url: CloudinaryURL(),
         data: bodyFormData,
-        headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true,
+        // headers: { "Content-Type": "multipart/form-data" },
+        // withCredentials: true,
     })
     .then((response) => {
-        console.log(response.data)
-        // const data = response.data.user.image as Uint8Array
-        // const type = response.data.image_type
-        // setImageUrl(`data:${type};base64,` + data)
+        const secureUrl = response.data.secure_url
+        uploadToDatabase(secureUrl)
     })
     .catch((error) => {
-        console.log(error.response.data)
+        console.log(error)
     })
   }
   return (

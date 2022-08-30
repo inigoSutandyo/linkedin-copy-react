@@ -13,6 +13,7 @@ import ModalComponent from "../../components/ModalComponent";
 import placeholderProfile from "../../assets/placeholders/user.png";
 import placeholderBanner from "../../assets/placeholders/banner.jpg";
 import ProfilePictureUpload from "../../components/user/ProfilePictureUpload";
+import { AdvancedImage } from '@cloudinary/react'
 
 interface Props {}
 
@@ -32,6 +33,7 @@ const Profile = (props: Props) => {
     setTitle(label);
   };
   useEffect(() => {
+
     const loadUser = () => {
       const axiosConfig = {
         withCredentials: true,
@@ -41,16 +43,13 @@ const Profile = (props: Props) => {
         .get(ApiURL("/user/profile"), axiosConfig)
         .then(function (response) {
           const user = response.data.user as User
-          const type = response.data.image_type 
-          if (!type.startsWith('image')) {
-            user.imageUrl = placeholderProfile
-          } else {
-            user.imageUrl = `data:${type};base64,` + response.data.user.image
+          if (user.imageurl == "" || !user.imageurl) {
+            user.imageurl = placeholderProfile
           }
           dispatch(setUser(user))
         })
         .catch(function (error) {
-          console.log(error.response.data);
+          console.log(error.response);
         })
         .then(function () {
           // always executed
@@ -72,7 +71,7 @@ const Profile = (props: Props) => {
             ></div>
             <div
               className="user-img"
-              style={{ backgroundImage: `url(${user.imageUrl})` }}
+              style={{ backgroundImage: `url(${user.imageurl})` }}
               onClick={() => handleOpenModal("Profile Picture")}
             ></div>
             <div

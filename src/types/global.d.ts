@@ -8,9 +8,7 @@ declare global {
     headline: string
     email: string
     phone: string
-    image: Uint8Array
-    imageUrl: string,
-    imagemime: string,
+    imageurl: string
     likedposts: Array<Number>
   }
 
