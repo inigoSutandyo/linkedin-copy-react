@@ -26,8 +26,6 @@
 
 .post-header-image {
     display: inline-block;
-    width: 35px;
-    height: 35px;
     border-radius: 50%;
     object-fit: cover;
     background-repeat: no-repeat;

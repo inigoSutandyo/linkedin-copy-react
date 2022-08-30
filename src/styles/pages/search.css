@@ -1,0 +1,14 @@
+.search-user-header {
+    display: flex;
+}
+
+.search-user-image {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}

@@ -56,6 +56,7 @@ const Navbar = (props: Props) => {
     if (e.key != "Enter") return 
     if (queryParam == "") return
     navigate(`/search/${queryParam}`)
+    window.location.reload()
   }
 
   return (

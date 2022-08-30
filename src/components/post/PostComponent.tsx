@@ -127,7 +127,7 @@ const PostComponent = (props: Props) => {
     <>
       {props.post && props.post.content? (
         <div className='post-container'>
-          <PostUser user={props.post.user}/>          
+          <PostUser user={props.post.user} imageSize="35px"/>          
           <div className='line-container'>
             <hr className='line'/>
           </div>

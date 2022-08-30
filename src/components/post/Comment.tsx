@@ -75,7 +75,7 @@ const Comment = (props: Props) => {
   return (
     <>
       <div className='comment-card'>
-          <PostUser user={props.comment.user}/>
+          <PostUser user={props.comment.user} imageSize="35px"/>
           <div>
               {HTMLReactParser(props.comment.content)}
           </div>
@@ -112,7 +112,7 @@ const Comment = (props: Props) => {
             {replies?.map((r) => (
               <div key={r.ID}>
                 <div className='reply-cards'>
-                  <PostUser user={props.comment.user}/>
+                  <PostUser user={props.comment.user} imageSize="35px"/>
                   {HTMLReactParser(r.content)}
                 </div>
                 <div className='comment-card-actions'>
