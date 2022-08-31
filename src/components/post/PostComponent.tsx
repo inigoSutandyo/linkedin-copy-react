@@ -27,9 +27,10 @@ const PostComponent = (props: Props) => {
   const [isLiked, setIsLiked] = useState(false)
   const [imageUrl, setImageUrl] = useState("")
   useEffect(() => {
-    if (props.post.mime && props.post.mime.startsWith("image")) {
-      setImageUrl(`data:${props.post.mime};base64,` + props.post.file)
+    if (props.post.fileurl != "") {
+      setImageUrl(props.post.fileurl)
     }
+
   }, [])
   
 

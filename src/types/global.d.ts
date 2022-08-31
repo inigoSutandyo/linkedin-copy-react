@@ -23,8 +23,8 @@ declare global {
     attachments: string,
     likes: number,
     user: User,
-    file: Uint8Array,
-    fileUrl: string,
+    fileurl: string
+    fileid: string
     mime: string,
     comments: Array<PostComment>
   }

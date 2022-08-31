@@ -5,7 +5,7 @@ import 'react-quill/dist/quill.bubble.css';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { addPost } from '../../features/post/postSlice';
 import "../../styles/forms/form.css";
-import { ApiURL } from '../../utils/Server';
+import { ApiURL, CloudinaryURL } from '../../utils/Server';
 import { BsImageFill } from 'react-icons/bs'
 import { IconContext } from 'react-icons';
 import { BiVideoPlus } from 'react-icons/bi'
@@ -44,35 +44,7 @@ const AddPost = (props: Props) => {
     
   }
 
-  const uploadFile = (e: SyntheticEvent, id: number) => {
-    let post = {} as Post
-    if (!file) return
-    const bodyFormData = new FormData();
-    bodyFormData.append("file", file)
-    bodyFormData.append("id", id.toString())
-    axios({
-      method: "post",
-      url: ApiURL("/home/post/file"),
-      data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
-      withCredentials: true,
-    })
-    .then((response) => {
-      console.log(response.data.post)
-      post = response.data.post
-    })
-    .catch((error) => {
-      console.log(error.response.data)
-    })
-    return post
-  }
-
-  const handleAddPost = (e: SyntheticEvent) => {
-    
-    e.preventDefault()
-    if (error !== "") return
-    if (value.replace(/<(.|\n)*?>/g, '').trim().length < 1 && !file) return 
-
+  const uploadPost = (url: string, publicid: string) => {
     const axiosConfig = {
       headers: {
         "Content-Type": "application/json",
@@ -86,26 +58,48 @@ const AddPost = (props: Props) => {
       'title': "",
       'attachment': "",
       'likes': 0,
+      "fileurl": url,
+      "fileid": publicid
     }, axiosConfig)
     .then((response) => {
-      const post = response.data.post as Post
-      if (file) {
-        const res = uploadFile(e, post.ID)
-        if (res) {
-          dispatch(addPost(res))
-        }
-      } else {
-        dispatch(addPost(response.data.post))
-      }
       console.log(response.data)
+      const post = response.data.post as Post
+      dispatch(addPost(post))
       props.closeModal()
     })  
     .catch(function (error) {
         console.log(error.response.data);        
     })
-    .then(function (response) {
+  }
 
-    });
+  const handleAddPost = (e: SyntheticEvent) => {
+    
+    e.preventDefault()
+    if (error !== "") return
+    if (value.replace(/<(.|\n)*?>/g, '').trim().length < 1&& !file) return 
+    
+    if (file) {
+      const bodyFormData = new FormData();
+      bodyFormData.append("file", file)
+      bodyFormData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_PRESET_UPLOAD)
+      bodyFormData.append("folder", "posts")
+      axios({
+          method: "post",
+          url: CloudinaryURL(),
+          data: bodyFormData,
+      })
+      .then((response) => {
+        const secureUrl = response.data.secure_url
+        const publicId = response.data.public_id
+        uploadPost(secureUrl, publicId)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    } else {
+      uploadPost("", "")
+    }
+    
   }
 
   const handleImageUpload = (e: SyntheticEvent) => {

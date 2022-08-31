@@ -10,40 +10,41 @@ const ProfilePictureUpload = (props: Props) => {
   const [error, setError] = useState("")
   const [imageUrl, setImageUrl] = useState("")
 
-  const uploadToDatabase = (imageUrl: string) => {
+  const uploadToDatabase = (imageUrl: string, publicId: string) => {
 
     axios.post(ApiURL("/user/profile/image"), {}, {
         withCredentials: true,
         params: {
-            url: imageUrl
+            url: imageUrl,
+            publicid:  publicId
         }
     })
     .then((response) => {
         console.log(response.data)
-        // window.location.reload()
     })
     .catch((error) => {
         console.log(error.response)
     })
   }
+
   const uploadProfilePicture = (e: SyntheticEvent) => {
     e.preventDefault()
     if (!file) return
     const bodyFormData = new FormData();
     bodyFormData.append("file", file)
-    bodyFormData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_USER_PROFILE)
+    bodyFormData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_PRESET_UPLOAD)
     bodyFormData.append("folder", "users/profiles")
     
     axios({
         method: "post",
         url: CloudinaryURL(),
         data: bodyFormData,
-        // headers: { "Content-Type": "multipart/form-data" },
-        // withCredentials: true,
     })
     .then((response) => {
         const secureUrl = response.data.secure_url
-        uploadToDatabase(secureUrl)
+        const publicId = response.data.public_id
+
+        uploadToDatabase(secureUrl, publicId)
     })
     .catch((error) => {
         console.log(error)
