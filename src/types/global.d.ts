@@ -1,7 +1,7 @@
 export {};
 
 declare global {
-  type User = {
+  interface User {
     ID: number
     firstname: string
     lastname: string
@@ -12,6 +12,7 @@ declare global {
     imageid: string
     likedposts: Array<Number>
     connections: Array<User>
+    invitations: Array<Invitation>
   }
 
   type UserState = {
@@ -45,5 +46,11 @@ declare global {
     content: string,
     user: User,
     comment: Comment
+  }
+
+  type Invitation = {
+    ID: number
+    note: string
+    source: User
   }
 }

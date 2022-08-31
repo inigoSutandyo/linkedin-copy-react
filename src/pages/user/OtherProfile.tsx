@@ -74,6 +74,25 @@ const OtherProfile = (props: Props) => {
       })
     }
 
+    const inviteConnect = () => {
+      if (!user) return
+      if (!currentUser) return
+      if (user.ID < 1) return
+
+      axios.post(ApiURL("/user/invite"), {}, {
+        params: {
+          source: currentUser.ID,
+          destination: user.ID
+        }
+      })
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+      })
+    }
+
     return (
         <>
           {user?.ID == 0 ? (
@@ -99,7 +118,7 @@ const OtherProfile = (props: Props) => {
                       >
                         <button className='btn-primary' style={{
                           borderRadius : "16px"
-                        }}>Connect</button>
+                        }} onClick={inviteConnect}>Connect</button>
                       </div>
                     ) : <></>}
                     

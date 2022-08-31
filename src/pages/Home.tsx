@@ -17,6 +17,7 @@ import { Cookies } from 'react-cookie'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/Loading'
 import placeholderProfile from "../assets/placeholders/user.png";
+import { useUser } from '../app/user'
 
 type Props = {}
 
@@ -29,7 +30,7 @@ const Home = (props: Props) => {
   const [hasMore, setHasMore] = useState(true)
   const [offset, setOffset] = useState(0)
 
-
+  
   const navigate = useNavigate()
   const user = useAppSelector((state) => state.user.user)
   const posts = useAppSelector((state) => state.post)
@@ -39,29 +40,7 @@ const Home = (props: Props) => {
   const closeModal = () => {
     setModal(false)
   }
-  const loadUser = () => {
-    const axiosConfig = {
-      withCredentials: true,
-    }
-
-    axios.get(ApiURL("/user/profile"), axiosConfig)
-    .then(function (response) {
-        console.log(response.data)
-        const user = response.data.user as User
-        if (user.imageurl == "" || !user.imageurl) {
-          user.imageurl = placeholderProfile
-        }
-        dispatch(setUser(user))
-
-        const posts = response.data.likedposts as Array<Number>
-        dispatch(setLikedPost(posts))
-    })
-    .catch(function (error) {
-      navigate('/auth/login')
-      console.log(error)        
-    }).then(() => {})
-  }
-
+  
   const loadPosts = () => {
     // console.log(posts.length)
     axios.get(ApiURL("/home/post"), {
@@ -88,6 +67,8 @@ const Home = (props: Props) => {
     });
   }
 
+  useUser()
+
   useEffect(() => {
     const cookie = new Cookies()
 
@@ -95,7 +76,6 @@ const Home = (props: Props) => {
       navigate("/auth/login")
     }
      
-    loadUser()
     loadPosts()
   }, [])
 
