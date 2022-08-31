@@ -11,6 +11,7 @@ declare global {
     imageurl: string
     imageid: string
     likedposts: Array<Number>
+    connections: Array<User>
   }
 
   type UserState = {
