@@ -1,10 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Navbar from '../../components/navbar/Navbar'
+import Navbar from '../components/navbar/Navbar'
 
 type Props = {}
 
-const ProfileNotFound = (props: Props) => {
+const ErrorPage = (props: Props) => {
   const navigate = useNavigate()
   return (
     <>
@@ -15,7 +15,7 @@ const ProfileNotFound = (props: Props) => {
             margin: "32px",
             flexDirection: "column"
         }}>
-            <h3>User Not Found</h3>
+            <h3>404 Page Not Found</h3>
             <button className='btn-primary' style={{
                 marginTop: "25px"
             }} onClick={() => {
@@ -26,4 +26,4 @@ const ProfileNotFound = (props: Props) => {
   )
 }
 
-export default ProfileNotFound
+export default ErrorPage

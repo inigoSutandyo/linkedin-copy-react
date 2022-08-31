@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { IconContext } from 'react-icons';
-import { MdModeEditOutline } from 'react-icons/md';
+import { useEffect, useState } from 'react'
 import Navbar from '../../components/navbar/Navbar';
 import placeholderProfile from "../../assets/placeholders/user.png";
 import placeholderBanner from "../../assets/placeholders/banner.jpg";
 import "../../styles/pages/profile.css";
 import axios from 'axios';
 import { ApiURL } from '../../utils/Server';
-import { useNavigate } from 'react-router-dom';
-import ProfileNotFound from './ProfileNotFound';
+import ErrorPage from '../ErrorPage';
 
 interface Props {
     id: string
@@ -46,7 +43,7 @@ const OtherProfile = (props: Props) => {
     return (
         <>
           {user?.ID == 0 ? (
-            <ProfileNotFound/>
+            <ErrorPage/>
           ) : (
             <div id="profile-page">
               <Navbar />
