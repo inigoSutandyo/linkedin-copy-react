@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAppSelector } from '../../app/hooks'
 import "../../styles/pages/profile.css";
+import backgroundPlaceholder from '../../assets/placeholders/banner.jpg'
 type Props = {}
 
 const ProfileDisplay = (props: Props) => {
@@ -9,12 +10,13 @@ const ProfileDisplay = (props: Props) => {
   return (
     <div className='profile-display'>
       <div
+        className='user-background-display'
+        style={{backgroundImage: `url(${backgroundPlaceholder})`}}
+      ></div>
+      <div
         className="user-img-display"
         style={{ backgroundImage: `url(${user.imageurl})` }}
       ></div>
-      <p>
-        {user.email}
-      </p>
       <p>
         {user.firstname} {user.lastname}
       </p>

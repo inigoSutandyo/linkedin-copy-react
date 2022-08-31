@@ -36,14 +36,13 @@ const Navbar = (props: Props) => {
     .then((response) => {
       console.log(response.data)
       dispatch(logoutUser())
-      navigate("/")
     })
     .catch(function (error) {
       console.log(error.response.data);
       
     })
     .then(function (response) {
-
+      navigate("/auth/login")
     });
   }
 

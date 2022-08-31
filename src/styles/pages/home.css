@@ -11,8 +11,7 @@
     /* background-color: white; */
     margin-left: 10px;
     margin-right: 10px;
-    border-radius: 32px;
-    padding: 5px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
