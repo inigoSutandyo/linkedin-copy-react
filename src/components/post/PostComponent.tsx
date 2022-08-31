@@ -14,6 +14,7 @@ import { ApiURL } from '../../utils/Server';
 import { updateSinglePost } from '../../features/post/postSlice';
 import PostUser from './PostUser';
 import "../../styles/components/post.css"
+import { Link } from 'react-router-dom';
 
 type Props = {
   post: Post,

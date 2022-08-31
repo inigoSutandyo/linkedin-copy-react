@@ -19,8 +19,8 @@ const Navbar = (props: Props) => {
   const [queryParam, setQueryParam] = useState("")
 
   const auth = useAppSelector((state) => state.user.isSignedIn)
+  const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch() 
-
   function logout() {
     const axiosConfig = {
       headers: {
@@ -102,7 +102,7 @@ const Navbar = (props: Props) => {
               </Link>
             </li>
             <li className="list-hover mx-2 color-black">
-              <Link to={"/profile"}>
+              <Link to={`/profile/${user.ID}`}>
                 Profile
               </Link>
             </li>

@@ -9,6 +9,7 @@ declare global {
     email: string
     phone: string
     imageurl: string
+    imageid: string
     likedposts: Array<Number>
   }
 
