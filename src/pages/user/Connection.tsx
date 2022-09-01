@@ -17,6 +17,14 @@ const Connection = (props: Props) => {
     setInvitations(user.invitations)
   }, [user])
   
+  const removeInvitation = (id: number) => {
+    if (!user) return
+    if (!user.invitations) return
+    if (user.invitations.length == 0) return
+    user.invitations.filter((inv) => {
+      return inv.ID != id
+    })
+  }
 
   return (
     <>
@@ -53,9 +61,13 @@ const Connection = (props: Props) => {
           <div className='connection-content'>  
             {invitations && invitations.length > 0 ? (
               invitations.map((i) => (
-                <Invites invite={i} key={i.ID}/>
+                <Invites invite={i} key={i.ID} removeInvitation={removeInvitation}/>
               ))
-            ) : <></>}
+            ) : (
+              <div>
+                No invitations yet..
+              </div>
+            )}
           </div>
         </div>
       </div>

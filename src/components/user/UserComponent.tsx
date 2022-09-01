@@ -17,28 +17,18 @@ const UserComponent = (props: Props) => {
   }, [props.user])
   
   return (
-    <div className='d-flex flex-row align-center justify-between'>
-        <div className='d-flex flex-row align-center'>
-            <div className='user-component-image' style={{
-                backgroundImage: `url(${imageUrl})`,
-            }}>
-            </div>
-            <div className='user-component-text'>
-                <div className='user-component-header'>
-                    {props.user.firstname} {props.user.lastname}
-                </div>
-                <div className='user-component-subheader'>
-                    {props.user.headline}
-                </div>
-            </div>
+    <div className='d-flex flex-row align-center'>
+        <div className='user-component-image' style={{
+            backgroundImage: `url(${imageUrl})`,
+        }}>
         </div>
-        <div>
-            <button className='btn-primary mx-1' style={{
-                borderRadius: "32px"
-            }}>Accept</button>
-            <button className='btn-primary-outline mx-1' style={{
-                borderRadius: "32px"
-            }}>Ignore</button>
+        <div className='user-component-text'>
+            <div className='user-component-header'>
+                {props.user.firstname} {props.user.lastname}
+            </div>
+            <div className='user-component-subheader'>
+                {props.user.headline}
+            </div>
         </div>
     </div>
   )
