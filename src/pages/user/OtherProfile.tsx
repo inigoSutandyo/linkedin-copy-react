@@ -27,7 +27,6 @@ const OtherProfile = (props: Props) => {
       })
       .then((response) => {
         setUser(response.data.user)
-        console.log(response.data.user)
       })
       .catch((error) => {
         console.log(error)
@@ -53,7 +52,6 @@ const OtherProfile = (props: Props) => {
       axios.get(ApiURL("/user/invitations"))
       .then((response) => {
         const data = response.data.invitations as Array<Invitation>
-        console.log(data)
         if (data && data.length > 0) {
           for (let i = 0; i < data.length; i++) {
             const element = data[i];
@@ -67,8 +65,6 @@ const OtherProfile = (props: Props) => {
       .catch((error) => {
         console.log(error.response.data)
       })
-      console.log(invited)
-      console.log(connected)
     }
 
     useEffect(() => {

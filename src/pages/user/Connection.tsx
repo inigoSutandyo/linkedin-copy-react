@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useUser } from '../../app/user';
@@ -5,6 +6,7 @@ import Invites from '../../components/connection/Invites';
 import Navbar from '../../components/navbar/Navbar';
 import UserComponent from '../../components/user/UserComponent';
 import "../../styles/pages/connection.css"
+import { ApiURL } from '../../utils/Server';
 type Props = {}
 
 const Connection = (props: Props) => {
@@ -36,6 +38,26 @@ const Connection = (props: Props) => {
       return inv.ID != id
     })
     setInvitations(res)
+  }
+
+  const removeConnection = (id: number) => {
+    if (!user) return
+    if (!connections || connections.length < 1) return
+    axios.delete(ApiURL("/user/connection/remove"), {
+      params: {
+        user: user.ID,
+        connect: id,
+      }
+    })
+    .then((response) => {
+      console.log(response.data)
+      
+      const res = connections.filter((c) => {
+        return c.ID != id
+      })
+
+      setConnections(res)
+    })
   }
 
   return (
@@ -89,7 +111,7 @@ const Connection = (props: Props) => {
                         <div>
                           <button className='btn-primary-outline mx-1' style={{
                               borderRadius: "32px"
-                          }}>Remove</button>
+                          }} onClick={() => {removeConnection(c.ID)}}>Remove</button>
                         </div>
                       </div>
                     </div>
