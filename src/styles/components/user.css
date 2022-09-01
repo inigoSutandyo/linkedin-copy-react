@@ -1,0 +1,23 @@
+.user-component-image {
+    display: inline-block;
+    border-radius: 50%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    width: 85px;
+    height: 85px;
+}
+
+.user-component-text {
+    margin-left: 12px;
+}
+
+.user-component-header {
+    font-weight: bolder;
+    font-size: large;
+}
+
+.user-component-subheader {
+    color: rgba(56, 56, 56, 0.682)
+}

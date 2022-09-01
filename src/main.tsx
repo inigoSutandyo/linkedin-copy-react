@@ -6,6 +6,7 @@ import './styles/sizing.css'
 import './styles/color.css'
 import './styles/spacing.css'
 import './styles/display.css'
+import './styles/flex.css'
 import { store } from './app/store' 
 import { Provider } from 'react-redux'
 

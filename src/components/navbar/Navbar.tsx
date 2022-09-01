@@ -62,7 +62,7 @@ const Navbar = (props: Props) => {
     <nav className="py-3 bg-white">
       <div className="nav-main">
         <div>
-          <ul className="mx-4">
+          <ul className="mx-4 navbar-ul">
             <li className="mx-2 color-black">
               <Link to={"/"}>
                 <img className="nav-logo-small" src={iconImg} alt="" />
@@ -74,14 +74,14 @@ const Navbar = (props: Props) => {
           </ul>
         </div>
         <div>
-          <ul className="mx-4">
+          <ul className="mx-4 navbar-ul">
             <li className="list-hover mx-2 color-black">
               <Link to={"/"}>
                 <FaHome/>
               </Link>
             </li>
             <li className="list-hover mx-2 color-black">
-              <Link to={"/"}>
+              <Link to={"/connection"}>
                 <FaUserFriends/>
               </Link>
             </li>

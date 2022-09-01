@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useUser } from '../../app/user';
 import Invites from '../../components/connection/Invites';
 import Navbar from '../../components/navbar/Navbar';
-
+import "../../styles/pages/connection.css"
 type Props = {}
 
 const Connection = (props: Props) => {
@@ -21,11 +21,44 @@ const Connection = (props: Props) => {
   return (
     <>
       <Navbar/>
-      {invitations && invitations.length > 0 ? (
-        invitations.map((i) => (
-          <Invites invite={i} key={i.ID}/>
-        ))
-      ) : <></>}
+      <div className='connection-layout'>
+        <ul className='navigation'>
+          <li>
+            Connection
+          </li>
+          <li>
+            Contacts
+          </li>
+          <li>
+            People | Follow
+          </li>
+          <li>
+            Groups
+          </li>
+          <li>
+            Events
+          </li>
+          <li>
+            Pages
+          </li>
+          <li>
+            Newsletter
+          </li>
+          <li>
+            Hashtags
+          </li>
+        </ul>
+
+        <div className='connection-content-container'>
+          <div className='connection-content'>  
+            {invitations && invitations.length > 0 ? (
+              invitations.map((i) => (
+                <Invites invite={i} key={i.ID}/>
+              ))
+            ) : <></>}
+          </div>
+        </div>
+      </div>
     </>
   )
 }

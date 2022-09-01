@@ -22,7 +22,7 @@ nav {
     max-width: 128px;
 }
 
-ul {
+.navbar-ul {
     display: flex;
     list-style-type: none;
     margin: 0;

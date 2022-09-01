@@ -52,10 +52,10 @@ body {
     align-self: center;
     min-width: 64px;
     background-color: white;
-    padding: 12px 8px 12px 8px;
+    padding: 7px;
     color: rgb(0, 0, 255);
     font-size: medium;
-    border: solid 2px rgb(0, 0, 255);
+    border: solid 1px rgb(0, 0, 255);
     cursor: pointer;
 }
 

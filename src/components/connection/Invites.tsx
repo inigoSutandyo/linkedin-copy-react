@@ -1,3 +1,5 @@
+import PostUser from "../post/PostUser"
+import UserComponent from "../user/UserComponent"
 
 type Props = {
     invite: Invitation
@@ -6,9 +8,7 @@ type Props = {
 const Invites = (props: Props) => {
   return (
     <div>
-        <p>
-            {props.invite.source.firstname} {props.invite.source.lastname}
-        </p>
+        <UserComponent user={props.invite.source}/>
     </div>
   )
 }
