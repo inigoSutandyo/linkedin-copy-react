@@ -27,6 +27,24 @@ const Invites = (props: Props) => {
       console.log(error.response.data)
     })
   }
+
+  const ignoreInvitation = () => {
+    const source = props.invite.source
+    axios.post(ApiURL('/user/invite/ignore'), {}, {
+      withCredentials: true,
+      params: {
+        source: source.ID,
+        destination: user.ID,
+      }
+    })
+    .then((response) => {
+      console.log(response.data)
+      props.removeInvitation(props.invite.ID)
+    })
+    .catch((error) => {
+      console.log(error.response.data)
+    })
+  }
   return (
     <div className="d-flex flex-row align-center justify-between">
         <UserComponent user={props.invite.source}/>
@@ -36,7 +54,7 @@ const Invites = (props: Props) => {
             }} onClick={acceptInvitation}>Accept</button>
             <button className='btn-primary-outline mx-1' style={{
                 borderRadius: "32px"
-            }}>Ignore</button>
+            }} onClick={ignoreInvitation}>Ignore</button>
         </div>
     </div>
   )

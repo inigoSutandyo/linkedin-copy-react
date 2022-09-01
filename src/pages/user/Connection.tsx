@@ -12,7 +12,7 @@ const Connection = (props: Props) => {
   const user = useAppSelector((state) => state.user.user);
   const [invitations, setInvitations] = useState<Array<Invitation>>()
   const [connections, setConnections] = useState<Array<User>>()
-  const [display, setDisplay] = useState("")
+  const [display, setDisplay] = useState("Invitations")
   useEffect(() => {
     if (!user) return
 
@@ -71,6 +71,11 @@ const Connection = (props: Props) => {
 
         <div className='connection-content-container'>
           <div className='connection-content'>  
+            <div className='d-flex justify-center mb-3 p-3' style={{
+              borderBottom: "solid 1px rgb(221, 221, 221)",
+            }}>
+              <h2>{display}</h2>
+            </div>
             {display == "Connection" ? (
               <div>
                 {connections && connections.length > 0 ? (

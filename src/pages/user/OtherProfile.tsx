@@ -17,6 +17,7 @@ const OtherProfile = (props: Props) => {
     const [user, setUser] = useState<User>()
     const [imageUrl, setImageUrl] = useState(placeholderProfile)
     const [connected, setConnected] = useState(false)
+    const [invited, setInvited] = useState(false)
 
     useEffect(() => {
       axios.get(ApiURL("/user/otherprofile"), {
@@ -35,8 +36,8 @@ const OtherProfile = (props: Props) => {
     
 
     const checkConnected = () => {
+      setConnected(false)
       if (!currentUser.connections) {
-        setConnected(false)
         return
       }
       currentUser.connections.forEach((u: User) => {
@@ -46,34 +47,44 @@ const OtherProfile = (props: Props) => {
       })
     }
 
-    useEffect(() => {
-        if (!user)return
-        if ( user.imageurl == "" || !user.imageurl || user.imageid == "") {
-            user.imageurl = placeholderProfile;
-            setImageUrl(placeholderProfile)
-        } else {
-            setImageUrl(user.imageurl)
+    const checkInvited = () => {
+      setInvited(false)
+      if (!user) return 
+      axios.get(ApiURL("/user/invitations"))
+      .then((response) => {
+        const data = response.data.invitations as Array<Invitation>
+        console.log(data)
+        if (data && data.length > 0) {
+          for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            if (element.destinationid == user.ID) {
+              setInvited(true)
+            }
+            
+          }
         }
-        checkConnected()
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+      })
+      console.log(invited)
+      console.log(connected)
+    }
+
+    useEffect(() => {
+      if (!user)return
+
+      if ( user.imageurl == "" || !user.imageurl || user.imageid == "") {
+          user.imageurl = placeholderProfile;
+          setImageUrl(placeholderProfile)
+      } else {
+          setImageUrl(user.imageurl)
+      }
+      checkConnected()
+      checkInvited()
 
     }, [user, currentUser])
     
-    const connectUser = () => {
-      if (!user) return
-      if (!currentUser) return
-      if (user.ID < 1) return
-
-      axios.post(ApiURL("/user/connection/add"), {}, {
-        params: {
-          userId: currentUser.ID,
-          connectId: user.ID
-        }
-      })
-      .then((response) => {
-        console.log(response.data)
-      })
-    }
-
     const inviteConnect = () => {
       if (!user) return
       if (!currentUser) return
@@ -91,6 +102,8 @@ const OtherProfile = (props: Props) => {
       .catch((error) => {
         console.log(error.response.data)
       })
+
+      checkInvited()
     }
 
     return (
@@ -112,13 +125,22 @@ const OtherProfile = (props: Props) => {
                       className="user-img"
                       style={{ backgroundImage: `url(${imageUrl})` }}
                     ></div>
-                    {!connected ? (
+                    {!connected && !invited ? (
                       <div
                         className="edit-profile"
                       >
                         <button className='btn-primary' style={{
                           borderRadius : "16px"
                         }} onClick={inviteConnect}>Connect</button>
+                      </div>
+                    ) : invited ? (
+                      <div
+                        className="edit-profile"
+                      >
+                        <div className='btn-primary-outline' style={{
+                          borderRadius : "16px",
+                          cursor: "default"
+                        }}>Pending</div>
                       </div>
                     ) : <></>}
                     

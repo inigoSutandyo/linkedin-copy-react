@@ -52,5 +52,7 @@ declare global {
     ID: number
     note: string
     source: User
+    sourceid: number
+    destinationid: number
   }
 }
