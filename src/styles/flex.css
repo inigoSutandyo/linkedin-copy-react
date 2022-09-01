@@ -6,7 +6,7 @@
     flex-direction: row;
 }
 
-.flex-colum {
+.flex-column {
     flex-direction: column;
 }
 
@@ -16,4 +16,8 @@
 
 .justify-between {
     justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
 }

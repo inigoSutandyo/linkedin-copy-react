@@ -11,7 +11,7 @@ const Guestbar = (props: Props) => {
     <nav className="my-2" style={{
       marginLeft: "30px"
     }}>
-        <ul>
+        <ul className="navbar-ul">
             <li>
                 <Link to={"/"} className="color-blue">
                   <img className="nav-logo-huge" src={iconImg} alt="" />

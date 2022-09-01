@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "../../styles/components/user.css"
 import placheholderProfile from '../../assets/placeholders/user.png'
+import { Link } from 'react-router-dom'
 type Props = {
     user: User
 }
@@ -17,20 +18,22 @@ const UserComponent = (props: Props) => {
   }, [props.user])
   
   return (
-    <div className='d-flex flex-row align-center'>
-        <div className='user-component-image' style={{
-            backgroundImage: `url(${imageUrl})`,
-        }}>
-        </div>
-        <div className='user-component-text'>
-            <div className='user-component-header'>
-                {props.user.firstname} {props.user.lastname}
+    <Link to={`/profile/${props.user.ID}`}>
+        <div className='d-flex flex-row align-center'>
+            <div className='user-component-image' style={{
+                backgroundImage: `url(${imageUrl})`,
+            }}>
             </div>
-            <div className='user-component-subheader'>
-                {props.user.headline}
+            <div className='user-component-text'>
+                <div className='user-component-header'>
+                    {props.user.firstname} {props.user.lastname}
+                </div>
+                <div className='user-component-subheader'>
+                    {props.user.headline}
+                </div>
             </div>
         </div>
-    </div>
+    </Link>
   )
 }
 

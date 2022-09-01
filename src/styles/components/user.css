@@ -21,3 +21,8 @@
 .user-component-subheader {
     color: rgba(56, 56, 56, 0.682)
 }
+
+a {
+    text-decoration: none;
+    color: black
+}

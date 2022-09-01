@@ -40,6 +40,7 @@ const Register = (props: Props) => {
             password: password,
         
         }, axiosConfig).then((response) => {
+            console.log(response.data)
             const msg = response.data.message
             if (msg === "success") {
                 navigate('/auth/login')
