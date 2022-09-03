@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { SyntheticEvent, useState } from "react";
-import "../../styles/forms/form.css";
+import "../../styles/forms/form.scss";
 import { ApiURL } from "../../utils/Server";
 import { useSelector, useDispatch } from 'react-redux' 
 import { setUser } from '../../features/user/userSlice'

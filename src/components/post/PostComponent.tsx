@@ -5,7 +5,7 @@ import { FaRegCommentDots } from 'react-icons/fa'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { IoIosSend } from 'react-icons/io'
 import { IconContext } from 'react-icons';
-import 'react-quill/dist/quill.bubble.css';
+import 'react-quill/dist/quill.bubble.scss';
 import PostComment from './PostComment';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import axios from 'axios';
@@ -13,7 +13,7 @@ import { addLikedPost, removeLikedPost, setLikedPost, setUser } from '../../feat
 import { ApiURL } from '../../utils/Server';
 import { updateSinglePost } from '../../features/post/postSlice';
 import PostUser from './PostUser';
-import "../../styles/components/post.css"
+import "../../styles/components/post.scss"
 import { Link } from 'react-router-dom';
 
 type Props = {

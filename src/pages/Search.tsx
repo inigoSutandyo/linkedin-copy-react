@@ -5,7 +5,7 @@ import Navbar from '../components/navbar/Navbar'
 import PostComponent from '../components/post/PostComponent'
 import { ApiURL } from '../utils/Server'
 
-import "../styles/pages/search.css"
+import "../styles/pages/search.scss"
 import PostUser from '../components/post/PostUser'
 
 type Props = {}

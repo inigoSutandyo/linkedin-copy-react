@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "../../styles/components/post.css"
+import "../../styles/components/post.scss"
 import placeholder from "../../assets/placeholders/user.png"
 import { Link } from 'react-router-dom'
 

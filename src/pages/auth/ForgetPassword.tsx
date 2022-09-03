@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react'
 import { useNavigate } from 'react-router-dom';
-import "../../styles/forms/form.css";
+import "../../styles/forms/form.scss";
 type Props = {}
 
 const ForgetPassword = (props: Props) => {

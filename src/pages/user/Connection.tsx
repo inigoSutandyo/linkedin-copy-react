@@ -5,7 +5,7 @@ import { useUser } from '../../app/user';
 import Invites from '../../components/connection/Invites';
 import Navbar from '../../components/navbar/Navbar';
 import UserComponent from '../../components/user/UserComponent';
-import "../../styles/pages/connection.css"
+import "../../styles/pages/connection.scss"
 import { ApiURL } from '../../utils/Server';
 type Props = {}
 

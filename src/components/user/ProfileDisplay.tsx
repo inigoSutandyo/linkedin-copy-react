@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../app/hooks'
-import "../../styles/pages/profile.css";
+import "../../styles/pages/profile.scss";
 import backgroundPlaceholder from '../../assets/placeholders/banner.jpg'
 type Props = {}
 

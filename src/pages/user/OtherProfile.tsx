@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Navbar from '../../components/navbar/Navbar';
 import placeholderProfile from "../../assets/placeholders/user.png";
 import placeholderBanner from "../../assets/placeholders/banner.jpg";
-import "../../styles/pages/profile.css";
+import "../../styles/pages/profile.scss";
 import axios from 'axios';
 import { ApiURL } from '../../utils/Server';
 import ErrorPage from '../ErrorPage';

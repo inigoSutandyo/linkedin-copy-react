@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { generatePath, Link, useNavigate } from "react-router-dom";
-import '../../styles/components/nav.css'
-import '../../styles/forms/form.css'
+import '../../styles/components/nav.scss'
+import '../../styles/forms/form.scss'
 import iconImg from "../../assets/logos/linkedin_secondary.png"
 import { ApiURL } from "../../utils/Server";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";

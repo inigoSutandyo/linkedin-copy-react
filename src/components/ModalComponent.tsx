@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from 'react'
-import '../styles/components/modal.css'
+import '../styles/components/modal.scss'
 import { IconContext } from 'react-icons'
 import {FaWindowClose} from "react-icons/fa"
 import ReactModal from 'react-modal'

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import '../../styles/components/nav.css'
+import '../../styles/components/nav.scss'
 
 import iconImg from "../../assets/logos/linkedin_main.png"
 type Props = {};

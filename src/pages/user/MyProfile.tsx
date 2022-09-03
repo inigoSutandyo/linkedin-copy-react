@@ -10,7 +10,7 @@ import { IconContext } from "react-icons";
 import ModalComponent from "../../components/ModalComponent";
 import placeholderBanner from "../../assets/placeholders/banner.jpg";
 import ProfilePictureUpload from "../../components/user/ProfilePictureUpload";
-import "../../styles/pages/profile.css";
+import "../../styles/pages/profile.scss";
 type Props = {};
 
 const MyProfile = (props: Props) => {

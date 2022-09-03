@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import "../../styles/components/user.css"
+import "../../styles/components/user.scss"
 import placheholderProfile from '../../assets/placeholders/user.png'
 import { Link } from 'react-router-dom'
 type Props = {

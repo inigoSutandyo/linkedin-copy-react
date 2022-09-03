@@ -3,7 +3,7 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import Cookies from 'universal-cookie'
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../../components/Error";
-import "../../styles/forms/form.css";
+import "../../styles/forms/form.scss";
 import Guestbar from "../../components/navbar/Guestbar";
 import FormLine from "../../components/util/FormLine";
 import { ApiURL } from "../../utils/Server";
