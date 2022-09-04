@@ -1,10 +1,7 @@
+@use "../_mixin.scss" as m;
+
 .user-component-image {
-    display: inline-block;
-    border-radius: 50%;
-    object-fit: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+    @include m.image-circular;
     width: 85px;
     height: 85px;
 }
@@ -19,10 +16,11 @@
 }
 
 .user-component-subheader {
-    color: rgba(56, 56, 56, 0.682)
+    color: rgba(56, 56, 56, 0.682) 
 }
 
 a {
     text-decoration: none;
     color: black
 }
+

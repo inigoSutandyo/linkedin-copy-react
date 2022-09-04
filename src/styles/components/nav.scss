@@ -40,8 +40,10 @@ li a {
     padding: 3px;
 }
 
-.list-hover:hover a {
-    color: #A0A3A6
+.list-hover {
+    &hover a {
+        color: #A0A3A6
+    }
 }
 
 .search-nav {
@@ -50,4 +52,25 @@ li a {
     padding: 8px;
     font-size: medium;
     background-color: #edf9fe;
+}
+
+.drop {
+    display: none;
+}
+
+@media screen and (max-width: 720px) {
+    .nav-main {
+        padding: 0px 5px;
+        margin: 0px 15px;
+    }
+
+    .side {
+        display: none;
+    }
+
+    .drop {
+        display: flex;
+        cursor: pointer
+    }
+
 }

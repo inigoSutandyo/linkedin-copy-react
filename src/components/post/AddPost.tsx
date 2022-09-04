@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { addPost } from '../../features/post/postSlice';
-import "../../styles/forms/form.css";
+import "../../styles/forms/form.scss";
 import { ApiURL, CloudinaryURL } from '../../utils/Server';
 import { BsImageFill } from 'react-icons/bs'
 import { IconContext } from 'react-icons';

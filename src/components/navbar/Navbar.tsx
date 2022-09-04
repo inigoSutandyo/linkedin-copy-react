@@ -8,9 +8,10 @@ import { ApiURL } from "../../utils/Server";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { logoutUser } from "../../features/user/userSlice"
 import { FaBell, FaBriefcase, FaHome, FaRegCommentDots, FaUserFriends } from "react-icons/fa";
+import { FiMenu } from 'react-icons/fi'
+import { IconContext } from "react-icons";
+
 type Props = {};
-
-
 
 const Navbar = (props: Props) => {
 
@@ -62,7 +63,7 @@ const Navbar = (props: Props) => {
     <nav className="py-3 bg-white">
       <div className="nav-main">
         <div>
-          <ul className="mx-4 navbar-ul">
+          <ul className="mx-2 navbar-ul">
             <li className="mx-2 color-black">
               <Link to={"/"}>
                 <img className="nav-logo-small" src={iconImg} alt="" />
@@ -74,7 +75,7 @@ const Navbar = (props: Props) => {
           </ul>
         </div>
         <div>
-          <ul className="mx-4 navbar-ul">
+          <ul className="mx-4 navbar-ul side">
             <li className="list-hover mx-2 color-black">
               <Link to={"/"}>
                 <FaHome/>
@@ -125,6 +126,13 @@ const Navbar = (props: Props) => {
                 </li>
               </>
             )}
+          </ul>
+          <ul className="navbar-ul drop">
+              <IconContext.Provider value={{
+                size: "25px"
+              }}>
+                < FiMenu/>
+              </IconContext.Provider>
           </ul>
         </div>
       </div>

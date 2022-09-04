@@ -175,3 +175,17 @@
     justify-items: center;
     margin: 12px;
 }
+
+.action-drop {
+    display: none ; 
+}
+
+@media screen and (max-width: 720px) {
+    .action-hide {
+        display: none;
+    }
+
+    .action-drop {
+        display: flex;
+    }
+}

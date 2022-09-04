@@ -1,11 +1,11 @@
 import {useState, useEffect} from 'react'
 import parse from 'html-react-parser';
-import { AiFillLike, AiOutlineLike } from 'react-icons/ai'
+import { AiFillLike, AiOutlineLike, AiOutlineMore } from 'react-icons/ai'
 import { FaRegCommentDots } from 'react-icons/fa'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { IoIosSend } from 'react-icons/io'
 import { IconContext } from 'react-icons';
-import 'react-quill/dist/quill.bubble.scss';
+import 'react-quill/dist/quill.bubble.css';
 import PostComment from './PostComment';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import axios from 'axios';
@@ -15,6 +15,7 @@ import { updateSinglePost } from '../../features/post/postSlice';
 import PostUser from './PostUser';
 import "../../styles/components/post.scss"
 import { Link } from 'react-router-dom';
+import { FiMoreVertical } from 'react-icons/fi';
 
 type Props = {
   post: Post,
@@ -176,13 +177,16 @@ const PostComponent = (props: Props) => {
               <FaRegCommentDots/>
               <p>Comment</p>
             </div>
-            <div className='post-actions'>
+            <div className='post-actions action-hide'>
               <RiShareForwardLine/>
               <p>Share</p>
             </div>
-            <div className='post-actions'>
+            <div className='post-actions action-hide'>
               <IoIosSend/>
               <p>Send</p>
+            </div>
+            <div className='post-actions action-drop'>
+                <FiMoreVertical/>
             </div>
           </div>
           {comment ? (

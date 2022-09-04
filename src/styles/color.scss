@@ -1,9 +1,15 @@
+$primary-light: #f3f2ef;
+$accent-light: #b6b6b6;
+$primary-black: #595C5F;
+$pirmary-blue: rgb(52, 108, 248);
+$accent-blue: rgb(0, 62, 219);
+
 .bg-primary {
-    background-color: #f3f2ef
+    background-color: $primary-light
 }
 
 .bg-blue {
-    background-color: rgb(0, 62, 219);;
+    background-color: $accent-blue;
 }
 
 .bg-white {
@@ -11,13 +17,13 @@
 }
 
 .color-blue {
-    color:rgb(52, 108, 248)
+    color: $pirmary-blue
 }
 
 .color-black {
-    color: #595C5F;
+    color: $primary-black;
 }
 
 .color-light {
-    color: #b6b6b6
+    color: $accent-light
 }
