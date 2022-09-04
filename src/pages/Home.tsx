@@ -79,6 +79,10 @@ const Home = (props: Props) => {
     loadPosts()
   }, [])
 
+  // useEffect(() => {
+  //   console.log(posts[0])
+  // }, [posts])
+
   return (
     <div id='home-page'>
       <Navbar/>

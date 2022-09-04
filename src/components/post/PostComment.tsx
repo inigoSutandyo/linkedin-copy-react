@@ -66,6 +66,7 @@ const PostComment = (props: Props) => {
       "content": value,
       "likes": 0,
       "postid": props.postid,
+      "isreply": false,
     }, axiosConfig)
     .then((response) => {
       setComments([...comments, response.data.comment])

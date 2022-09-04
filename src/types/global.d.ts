@@ -39,11 +39,13 @@ declare global {
     user: User,
     post: Post
     replies: Array<PostReply>
+    isreply: boolean
   }
 
   type PostReply = {
     ID: number,
     content: string,
+    likes: number,
     user: User,
     comment: Comment
   }

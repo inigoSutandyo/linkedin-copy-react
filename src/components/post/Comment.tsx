@@ -3,6 +3,7 @@ import HTMLReactParser from 'html-react-parser'
 import {useEffect, useState} from 'react'
 import ReactQuill from 'react-quill'
 import { ApiURL } from '../../utils/Server'
+import CommentActions from './CommentActions'
 import PostUser from './PostUser'
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 const Comment = (props: Props) => {
   const [replies, setReplies] = useState<Array<PostReply>>([])
   const [openReply, setOpenReply] = useState(false)
-  
+  const [parentID, setParentID] = useState(-1)
   const [value, setValue] = useState("")
   const [button, setButton] = useState(false)
   const [error, setError] = useState("")
@@ -58,10 +59,15 @@ const Comment = (props: Props) => {
         "Content-Type": "application/json",
       },
       withCredentials: true,
+      params: {
+        id: props.comment.ID
+      }
     };
     axios.post(ApiURL("/home/post/comment/reply/add"), {
       "content": value,
       "commentid": props.comment.ID,
+      "likes": 0,
+      "isreply": true,
     }, axiosConfig)
     .then((response) => {
       setReplies([...replies, response.data.reply])
@@ -80,14 +86,7 @@ const Comment = (props: Props) => {
               {HTMLReactParser(props.comment.content)}
           </div>
       </div>
-      <div className='comment-card-actions'>
-        <div className='card-action'>
-          Like
-        </div>
-        <div className='card-action' onClick={handleOpenReply}>
-          Reply
-        </div>
-      </div>
+      <CommentActions handleOpen={handleOpenReply} />
       <div className='reply-items'> 
         {openReply ? (
           <div>
@@ -115,14 +114,7 @@ const Comment = (props: Props) => {
                   <PostUser user={props.comment.user} imageSize="35px"/>
                   {HTMLReactParser(r.content)}
                 </div>
-                <div className='comment-card-actions'>
-                  <div className='card-action'>
-                    Like
-                  </div>
-                  <div className='card-action' onClick={handleOpenReply}>
-                    Reply
-                  </div>
-                </div>
+                <CommentActions handleOpen={handleOpenReply} />
               </div>
             ))}
           </div>

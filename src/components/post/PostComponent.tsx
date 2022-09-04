@@ -29,6 +29,7 @@ const PostComponent = (props: Props) => {
   const [isLiked, setIsLiked] = useState(false)
   const [imageUrl, setImageUrl] = useState("")
   useEffect(() => {
+    // console.log(props.post)
     if (props.post.fileurl != "") {
       setImageUrl(props.post.fileurl)
     }
@@ -128,7 +129,7 @@ const PostComponent = (props: Props) => {
 
   return (
     <>
-      {props.post && props.post.content? (
+      {props.post && props.post.content ? (
         <div className='post-container'>
           <PostUser user={props.post.user} imageSize="35px"/>          
           <div className='line-container'>
@@ -195,7 +196,7 @@ const PostComponent = (props: Props) => {
             </div>
           ) : <></>}
         </div>
-      ) : <>undefined</>}
+      ) : <></>}
     </>
   )
 }
