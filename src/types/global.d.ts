@@ -40,6 +40,7 @@ declare global {
     post: Post
     replies: Array<PostReply>
     isreply: boolean
+    mention: User
   }
 
   type PostReply = {
@@ -48,6 +49,7 @@ declare global {
     likes: number,
     user: User,
     comment: Comment
+    mention: User
   }
 
   type Invitation = {
