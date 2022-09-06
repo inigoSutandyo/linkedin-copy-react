@@ -42,10 +42,10 @@ body {
     font-size: medium;
     border: none;
     cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: rgb(35, 101, 255);
+    transition: 0.2s;
+    &:hover {
+        background-color: rgb(35, 101, 255);
+    }
 }
 
 .btn-primary-outline {
@@ -56,12 +56,12 @@ body {
     color: rgb(0, 0, 255);
     font-size: medium;
     border: solid 1px rgb(0, 0, 255);
-    cursor: pointer;
-}
-
-.btn-primary-outline:hover {
-    background-color: rgb(35, 101, 255);
-    color: white;
+    cursor: pointer;    
+    transition: 0.3s;
+    &hover {
+        background-color: rgb(35, 101, 255);
+        color: white;
+    }
 }
 
 .btn-secondary {
@@ -85,4 +85,8 @@ body {
 
 .text-link:visited {
     text-decoration: none;
+}
+
+.pointer-cursor {
+    cursor: pointer;
 }

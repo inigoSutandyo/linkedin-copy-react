@@ -44,18 +44,15 @@ export const userSlice = createSlice({
         },
         removeLikedPost: (state: UserState, action: PayloadAction<Number>) => {
             const newArr = [] as Array<Number>
-            // console.log(action.payload)
             for (let i = 0; i < state.user.likedposts.length; i++) {
                 const element = state.user.likedposts[i];
 
                 if (element == action.payload) {
                     newArr.push(...state.user.likedposts)
                     newArr.splice(i, 1)
-                    // console.log(newArr)
                     break;
                 }
             }
-            // console.log(newArr)
             return {
                 ...state,
                 user: {

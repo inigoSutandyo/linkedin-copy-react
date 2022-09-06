@@ -11,12 +11,16 @@ import ModalComponent from "../../components/ModalComponent";
 import placeholderBanner from "../../assets/placeholders/banner.jpg";
 import ProfilePictureUpload from "../../components/user/ProfilePictureUpload";
 import "../../styles/pages/profile.scss";
+import { AiOutlinePlus } from "react-icons/ai";
+import AddEducation from "../../components/user/AddEducation";
 type Props = {};
+
+
 
 const MyProfile = (props: Props) => {
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
-
+  const [educations, setEducations] = useState<Array<Education>>()
   const user = useAppSelector((state) => state.user.user);
   
 
@@ -56,7 +60,6 @@ const MyProfile = (props: Props) => {
               >
                 <MdModeEditOutline style={{ cursor: "pointer" }} />
               </IconContext.Provider>
-              {/* <button onClick={() => setModal(true)} className="btn-primary w-8">Update Profile</button> */}
             </div>
             <div className="p-4">
               <div className="user-info">
@@ -66,6 +69,29 @@ const MyProfile = (props: Props) => {
                 <h3>{user.headline}</h3>
                 <p>{user.email}</p>
               </div>
+            </div>
+          </div>
+          <div className="main-content">
+            <div className="d-flex justify-between align-center w-10">
+              <div className="p-5">
+                <h1>Educations</h1>
+              </div>
+              <div className="p-5 d-flex justify-center flex-row pointer-cursor" onClick={() => handleOpenModal("Add Education")}>
+                <IconContext.Provider value={{
+                  size: "25px"
+                }}>
+                  <AiOutlinePlus/>
+                </IconContext.Provider>
+              </div>
+            </div>
+            <div className="px-5 py-1">
+                No Educations yet...
+                <div className="d-flex flex-column">
+                  {user.educations?.map((e) => (
+                    <>
+                    </>
+                  ))}
+                </div>
             </div>
           </div>
         </div>
@@ -81,6 +107,8 @@ const MyProfile = (props: Props) => {
           <ProfileForm />
         ) : title == "Profile Picture" ? (
           <ProfilePictureUpload />
+        ) : title == "Add Education" ? (
+          <AddEducation/>
         ) : (
           <></>
         )}

@@ -13,6 +13,7 @@ declare global {
     likedposts: Array<Number>
     connections: Array<User>
     invitations: Array<Invitation>
+    educations: Array<Education>
   }
 
   type UserState = {
@@ -58,5 +59,18 @@ declare global {
     source: User
     sourceid: number
     destinationid: number
+  }
+
+  type Education = {
+    ID: number
+    institute: string
+    degree: string
+    fieldofstudy: string
+    grade: string
+    description: string
+    activities: string
+    user: User
+    start: Date
+    end: Date
   }
 }
