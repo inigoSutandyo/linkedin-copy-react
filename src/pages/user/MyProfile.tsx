@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { setUser } from "../../features/user/userSlice";
 import ProfileForm from "../../components/user/ProfileForm";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../../app/hooks";
 import Navbar from "../../components/navbar/Navbar";
-import axios from "axios";
-import { ApiURL } from "../../utils/Server";
 import { MdModeEditOutline } from "react-icons/md";
 import { IconContext } from "react-icons";
 import ModalComponent from "../../components/ModalComponent";
@@ -13,6 +10,7 @@ import ProfilePictureUpload from "../../components/user/ProfilePictureUpload";
 import "../../styles/pages/profile.scss";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddEducation from "../../components/user/AddEducation";
+import EducationComponent from "./EducationComponent";
 type Props = {};
 
 
@@ -20,7 +18,6 @@ type Props = {};
 const MyProfile = (props: Props) => {
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
-  const [educations, setEducations] = useState<Array<Education>>()
   const user = useAppSelector((state) => state.user.user);
   
 
@@ -84,14 +81,35 @@ const MyProfile = (props: Props) => {
                 </IconContext.Provider>
               </div>
             </div>
-            <div className="px-5 py-1">
-                No Educations yet...
-                <div className="d-flex flex-column">
-                  {user.educations?.map((e) => (
-                    <>
-                    </>
-                  ))}
-                </div>
+            
+            <div className="px-5 py-1 w-10">
+                {user.educations ? (
+                  <div className="d-flex flex-column w-10">
+                    {user.educations.map((e) => (
+                      <div key={e.ID}>
+                        <EducationComponent education={e}/>
+                      </div>
+                    ))}
+                  </div>
+                ) : 
+                <>
+                  No Educations yet...
+                </>}
+            </div>
+
+            <div className="px-5 py-1 w-10">
+                {user.educations ? (
+                  <div className="d-flex flex-column w-10">
+                    {user.educations.map((e) => (
+                      <div key={e.ID}>
+                        <EducationComponent education={e}/>
+                      </div>
+                    ))}
+                  </div>
+                ) : 
+                <>
+                  No Educations yet...
+                </>}
             </div>
           </div>
         </div>

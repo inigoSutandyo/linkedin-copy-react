@@ -73,4 +73,18 @@ declare global {
     start: Date
     end: Date
   }
+
+  type Experience = {
+    ID: number
+    title: string
+    company: string
+    employmenttype: string
+    location: string
+    industry: string
+    description: string
+    isworking: boolean
+    start: Date
+    end: Date
+    user: User
+  }
 }
