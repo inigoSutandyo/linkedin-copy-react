@@ -1,5 +1,8 @@
-nav {
+@use '../color.scss' as c;
+.navbar {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .nav-main {
@@ -25,7 +28,7 @@ nav {
 .navbar-ul {
     display: flex;
     list-style-type: none;
-    margin: 0;
+    margin: 0px 12px;
     padding: 0;
     overflow: hidden;
     align-items: center;
@@ -54,23 +57,52 @@ li a {
     background-color: #edf9fe;
 }
 
-.drop {
+.toggle {
+    display: none;
+    list-style-type: none;
+    margin: 0px 12px;
+    padding: 0;
+    overflow: hidden;
+    align-items: center;
+}
+
+#check {
     display: none;
 }
 
 @media screen and (max-width: 720px) {
+    .navbar {
+        display: block;
+        // justify-content: start;
+    }
+
     .nav-main {
         padding: 0px 5px;
-        margin: 0px 15px;
+        display: flex;
+        justify-content: space-between;
+        width: 98%;
+    }
+
+    .nav-drop {
+        display: none;
+    }
+
+    .drop-ul {
+        display: block;
+        list-style-type: none;
+        width: 100%;
     }
 
     .side {
         display: none;
     }
 
-    .drop {
-        display: flex;
-        cursor: pointer
+    .toggle {
+        display: block;
+        cursor: pointer;
     }
 
+    [id^=check]:checked + .nav-drop {
+		display: block;
+	}
 }

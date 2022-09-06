@@ -59,11 +59,12 @@ const Navbar = (props: Props) => {
     window.location.reload()
   }
 
+
   return (
-    <nav className="py-3 bg-white">
+    <nav className="py-3 bg-white navbar">
       <div className="nav-main">
         <div>
-          <ul className="mx-2 navbar-ul">
+          <ul className="navbar-ul">
             <li className="mx-2 color-black">
               <Link to={"/"}>
                 <img className="nav-logo-small" src={iconImg} alt="" />
@@ -74,67 +75,71 @@ const Navbar = (props: Props) => {
             </li>
           </ul>
         </div>
-        <div>
-          <ul className="mx-4 navbar-ul side">
+        <label htmlFor="check" className="toggle">
+          <IconContext.Provider value={{
+            size: "25px"
+          }}>
+            < FiMenu/>
+          </IconContext.Provider>
+        </label>
+        {/* <ul className="toggle">
+        </ul> */}
+      </div>
+      <input type="checkbox" id="check" />
+      <div className="nav-drop" id="nav-drop">
+        <ul className="navbar-ul drop-ul">
+          <li className="list-hover mx-2 color-black">
+            <Link to={"/"}>
+              <FaHome/>
+            </Link>
+          </li>
+          <li className="list-hover mx-2 color-black">
+            <Link to={"/connection"}>
+              <FaUserFriends/>
+            </Link>
+          </li>
+          <li className="list-hover mx-2 color-black">
+            <Link to={"/"}>
+              <FaBriefcase/>
+            </Link>
+          </li>
+          <li className="list-hover mx-2 color-black">
+            <Link to={"/"}>
+              <FaRegCommentDots/>
+            </Link>
+          </li>
+          <li className="list-hover mx-2 color-black">
+            <Link to={"/"}>
+              <FaBell/>
+            </Link>
+          </li>
+          <li className="list-hover mx-2 color-black">
+            <Link to={`/profile/${user.ID}`}>
+              Profile
+            </Link>
+          </li>
+          {auth ? (
             <li className="list-hover mx-2 color-black">
-              <Link to={"/"}>
-                <FaHome/>
-              </Link>
+              <a href="" onClick={logout}>
+                Logout
+              </a>
             </li>
-            <li className="list-hover mx-2 color-black">
-              <Link to={"/connection"}>
-                <FaUserFriends/>
-              </Link>
-            </li>
-            <li className="list-hover mx-2 color-black">
-              <Link to={"/"}>
-                <FaBriefcase/>
-              </Link>
-            </li>
-            <li className="list-hover mx-2 color-black">
-              <Link to={"/"}>
-                <FaRegCommentDots/>
-              </Link>
-            </li>
-            <li className="list-hover mx-2 color-black">
-              <Link to={"/"}>
-                <FaBell/>
-              </Link>
-            </li>
-            <li className="list-hover mx-2 color-black">
-              <Link to={`/profile/${user.ID}`}>
-                Profile
-              </Link>
-            </li>
-            {auth ? (
+          ) : (
+            <>
               <li className="list-hover mx-2 color-black">
-                <a href="" onClick={logout}>
-                  Logout
-                </a>
+                <Link to={"/auth/login"}>
+                  Login
+                </Link>
               </li>
-            ) : (
-              <>
-                <li className="list-hover mx-2 color-black">
-                  <Link to={"/auth/login"}>
-                    Login
-                  </Link>
-                </li>
-                <li className="list-hover mx-2 color-black">
-                  <Link to={"/auth/register"}>
-                    Register
-                  </Link>
-                </li>
-              </>
-            )}
-          </ul>
-          <ul className="navbar-ul drop">
-              <IconContext.Provider value={{
-                size: "25px"
-              }}>
-                < FiMenu/>
-              </IconContext.Provider>
-          </ul>
-        </div>
+              <li className="list-hover mx-2 color-black">
+                <Link to={"/auth/register"}>
+                  Register
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+
       </div>
     </nav>
   );
