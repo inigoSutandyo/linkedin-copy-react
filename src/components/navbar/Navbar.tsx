@@ -90,32 +90,60 @@ const Navbar = (props: Props) => {
         <ul className="navbar-ul drop-ul">
           <li className="list-hover mx-2 color-black">
             <Link to={"/"}>
-              <FaHome/>
+              <IconContext.Provider value={{
+                size: "22px"
+              }}>
+                <FaHome/>
+              </IconContext.Provider>
+              Home
             </Link>
           </li>
           <li className="list-hover mx-2 color-black">
             <Link to={"/connection"}>
-              <FaUserFriends/>
+              <IconContext.Provider value={{
+                size: "22px"
+              }}>
+                <FaUserFriends/>
+              </IconContext.Provider>
+              Connections
             </Link>
           </li>
           <li className="list-hover mx-2 color-black">
             <Link to={"/"}>
-              <FaBriefcase/>
+            <IconContext.Provider value={{
+                size: "22px"
+              }}>
+                <FaBriefcase/>
+              </IconContext.Provider>
+              Jobs
             </Link>
           </li>
           <li className="list-hover mx-2 color-black">
             <Link to={"/"}>
-              <FaRegCommentDots/>
+            <IconContext.Provider value={{
+                size: "22px"
+              }}>
+                <FaRegCommentDots/>
+              </IconContext.Provider>
+              Messages
             </Link>
           </li>
           <li className="list-hover mx-2 color-black">
             <Link to={"/"}>
-              <FaBell/>
+              <IconContext.Provider value={{
+                  size: "22px"
+                }}>
+                <FaBell/>
+              </IconContext.Provider>
+              Notifications
             </Link>
           </li>
           <li className="list-hover mx-2 color-black">
             <Link to={`/profile/${user.ID}`}>
-              Profile
+              <div className='user-nav-image' style={{
+                  backgroundImage: `url(${user.imageurl})`,
+              }}></div>
+              Me
             </Link>
           </li>
           {auth ? (
