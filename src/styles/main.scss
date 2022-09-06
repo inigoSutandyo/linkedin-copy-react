@@ -1,7 +1,9 @@
+@use "./color.scss" as c;
+
 body {
     display: flex;
     flex-direction: column;
-    background-color: #f3f2ef;
+    background-color: c.$primary-light;
     margin: 0;
     padding: 0;
 }
@@ -89,4 +91,8 @@ body {
 
 .pointer-cursor {
     cursor: pointer;
+}
+
+.border-bottom-light {
+    border-bottom: 1px solid c.$light-line;
 }

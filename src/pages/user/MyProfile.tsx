@@ -10,7 +10,8 @@ import ProfilePictureUpload from "../../components/user/ProfilePictureUpload";
 import "../../styles/pages/profile.scss";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddEducation from "../../components/user/AddEducation";
-import EducationComponent from "./EducationComponent";
+import EducationComponent from "./education/EducationComponent";
+import { BiEdit, BiEditAlt } from "react-icons/bi";
 type Props = {};
 
 
@@ -73,39 +74,29 @@ const MyProfile = (props: Props) => {
               <div className="p-5">
                 <h1>Educations</h1>
               </div>
-              <div className="p-5 d-flex justify-center flex-row pointer-cursor" onClick={() => handleOpenModal("Add Education")}>
+              <div className="p-5 d-flex justify-center flex-row" onClick={() => handleOpenModal("Add Education")}>
                 <IconContext.Provider value={{
-                  size: "25px"
+                  size: "25px",
+                  className: "mr-5 pointer-cursor"
                 }}>
                   <AiOutlinePlus/>
+                </IconContext.Provider>
+                <IconContext.Provider value={{
+                  size: "25px",
+                  className: " pointer-cursor"
+                }}>
+                  <MdModeEditOutline/>
                 </IconContext.Provider>
               </div>
             </div>
             
-            <div className="px-5 py-1 w-10">
+            <div className="py-1 w-10">
                 {user.educations ? (
-                  <div className="d-flex flex-column w-10">
-                    {user.educations.map((e) => (
-                      <div key={e.ID}>
-                        <EducationComponent education={e}/>
-                      </div>
-                    ))}
-                  </div>
-                ) : 
-                <>
-                  No Educations yet...
-                </>}
-            </div>
-
-            <div className="px-5 py-1 w-10">
-                {user.educations ? (
-                  <div className="d-flex flex-column w-10">
-                    {user.educations.map((e) => (
-                      <div key={e.ID}>
-                        <EducationComponent education={e}/>
-                      </div>
-                    ))}
-                  </div>
+                  user.educations.map((e) => (
+                    <div key={e.ID}>
+                      <EducationComponent education={e}/>
+                    </div>
+                  ))
                 ) : 
                 <>
                   No Educations yet...

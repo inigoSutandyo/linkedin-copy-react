@@ -128,7 +128,7 @@
     }
 }
 
-@media screen and (max-width: 728px) {
+@media screen and (max-width: 950px) {
     .secondary-container{
         display: none;
     }
@@ -139,10 +139,10 @@
     }
 
     .main-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-left: 16px;
-        margin-right: 16px;
+        flex: auto;
+    }
+
+    .profile-layout {
+        padding: 0;
     }
 }

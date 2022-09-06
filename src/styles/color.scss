@@ -1,8 +1,9 @@
 $primary-light: #f3f2ef;
-$accent-light: #b6b6b6;
-$primary-black: #595C5F;
+$primary-black: #4a4b4c;
+$accent-black: #878787;
 $primary-blue: rgb(52, 108, 248);
 $accent-blue: rgb(0, 62, 219);
+$light-line: rgba(0,0,0,.15);
 
 .bg-primary {
     background-color: $primary-light
@@ -25,5 +26,5 @@ $accent-blue: rgb(0, 62, 219);
 }
 
 .color-light {
-    color: $accent-light
+    color: $accent-black
 }
