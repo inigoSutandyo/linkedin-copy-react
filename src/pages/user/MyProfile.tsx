@@ -9,8 +9,9 @@ import placeholderBanner from "../../assets/placeholders/banner.jpg";
 import ProfilePictureUpload from "../../components/user/ProfilePictureUpload";
 import "../../styles/pages/profile.scss";
 import { AiOutlinePlus } from "react-icons/ai";
-import AddEducation from "../../components/user/AddEducation";
+import AddEducation from "../../components/user/education/AddEducation";
 import EducationComponent from "../../components/user/education/EducationComponent";
+import AddExperience from "../../components/user/experience/AddExperience";
 type Props = {};
 
 
@@ -71,6 +72,41 @@ const MyProfile = (props: Props) => {
           <div className="main-content">
             <div className="d-flex justify-between align-center w-10">
               <div className="p-5">
+                <h1>Experiences</h1>
+              </div>
+              <div className="p-5 d-flex justify-center flex-row" onClick={() => handleOpenModal("Add Experience")}>
+                <IconContext.Provider value={{
+                  size: "25px",
+                  className: "mr-5 pointer-cursor"
+                }}>
+                  <AiOutlinePlus/>
+                </IconContext.Provider>
+                <IconContext.Provider value={{
+                  size: "25px",
+                  className: " pointer-cursor"
+                }}>
+                  <MdModeEditOutline/>
+                </IconContext.Provider>
+              </div>
+            </div>
+            
+            <div className="py-1 w-10">
+                {user.experiences ? (
+                  user.experiences.map((e) => (
+                    <div key={e.ID}>
+                      {/* <EducationComponent education={e}/> */}
+                    </div>
+                  ))
+                ) : 
+                <div className="px-3">
+                  No Experiences yet...
+                </div>}
+            </div>
+          </div>
+
+          <div className="main-content">
+            <div className="d-flex justify-between align-center w-10">
+              <div className="p-5">
                 <h1>Educations</h1>
               </div>
               <div className="p-5 d-flex justify-center flex-row" onClick={() => handleOpenModal("Add Education")}>
@@ -117,9 +153,9 @@ const MyProfile = (props: Props) => {
           <ProfilePictureUpload />
         ) : title == "Add Education" ? (
           <AddEducation/>
-        ) : (
-          <></>
-        )}
+        ) : title == "Add Experience" ? (
+          <AddExperience/>
+        ) : <></>}
       </ModalComponent>
     </div>
   );

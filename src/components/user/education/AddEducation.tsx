@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import "../../styles/forms/form.scss";
-import { ApiURL } from '../../utils/Server';
+import "../../../styles/forms/form.scss";
+import { ApiURL } from '../../../utils/Server';
 type Props = {}
 
 const AddEducation = (props: Props) => {

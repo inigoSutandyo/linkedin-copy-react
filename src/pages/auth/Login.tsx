@@ -1,14 +1,12 @@
 import axios from "axios";
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import Cookies from 'universal-cookie'
 import { Link, useNavigate } from "react-router-dom";
-import Error from "../../components/Error";
 import "../../styles/forms/form.scss";
 import Guestbar from "../../components/navbar/Guestbar";
 import FormLine from "../../components/util/FormLine";
 import { ApiURL } from "../../utils/Server";
-import { useAppSelector } from "../../app/hooks";
-import { checkAuth, checkSignIn } from "../../utils/Auth";
+import { checkAuth } from "../../utils/Auth";
+import ErrorComponent from "../../components/ErrorComponent";
 interface Props {}
 
 const Login = (props: Props) => {
@@ -108,7 +106,7 @@ const Login = (props: Props) => {
             <Link to={"/auth/forget"} className="text-link">
               Forgot password?
             </Link>
-            {error !== "" ? <Error message={error}/> : <></>}
+            {error !== "" ? <ErrorComponent message={error}/> : <></>}
             <div className="input-container">
               <input type="submit" value="Sign In" className="btn-primary" style={{
                 width: "100%",

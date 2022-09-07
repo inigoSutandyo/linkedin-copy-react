@@ -1,5 +1,9 @@
 @use "./color.scss" as c;
 
+* {
+    transition: all 0.2s;
+}
+
 body {
     display: flex;
     flex-direction: column;

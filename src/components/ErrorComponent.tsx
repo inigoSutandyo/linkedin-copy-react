@@ -4,7 +4,7 @@ interface Props {
     message: string
 }
 
-const Error = (props: Props) => {
+const ErrorComponent = (props: Props) => {
     return (
         <div style={{
             backgroundColor: "rgb(255,114,118)",
@@ -20,4 +20,4 @@ const Error = (props: Props) => {
     )
 }
 
-export default Error
+export default ErrorComponent
