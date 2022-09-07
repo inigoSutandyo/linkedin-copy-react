@@ -7,7 +7,7 @@ type Props = {
   suffix: string
 }
 
-const EducationDetail = (props: Props) => {
+const SubDetail = (props: Props) => {
   return (
     <>
         {props.data ? (
@@ -19,4 +19,4 @@ const EducationDetail = (props: Props) => {
   )
 }
 
-export default EducationDetail
+export default SubDetail

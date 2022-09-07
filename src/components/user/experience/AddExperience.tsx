@@ -4,7 +4,9 @@ import "../../../styles/forms/form.scss";
 import { ApiURL } from "../../../utils/Server";
 import ErrorComponent from "../../ErrorComponent";
 
-type Props = {};
+type Props = {
+  closeModal: any
+};
 
 const AddExperience = (props: Props) => {
   const [errorMsg, setErrorMsg] = useState("")
@@ -83,6 +85,7 @@ const AddExperience = (props: Props) => {
     },axiosConfig)
     .then((response) => {
       console.log(response.data)
+      props.closeModal()
     })
     .catch((error) => {
       console.log(error.response.data)

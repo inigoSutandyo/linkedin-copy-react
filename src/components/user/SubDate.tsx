@@ -5,7 +5,7 @@ type Props = {
     end: Date
 }
 
-const EducationDate = (props: Props) => {
+const SubDate = (props: Props) => {
   const [start, setStart] = useState<Date>()
   const [end, setEnd] = useState<Date>()
   const months = ["January",
@@ -55,4 +55,4 @@ const EducationDate = (props: Props) => {
   )
 }
 
-export default EducationDate
+export default SubDate

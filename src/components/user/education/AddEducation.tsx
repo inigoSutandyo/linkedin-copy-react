@@ -2,7 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import "../../../styles/forms/form.scss";
 import { ApiURL } from '../../../utils/Server';
-type Props = {}
+type Props = {
+  closeModal: any
+}
 
 const AddEducation = (props: Props) => {
   const [errorMsg, setErrorMsg] = useState("")
@@ -74,6 +76,7 @@ const AddEducation = (props: Props) => {
     },axiosConfig)
     .then((response) => {
       console.log(response.data)
+      props.closeModal()
     })
     .catch((error) => {
       console.log(error.response.data)

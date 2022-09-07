@@ -12,6 +12,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import AddEducation from "../../components/user/education/AddEducation";
 import EducationComponent from "../../components/user/education/EducationComponent";
 import AddExperience from "../../components/user/experience/AddExperience";
+import ExperienceComponent from "../../components/user/experience/ExperienceComponent";
 type Props = {};
 
 
@@ -94,7 +95,7 @@ const MyProfile = (props: Props) => {
                 {user.experiences ? (
                   user.experiences.map((e) => (
                     <div key={e.ID}>
-                      {/* <EducationComponent education={e}/> */}
+                      <ExperienceComponent experience={e}/>
                     </div>
                   ))
                 ) : 
@@ -152,9 +153,9 @@ const MyProfile = (props: Props) => {
         ) : title == "Profile Picture" ? (
           <ProfilePictureUpload />
         ) : title == "Add Education" ? (
-          <AddEducation/>
+          <AddEducation closeModal={closeModal}/>
         ) : title == "Add Experience" ? (
-          <AddExperience/>
+          <AddExperience closeModal={closeModal}/>
         ) : <></>}
       </ModalComponent>
     </div>
