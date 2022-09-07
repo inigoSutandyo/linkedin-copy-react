@@ -10,8 +10,7 @@ import ProfilePictureUpload from "../../components/user/ProfilePictureUpload";
 import "../../styles/pages/profile.scss";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddEducation from "../../components/user/AddEducation";
-import EducationComponent from "./education/EducationComponent";
-import { BiEdit, BiEditAlt } from "react-icons/bi";
+import EducationComponent from "../../components/user/education/EducationComponent";
 type Props = {};
 
 

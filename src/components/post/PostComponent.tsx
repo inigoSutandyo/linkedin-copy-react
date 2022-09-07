@@ -132,10 +132,6 @@ const PostComponent = (props: Props) => {
       {props.post && props.post.content ? (
         <div className='post-container'>
           <PostUser user={props.post.user} imageSize="35px"/>          
-          <div className='line-container'>
-            <hr className='line'/>
-          </div>
-
           <div className='content-container'>
             <div className='post-content'>
               {parse(props.post.content)}
@@ -152,7 +148,7 @@ const PostComponent = (props: Props) => {
               maxWidth: "300px"
             }}/>
           </div>
-          <div className='like-count'>
+          <div className='like-count border-bottom-light w-10'>
             <IconContext.Provider value={{
               color: "blue"
             }}>
@@ -162,9 +158,7 @@ const PostComponent = (props: Props) => {
               : {props.post.likes}
             </div>
           </div>
-          <div className='line-container'>
-            <hr className='line'/>
-          </div>
+
           <div className='content-footer'>
             <div className='post-actions' onClick={handleLikePost}>
               {isLiked ? (

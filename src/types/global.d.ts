@@ -14,6 +14,7 @@ declare global {
     connections: Array<User>
     invitations: Array<Invitation>
     educations: Array<Education>
+    experiences: Array<Experience>
   }
 
   type UserState = {
