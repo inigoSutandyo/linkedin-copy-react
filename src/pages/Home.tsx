@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import PostComponent from '../components/post/PostComponent'
 import ProfileDisplay from '../components/user/ProfileDisplay'
 import ModalComponent from '../components/ModalComponent'
-import { appendPost, setPosts } from '../features/post/postSlice'
+import { appendPost, removePost, setPosts } from '../features/post/postSlice'
 import { checkAuth } from '../utils/Auth'
 import { Cookies } from 'react-cookie'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -37,9 +37,8 @@ const Home = (props: Props) => {
   const dispatch = useAppDispatch() 
  
   const [modal, setModal] = useState(false)
-  const closeModal = () => {
-    setModal(false)
-  }
+  const [modalTitle, setModalTitle] = useState("")
+  const [movieId, setMovieId] = useState(0)
   
   const loadPosts = () => {
     // console.log(posts.length)
@@ -79,9 +78,33 @@ const Home = (props: Props) => {
     loadPosts()
   }, [])
 
-  // useEffect(() => {
-  //   console.log(posts[0])
-  // }, [posts])
+  const handleRemovePost = () => {
+    closeModal()
+    if (movieId == 0) return
+    axios.delete(ApiURL("/home/post/remove"), {
+      withCredentials: true,
+      params: {
+        id: movieId,
+      }
+    })
+    .then((response) => {
+      console.log(response)
+      dispatch(removePost(movieId))
+      setMovieId(0)
+    })
+    .catch((error) => {
+      console.log(error.response)
+    })
+  }
+
+  const handleOpenModal = (msg: string) => {
+    setModalTitle(msg)
+    setModal(true)
+  }
+
+  const closeModal = () => {
+    setModal(false)
+  }
 
   return (
     <div id='home-page'>
@@ -101,9 +124,7 @@ const Home = (props: Props) => {
                 <button className='btn-primary-outline' style={{
                   marginTop: "10px",
                   borderRadius: "8px"
-                }} onClick = {() => {
-                  setModal(true)
-                }}>
+                }} onClick = {() => handleOpenModal("Add Post")}>
                   Add Post
                 </button>
               </div>
@@ -126,7 +147,7 @@ const Home = (props: Props) => {
                     <>
                       {posts.map((p,i) => {
                         return (
-                          <PostComponent post={p} key={i} index={i}/>
+                          <PostComponent post={p} key={i} index={i} handleOpenModal={handleOpenModal} setMovieId={setMovieId}/>
                         )
                       })}
                     </>
@@ -139,8 +160,19 @@ const Home = (props: Props) => {
               <p>Hei</p>
             </div>
             
-            <ModalComponent isOpen={modal} closeModal={closeModal} contentLabel={"Add Post"} appElement={"#home-page"}>
-              <AddPost user={user} closeModal={closeModal}/>
+            <ModalComponent isOpen={modal} closeModal={closeModal} contentLabel={modalTitle} appElement={"#home-page"}>
+              {modalTitle == "Add Post" ? (
+
+                <AddPost user={user} closeModal={closeModal}/>
+              ) : modalTitle == "Delete Post" ? (
+                <div className='d-flex flex-column align-center'>
+                  <h3>Do You really want to delete this post?</h3>
+                  <div className='d-flex my-5'>
+                    <button className='btn-primary mx-2' onClick={handleRemovePost}>Yes</button>
+                    <button className='btn-primary-outline mx-2' onClick={closeModal}>No</button>
+                  </div>
+                </div>
+              ) : <></>}
             </ModalComponent>
           </>
         ) : (

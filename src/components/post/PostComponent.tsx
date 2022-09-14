@@ -13,13 +13,16 @@ import { addLikedPost, removeLikedPost, setLikedPost, setUser } from '../../feat
 import { ApiURL } from '../../utils/Server';
 import { updateSinglePost } from '../../features/post/postSlice';
 import PostUser from './PostUser';
-import "../../styles/components/post.scss"
 import { Link } from 'react-router-dom';
 import { FiMoreVertical } from 'react-icons/fi';
+import { HiTrash } from 'react-icons/hi'
+import "../../styles/components/post.scss"
 
 type Props = {
   post: Post,
-  index: number
+  index: number,
+  handleOpenModal: any,
+  setMovieId: any,
 }
 
 const PostComponent = (props: Props) => {
@@ -28,6 +31,10 @@ const PostComponent = (props: Props) => {
   const [processing, setProcessing] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
   const [imageUrl, setImageUrl] = useState("")
+
+  const user = useAppSelector((state) => state.user.user)
+  const dispatch = useAppDispatch() 
+
   useEffect(() => {
     // console.log(props.post)
     if (props.post.fileurl != "") {
@@ -44,10 +51,6 @@ const PostComponent = (props: Props) => {
   const handleCloseComment = () => {
     setComment(false)
   }
-  const user = useAppSelector((state) => state.user.user)
-  
-
-  const dispatch = useAppDispatch() 
 
   const axiosConfig = {
     withCredentials: true,
@@ -126,12 +129,27 @@ const PostComponent = (props: Props) => {
   }, [user])
   
 
-
+  const onClickRemove = () => {
+    const post = props.post
+    props.setMovieId(post.ID)
+    props.handleOpenModal("Delete Post")
+  }
   return (
     <>
       {props.post && props.post.content ? (
         <div className='post-container'>
-          <PostUser user={props.post.user} imageSize="35px"/>          
+          <div className='d-flex flex-row align-center justify-between w-10 border-bottom-light'>
+            <PostUser user={props.post.user} imageSize="35px"/>
+            {props.post.user.ID == user.ID ? (
+              <div className='mx-2 pointer-cursor' onClick={onClickRemove}>
+                <IconContext.Provider value={{
+                  size: "20px"
+                }}>
+                  <HiTrash/>
+                </IconContext.Provider>
+              </div>
+            ) : <></>}       
+          </div>
           <div className='content-container'>
             <div className='post-content'>
               {parse(props.post.content)}

@@ -26,7 +26,7 @@ const PostUser = (props: Props) => {
   return (
     <Link to={`/profile/${props.user.ID}`} style={{
         textDecoration: "none",
-    }} className="border-bottom-light w-10">
+    }}>
         <div className='post-user'>
             <div className='post-header'>
                 <div className='post-header-image' style={{
