@@ -1,4 +1,5 @@
 @use "./color.scss" as c;
+@use "./mixin" as m;
 
 * {
     transition: all 0.2s;
@@ -41,32 +42,21 @@ body {
 }
 
 .btn-primary {
-    align-self: center;
-    min-width: 64px;
+    @include m.btn;
     color: white;
-    padding: 8px;
-    background-color: #0065a9;
-    font-size: medium;
-    border: none;
-    cursor: pointer;
-    transition: 0.2s;
+    background-color: c.$button-primary;
     &:hover {
-        background-color: rgb(35, 101, 255);
+        background-color: c.$button-primary-bg;
     }
 }
 
 .btn-primary-outline {
-    align-self: center;
-    min-width: 64px;
+    @include m.btn-outline;
+    color: c.$button-primary;
     background-color: white;
-    padding: 7px;
-    color: rgb(0, 0, 255);
-    font-size: medium;
-    border: solid 1px rgb(0, 0, 255);
-    cursor: pointer;    
-    transition: 0.3s;
-    &hover {
-        background-color: rgb(35, 101, 255);
+    border: solid 1px c.$button-primary;
+    &:hover {
+        background-color: c.$button-primary;
         color: white;
     }
 }
@@ -101,3 +91,4 @@ body {
 .border-bottom-light {
     border-bottom: 1px solid c.$light-line;
 }
+

@@ -3,8 +3,12 @@ import React, {useEffect} from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { useUser } from '../app/user'
 import Navbar from '../components/navbar/Navbar'
-import { setNotifications } from '../features/notification/notificationSlice'
+import { removeNotification, setNotifications } from '../features/notification/notificationSlice'
 import { ApiURL } from '../utils/Server'
+
+import '../styles/components/user.scss'
+import '../styles/pages/notification.scss'
+import NotificationComponent from '../components/notification/NotificationComponent'
 
 type Props = {}
 
@@ -32,16 +36,34 @@ const Notification = (props: Props) => {
 
   }, [notifications])
   
+  const handleCloseNotification = (id: number) => {
+    console.log(id)
+    axios.delete(ApiURL("/notifications/remove"), {
+        withCredentials: true,
+        params: {
+            id: id
+        }
+    })
+    .then((response) => {
+      dispatch(removeNotification(id))
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 
   return (
     <>
         <Navbar/>
-        <div className='d-flex flex-row'>
+        <div className='d-flex flex-row notif-page'>
             <div className='notif-side'>
-
+              Your Notifications
             </div>
             <div className='notif-main'>
-
+              {notifications.map((n) => (
+                <NotificationComponent notif={n} key={n.ID} handleCloseNotification={handleCloseNotification}/>
+              ))}
             </div>
         </div>
     </>
