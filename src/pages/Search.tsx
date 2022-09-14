@@ -40,6 +40,7 @@ const Search = (props: Props) => {
     flexDirection: "column",
     margin: "5px",
   } as React.CSSProperties
+  
   return (
     <>
       <Navbar/>

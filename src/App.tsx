@@ -7,6 +7,7 @@ import Profile from './pages/user/Profile'
 import Search from './pages/Search'
 import ErrorPage from './pages/ErrorPage'
 import Connection from './pages/user/Connection'
+import Notification from './pages/Notification'
 
 
 function App() {  
@@ -17,6 +18,7 @@ function App() {
           <Route path='/profile/:id' element={<Profile/>}/> 
           <Route path='/connection' element={<Connection/>}/> 
           <Route path='/search/:q' element={<Search/>}/> 
+          <Route path='/notifications' element={<Notification/>}/> 
           <Route path='/auth/login' element={<Login/>}/>
           <Route path='/auth/register' element={<Register/>}/>
           <Route path='/auth/forget' element={<ForgetPassword/>}/>

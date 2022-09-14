@@ -88,4 +88,12 @@ declare global {
     end: Date
     user: User
   }
+
+  type Notif = {
+    ID: number
+    message: string
+    from: User
+    post: Post
+    comment: Comment
+  }
 }
