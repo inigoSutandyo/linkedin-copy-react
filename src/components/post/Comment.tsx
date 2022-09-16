@@ -24,21 +24,40 @@ const Comment = (props: Props) => {
   const [button, setButton] = useState(false)
   const [error, setError] = useState("")
 
+  const [show, setShow] = useState(false)
   
   useEffect(() => {
     axios.get(ApiURL("/home/post/comment/reply"), {
       params: {
-        id: props.comment.ID
+        id: props.comment.ID,
+        offset: 0,
+        limit: 1,
       }
     })
     .then((response) => {
-      // console.log(response.data)
       setReplies([...response.data.replies])
     }) 
     .catch(function (error) {
       console.log(error.response.data);        
     })
   }, [])
+
+  const showMoreReply = () => {
+    axios.get(ApiURL("/home/post/comment/reply"), {
+      params: {
+        id: props.comment.ID,
+        offset: 1,
+        limit: -1,
+      }
+    })
+    .then((response) => {
+      setReplies([...replies ,...response.data.replies])
+      setShow(true)
+    }) 
+    .catch(function (error) {
+      console.log(error.response.data);        
+    })
+  }
   
   const handleOpenReply = (id: number, firstname: string, lastname: string) => {
     setOpenReply(true)
@@ -137,6 +156,11 @@ const Comment = (props: Props) => {
                 <CommentActions handleOpen={() => handleOpenReply(r.user.ID, r.user.firstname, r.user.lastname)} />
               </div>
             ))}
+            {show ? <></> : (
+              <div className='mx-2 pointer-cursor color-blue' onClick={showMoreReply}>
+                Show More Reply
+              </div>
+            )}
           </div>
         ) : <></>}
       </div>
