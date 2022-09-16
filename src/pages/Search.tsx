@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from '../components/navbar/Navbar'
 import PostComponent from '../components/post/PostComponent'
@@ -14,6 +14,10 @@ const Search = (props: Props) => {
   const {q} = useParams()
   const [users, setUsers] = useState<Array<User>>()  
   const [posts, setPosts] = useState<Array<Post>>()  
+
+  const [showUser, setShowUser] = useState(true)
+  const [showPost, setShowPost] = useState(true)
+
   useEffect(() => {
     axios.get(ApiURL("/search"), {
         params: {
@@ -41,6 +45,15 @@ const Search = (props: Props) => {
     margin: "5px",
   } as React.CSSProperties
   
+
+  const filterSearch = () => {
+    const filterUser = (document.getElementById("user") as HTMLInputElement).checked 
+    const filterPost = (document.getElementById("post") as HTMLInputElement).checked 
+    
+    setShowUser(filterUser)
+    setShowPost(filterPost)
+  }
+
   return (
     <>
       <Navbar/>
@@ -49,7 +62,20 @@ const Search = (props: Props) => {
         flexDirection: "column",
         margin: "36px"
       }}>
-          {users && users.length !== 0 ? (
+          <div className='d-flex'>
+            <div className='mx-3'>
+              <input type="checkbox" name="filter" id="user"/>
+              <label htmlFor="user">User</label>
+            </div>
+            <div className='mx-2'>
+              <input type="checkbox" name="filter" id="post"/>
+              <label htmlFor="post">Post</label>
+            </div>
+          </div>
+          <div className='mx-2 my-1'>
+            <input type="button" value="Filter" className='btn-primary' onClick={filterSearch}/>
+          </div>
+          {users && users.length !== 0 && showUser ? (
             <div style={searchContainer}>
               <h4>Users</h4>
               {users.map((u) => (
@@ -62,12 +88,12 @@ const Search = (props: Props) => {
               ))}
             </div>
           ) : <></>}
-          {posts && posts.length !== 0 ? (
+          {posts && posts.length !== 0 && showPost ? (
             <div style={searchContainer}>
               <h4>Posts</h4>
               <div>
                 {posts.map((p, i) =>(
-                  <PostComponent post={p} key={p.ID} index={i}/>
+                  <PostComponent post={p} key={p.ID} index={i} handleOpenModal={undefined} setMovieId={undefined}/>
                 ))}
               </div>
             </div>
