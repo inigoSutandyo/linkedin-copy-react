@@ -7,7 +7,7 @@ import { removeNotification, setNotifications } from '../features/notification/n
 import { ApiURL } from '../utils/Server'
 
 import '../styles/components/user.scss'
-import '../styles/pages/notification.scss'
+import '../styles/pages/layout.scss'
 import NotificationComponent from '../components/notification/NotificationComponent'
 
 type Props = {}
@@ -56,11 +56,11 @@ const Notification = (props: Props) => {
   return (
     <>
         <Navbar/>
-        <div className='d-flex flex-row notif-page'>
-            <div className='notif-side'>
+        <div className='d-flex flex-row layout-page'>
+            <div className='layout-side'>
               Your Notifications
             </div>
-            <div className='notif-main'>
+            <div className='layout-main'>
               {notifications.map((n) => (
                 <NotificationComponent notif={n} key={n.ID} handleCloseNotification={handleCloseNotification}/>
               ))}

@@ -36,9 +36,11 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 480px;
+    // min-height: 480px;
     align-items: center;
     justify-content: center;
+    margin-top: 32px;
+    margin-bottom: 32px;
 }
 
 .btn-primary {
@@ -82,6 +84,10 @@ body {
 
 .text-link:visited {
     text-decoration: none;
+}
+
+.text-subtitle {
+    color: rgba(56, 56, 56, 0.682) 
 }
 
 .pointer-cursor {

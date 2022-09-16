@@ -96,4 +96,12 @@ declare global {
     post: Post
     comment: Comment
   }
+
+  type Job = {
+    ID: number
+    title: string
+    company: string
+    location: string
+    description: string
+  }
 }

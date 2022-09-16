@@ -8,6 +8,8 @@ import Search from './pages/Search'
 import ErrorPage from './pages/ErrorPage'
 import Connection from './pages/user/Connection'
 import Notification from './pages/Notification'
+import Jobs from './pages/job/Jobs'
+import AddJob from './pages/job/AddJob'
 
 
 function App() {  
@@ -19,6 +21,8 @@ function App() {
           <Route path='/connection' element={<Connection/>}/> 
           <Route path='/search/:q' element={<Search/>}/> 
           <Route path='/notifications' element={<Notification/>}/> 
+          <Route path='/jobs' element={<Jobs/>}/> 
+          <Route path='/jobs/add' element={<AddJob/>}/> 
           <Route path='/auth/login' element={<Login/>}/>
           <Route path='/auth/register' element={<Register/>}/>
           <Route path='/auth/forget' element={<ForgetPassword/>}/>
