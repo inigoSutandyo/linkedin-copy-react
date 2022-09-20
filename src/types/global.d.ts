@@ -104,4 +104,9 @@ declare global {
     location: string
     description: string
   }
+
+  type Chats = {
+    ID: number
+    users: Array<User>
+  }
 }

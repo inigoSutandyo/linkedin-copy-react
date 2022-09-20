@@ -119,7 +119,7 @@ const Navbar = (props: Props) => {
             </Link>
           </li>
           <li className="list-hover mx-2 color-black">
-            <Link to={"/"}>
+            <Link to={"/message"}>
             <IconContext.Provider value={{
                 size: "22px"
               }}>

@@ -10,6 +10,7 @@ import Connection from './pages/user/Connection'
 import Notification from './pages/Notification'
 import Jobs from './pages/job/Jobs'
 import AddJob from './pages/job/AddJob'
+import Message from './pages/message/Message'
 
 
 function App() {  
@@ -21,6 +22,7 @@ function App() {
           <Route path='/connection' element={<Connection/>}/> 
           <Route path='/search/:q' element={<Search/>}/> 
           <Route path='/notifications' element={<Notification/>}/> 
+          <Route path='/message' element={<Message/>}/> 
           <Route path='/jobs' element={<Jobs/>}/> 
           <Route path='/jobs/add' element={<AddJob/>}/> 
           <Route path='/auth/login' element={<Login/>}/>
