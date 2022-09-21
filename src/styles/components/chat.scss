@@ -1,0 +1,19 @@
+@use "../color.scss" as c;
+
+.my-message {
+    background-color: c.$primary-blue;
+    border-radius: 12px;
+    padding: 8px;
+    margin-top: 12px;
+    color: white;
+    align-self: flex-end;
+}
+
+.other-message {
+    background-color: white;
+    border-radius: 12px;
+    padding: 8px;
+    margin-top: 12px;
+    color: black;
+    align-self: flex-start;
+}

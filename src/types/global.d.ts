@@ -109,4 +109,11 @@ declare global {
     ID: number
     users: Array<User>
   }
+
+  type Message = {
+    ID: number
+    CreatedAt: Date
+    user: User
+    content: string
+  }
 }
