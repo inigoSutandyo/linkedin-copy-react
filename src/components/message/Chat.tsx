@@ -9,6 +9,7 @@ import MyMessage from './MyMessage'
 import OtherMessage from './OtherMessage'
 
 import '../../styles/components/chat.scss'
+import { connect, sendMsg, useSocket } from '../../app/socket'
 
 type Props = {
     chat: Chats
@@ -19,6 +20,8 @@ const Chat = (props: Props) => {
   const [messages, setMessages] = useState<Array<Message>>()
   const [other, setOther] = useState<User>()
   
+  const socket = useSocket(props.chat.ID)
+
   useEffect(() => {
     props.chat.users.forEach(u => {
         if (u.ID != user.ID) {
@@ -41,7 +44,14 @@ const Chat = (props: Props) => {
     .catch((error) => {
         console.log(error.response)
     })
-  }, [])
+  }, [props.chat])
+
+  useEffect(() => {
+    if (socket) {
+        connect(socket)
+    }
+  }, [socket])
+  
   
 
   const send = () => {
@@ -51,6 +61,9 @@ const Chat = (props: Props) => {
         return
     }
     console.log(target.value)
+    if (socket) {
+        sendMsg(target.value, socket)
+    }
     axios.post(ApiURL("/message/add"), {
         content: target.value,
         chatid: props.chat.ID,
@@ -64,6 +77,7 @@ const Chat = (props: Props) => {
         console.log(error.response)
     })
 
+    target.value = ""
   }
 
   return (
@@ -71,15 +85,17 @@ const Chat = (props: Props) => {
         <h3>{other?.firstname}</h3>
         <div style={{
             minHeight:"378px"
-        }} className="bg-primary d-flex flex-column">
+        }} className="bg-primary">
             {messages ? (
                 <>
                     {messages.map((m) => (
-                        m.user.ID == user.ID ? (
-                            <MyMessage message={m}/>
-                        ) : (
-                            <OtherMessage message={m}/>
-                        )
+                        <div key={m.ID} className="d-flex flex-column">
+                            {m.user.ID == user.ID ? (
+                                <MyMessage message={m}/>
+                            ) : (
+                                <OtherMessage message={m}/>
+                            )}
+                        </div>
                     ))}
                 </>
             ) : <></>}
