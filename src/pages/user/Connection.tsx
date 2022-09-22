@@ -71,13 +71,16 @@ const Connection = (props: Props) => {
           <li>
             Contacts
           </li>
-          <li>
+          <li onClick={() => setDisplay("Invitations")}>
+            Invites
+          </li>
+          {/* <li>
             People | Follow
           </li>
           <li>
             Groups
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             Events
           </li>
           <li>
@@ -88,7 +91,7 @@ const Connection = (props: Props) => {
           </li>
           <li>
             Hashtags
-          </li>
+          </li> */}
         </ul>
 
         <div className='connection-content-container'>
@@ -102,7 +105,7 @@ const Connection = (props: Props) => {
               <div>
                 {connections && connections.length > 0 ? (
                   connections.map((c) => (
-                    <div className='d-flex flex-column justify-center my-3 w-8' key={c.ID} style={{
+                    <div className='d-flex flex-column justify-center my-3 w-9' key={c.ID} style={{
                       border: "solid 1px rgb(221, 221, 221)",
                       padding: "12px"
                     }}>
@@ -122,7 +125,7 @@ const Connection = (props: Props) => {
                   </div>
                 )}
               </div>
-            ) : (
+            ) : display == "Invitations"  ? (
               <>
                 {invitations && invitations.length > 0 ? (
                   invitations.map((i) => (
@@ -134,7 +137,7 @@ const Connection = (props: Props) => {
                   </div>
                 )}
               </>
-            )}
+            ) : <></>}
           </div>
         </div>
       </div>
