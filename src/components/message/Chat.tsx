@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { error } from 'console'
-import React, { useState, useEffect, SyntheticEvent } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { IconContext } from 'react-icons'
 import { FiSend } from 'react-icons/fi'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
@@ -20,7 +20,7 @@ const Chat = (props: Props) => {
   const user = useAppSelector((state) => state.user.user)
   const messages = useAppSelector((state) => state.message)
   const dispatch = useAppDispatch() 
-//   const [messages, setMessages] = useState<Array<Message>>()
+  const messagesEndRef = useRef<null | HTMLDivElement>(null)
   const [other, setOther] = useState<User>()
   
   const socket = useSocket(props.chat.ID, user.ID)
@@ -36,7 +36,6 @@ const Chat = (props: Props) => {
 
   const handleSocket = () => {
     if (!socket) return
-    // console.log("send")
     socket.onmessage = (message) => {
         dispatch(appendMessage(JSON.parse(message.data)))
     }
@@ -78,24 +77,17 @@ const Chat = (props: Props) => {
         sendMsg(target.value, socket)
         
     }
-    // axios.post(ApiURL("/message/add"), {
-    //     content: target.value,
-    //     chatid: props.chat.ID,
-    // }, {
-    //     withCredentials: true
-    // })
-    // .then((response) => {
-    //     console.log(response.data)
-    // })
-    // .catch((error) => {
-    //     console.log(error.response)
-    // })
 
     target.value = ""
   }
+  const scrollToBottom = () => {
+    if (!messagesEndRef.current) return
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }
 
   useEffect(() => {
-    console.log(messages)
+    // console.log(messages)
+    scrollToBottom()
   }, [messages])
   
 
@@ -105,19 +97,18 @@ const Chat = (props: Props) => {
         <div style={{
             height: "480px",
             overflow: "auto"
-        }} className="bg-primary">
+        }} className="bg-primary py-2">
             {messages ? (
-                <>
-                    {messages.map((m) => (
-                        <div key={m.ID} className="d-flex flex-column">
-                            {m.user.ID == user.ID ? (
-                                <MyMessage message={m}/>
-                            ) : (
-                                <OtherMessage message={m}/>
-                            )}
-                        </div>
+                <div className="d-flex flex-column">
+                    {messages.map((m, i) => (
+                        m.user.ID == user.ID ? (
+                            <MyMessage message={m} key={i}/>
+                        ) : (
+                            <OtherMessage message={m} key={i}/>
+                        )
                     ))}
-                </>
+                    <div ref={messagesEndRef}></div>
+                </div>
             ) : <></>}
         </div>
         <div className='w-10 d-flex'>
