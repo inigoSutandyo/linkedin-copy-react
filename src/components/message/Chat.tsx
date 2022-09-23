@@ -3,13 +3,14 @@ import { error } from 'console'
 import React, { useState, useEffect, SyntheticEvent } from 'react'
 import { IconContext } from 'react-icons'
 import { FiSend } from 'react-icons/fi'
-import { useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { ApiURL } from '../../utils/Server'
 import MyMessage from './MyMessage'
 import OtherMessage from './OtherMessage'
 
 import '../../styles/components/chat.scss'
 import { connect, sendMsg, useSocket } from '../../app/socket'
+import { appendMessage, setMessages } from '../../features/message/messageSlice'
 
 type Props = {
     chat: Chats
@@ -17,10 +18,12 @@ type Props = {
 
 const Chat = (props: Props) => {
   const user = useAppSelector((state) => state.user.user)
-  const [messages, setMessages] = useState<Array<Message>>()
+  const messages = useAppSelector((state) => state.message)
+  const dispatch = useAppDispatch() 
+//   const [messages, setMessages] = useState<Array<Message>>()
   const [other, setOther] = useState<User>()
   
-  const socket = useSocket(props.chat.ID)
+  const socket = useSocket(props.chat.ID, user.ID)
 
   useEffect(() => {
     props.chat.users.forEach(u => {
@@ -31,6 +34,14 @@ const Chat = (props: Props) => {
   }, [props])
   
 
+  const handleSocket = () => {
+    if (!socket) return
+    // console.log("send")
+    socket.onmessage = (message) => {
+        dispatch(appendMessage(JSON.parse(message.data)))
+    }
+  }
+
   useEffect(() => {
     axios.get(ApiURL("/message"), {
         params: {
@@ -38,8 +49,8 @@ const Chat = (props: Props) => {
         }
     })
     .then((response) => {
-        console.log(response.data.messages)
-        setMessages(response.data.messages)
+        // console.log(response.data.messages)
+        dispatch(setMessages(response.data.messages))
     })
     .catch((error) => {
         console.log(error.response)
@@ -48,8 +59,10 @@ const Chat = (props: Props) => {
 
   useEffect(() => {
     if (socket) {
-        connect(socket)
+        // connect(socket)
+        handleSocket()
     }
+
   }, [socket])
   
   
@@ -63,28 +76,35 @@ const Chat = (props: Props) => {
     console.log(target.value)
     if (socket) {
         sendMsg(target.value, socket)
+        
     }
-    axios.post(ApiURL("/message/add"), {
-        content: target.value,
-        chatid: props.chat.ID,
-    }, {
-        withCredentials: true
-    })
-    .then((response) => {
-        console.log(response.data)
-    })
-    .catch((error) => {
-        console.log(error.response)
-    })
+    // axios.post(ApiURL("/message/add"), {
+    //     content: target.value,
+    //     chatid: props.chat.ID,
+    // }, {
+    //     withCredentials: true
+    // })
+    // .then((response) => {
+    //     console.log(response.data)
+    // })
+    // .catch((error) => {
+    //     console.log(error.response)
+    // })
 
     target.value = ""
   }
+
+  useEffect(() => {
+    console.log(messages)
+  }, [messages])
+  
 
   return (
     <>  
         <h3>{other?.firstname}</h3>
         <div style={{
-            minHeight:"378px"
+            height: "480px",
+            overflow: "auto"
         }} className="bg-primary">
             {messages ? (
                 <>

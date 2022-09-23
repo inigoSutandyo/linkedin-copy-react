@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
+import { appendMessage } from "../features/message/messageSlice";
 import { WsUrl } from "../utils/Server";
+import { useAppDispatch } from "./hooks";
 
 
-const useSocket = (id: number) => {
+const useSocket = (id: number, user_id: number) => {
     const [socket, setSocket] = useState<WebSocket>()
 
     useEffect(() => {
       if (socket) {
         socket.close()
       }
-      setSocket(new WebSocket(WsUrl(`/websocket?id=${id}`)) ) 
-    }, [id])
+      setSocket(new WebSocket(WsUrl(`/websocket?id=${id}&user=${user_id}`)) ) 
+    }, [id, user_id])
 
     return socket
 }
 
 const connect = (socket: WebSocket) => {
+    // const dispatch = useAppDispatch() 
 
     socket.onopen = () => {
         console.log("Successfully Connected");
@@ -23,6 +26,7 @@ const connect = (socket: WebSocket) => {
 
     socket.onmessage = msg => {
         console.log(JSON.parse(msg.data));
+        // dispatch(appendMessage(msg.data))
     };
 
     socket.onclose = event => {

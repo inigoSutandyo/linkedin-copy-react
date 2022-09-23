@@ -116,4 +116,9 @@ declare global {
     user: User
     content: string
   }
+
+  type MessageState = {
+    messages: Array<Message>
+    chatid: number
+  }
 }
