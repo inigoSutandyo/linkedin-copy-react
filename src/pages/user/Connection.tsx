@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useUser } from '../../app/user';
 import Invites from '../../components/connection/Invites';
+import Recommendation from '../../components/connection/Recommendation';
 import Navbar from '../../components/navbar/Navbar';
 import UserComponent from '../../components/user/UserComponent';
 import "../../styles/pages/connection.scss"
@@ -68,8 +69,8 @@ const Connection = (props: Props) => {
           <li onClick={() => setDisplay("Connection")}>
             Connection
           </li>
-          <li>
-            Contacts
+          <li onClick={() => setDisplay("Recommendation")}>
+            Recommendation
           </li>
           <li onClick={() => setDisplay("Invitations")}>
             Invites
@@ -136,6 +137,10 @@ const Connection = (props: Props) => {
                     No invitations yet..
                   </div>
                 )}
+              </>
+            ) : display == "Recommendation" ? (
+              <>
+                <Recommendation/>
               </>
             ) : <></>}
           </div>
