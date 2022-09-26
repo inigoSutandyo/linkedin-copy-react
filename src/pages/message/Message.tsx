@@ -56,8 +56,8 @@ const Message = (props: Props) => {
   return (
     <>
         <Navbar/>
-        <div className='d-flex flex-row layout-page'>
-            <div className='layout-side'>
+        <div className='layout-secondary'>
+            <div className='layout-nav'>
               <ul>
                 {chats?.map((c) => (
                   <li key={c.ID} onClick={() => changeChat(c)} className="pointer-cursor list-style-none border-bottom-light">
