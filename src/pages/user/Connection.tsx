@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useUser } from '../../app/user';
+import Following from '../../components/connection/Following';
 import Invites from '../../components/connection/Invites';
 import Recommendation from '../../components/connection/Recommendation';
 import Navbar from '../../components/navbar/Navbar';
@@ -75,6 +76,9 @@ const Connection = (props: Props) => {
           <li onClick={() => setDisplay("Invitations")}>
             Invites
           </li>
+          <li onClick={() => setDisplay("Following")}>
+            Following
+          </li>
           {/* <li>
             People | Follow
           </li>
@@ -141,6 +145,10 @@ const Connection = (props: Props) => {
             ) : display == "Recommendation" ? (
               <>
                 <Recommendation/>
+              </>
+            ) : display == "Following" ? (
+              <>
+                <Following/>
               </>
             ) : <></>}
           </div>
