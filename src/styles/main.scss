@@ -94,6 +94,10 @@ body {
     cursor: pointer;
 }
 
+.list-style-none {
+    list-style: none;
+}
+
 .border-bottom-light {
     border-bottom: 1px solid c.$light-line;
 }

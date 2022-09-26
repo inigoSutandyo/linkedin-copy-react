@@ -5,6 +5,8 @@ import { connect, sendMsg } from '../../app/socket'
 import { useUser } from '../../app/user'
 import Chat from '../../components/message/Chat'
 import Navbar from '../../components/navbar/Navbar'
+import UserComponent from '../../components/user/UserComponent'
+import UserSmallComponent from '../../components/user/UserSmallComponent'
 import { ApiURL } from '../../utils/Server'
 
 type Props = {}
@@ -58,11 +60,15 @@ const Message = (props: Props) => {
             <div className='layout-side'>
               <ul>
                 {chats?.map((c) => (
-                  <li key={c.ID} onClick={() => changeChat(c)} className="pointer-cursor">
+                  <li key={c.ID} onClick={() => changeChat(c)} className="pointer-cursor list-style-none border-bottom-light">
                     {c.users.map((u) => (
-                      <div key={u.ID}>
-                        {u.ID != user.ID ? (u.firstname) : (<></>)}
-                      </div>
+                      <>
+                        {u.ID != user.ID ? (
+                          <div className='my-3' key={u.ID}>
+                            <UserSmallComponent user={u}/>
+                          </div>
+                        ) : (<></>)}
+                      </>
                     ))}
                   </li>
                 ))}

@@ -11,6 +11,7 @@ import OtherMessage from './OtherMessage'
 import '../../styles/components/chat.scss'
 import { connect, sendMsg, useSocket } from '../../app/socket'
 import { appendMessage, setMessages } from '../../features/message/messageSlice'
+import UserSmallComponent from '../user/UserSmallComponent'
 
 type Props = {
     chat: Chats
@@ -93,7 +94,9 @@ const Chat = (props: Props) => {
 
   return (
     <>  
-        <h3>{other?.firstname}</h3>
+        {other ? (
+            <UserSmallComponent user={other}/>
+        ) : <></>}
         <div style={{
             height: "480px",
             overflow: "auto"
