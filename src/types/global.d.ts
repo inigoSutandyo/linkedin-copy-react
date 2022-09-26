@@ -12,6 +12,7 @@ declare global {
     imageid: string
     likedposts: Array<Number>
     connections: Array<User>
+    followings: Array<User>
     invitations: Array<Invitation>
     educations: Array<Education>
     experiences: Array<Experience>
