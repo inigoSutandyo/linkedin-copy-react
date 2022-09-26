@@ -7,11 +7,14 @@ import { ApiURL } from '../utils/Server'
 
 import "../styles/pages/search.scss"
 import PostUser from '../components/post/PostUser'
+import UserComponent from '../components/user/UserComponent'
+import { useAppSelector } from '../app/hooks'
 
 type Props = {}
 
 const Search = (props: Props) => {
   const {q} = useParams()
+  const user = useAppSelector((state) => state.user.user);
   const [users, setUsers] = useState<Array<User>>()  
   const [posts, setPosts] = useState<Array<Post>>()  
 
@@ -49,9 +52,30 @@ const Search = (props: Props) => {
   const filterSearch = () => {
     const filterUser = (document.getElementById("user") as HTMLInputElement).checked 
     const filterPost = (document.getElementById("post") as HTMLInputElement).checked 
-    
+    if (!filterUser && !filterPost) {
+      setShowUser(true)
+      setShowPost(true)
+      return
+    }
     setShowUser(filterUser)
     setShowPost(filterPost)
+
+
+  }
+
+  const addConnection = (id: number) => {
+    axios.post(ApiURL("/user/invite"), {}, {
+        params: {
+            source: user.ID,
+            destination: id
+        }
+    })
+    .then((response) => {
+        console.log(response.data)
+    })
+    .catch((error) => {
+        console.log(error.response.data)
+    })
   }
 
   return (
@@ -81,9 +105,19 @@ const Search = (props: Props) => {
               {users.map((u) => (
                   <div key={u.ID} style={{
                     backgroundColor: "white",
-                    padding: "20px"
-                  }}>
-                    <PostUser user={u} imageSize="55px"/>
+                    padding: "5px",
+                    width: "95%",
+                    borderRadius: "12px",
+
+                  }} className='d-flex flex-row justify-between my-3'>
+                    <div style={{
+                      padding: "20px"
+                    }}>
+                      <UserComponent user={u}/>
+                    </div>
+                    <button className='btn-primary-outline mx-1' style={{
+                      borderRadius: "32px"
+                    }} onClick={() => {addConnection(u.ID)}}>Connect</button>
                   </div>
               ))}
             </div>
