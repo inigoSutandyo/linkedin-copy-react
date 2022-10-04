@@ -6,6 +6,7 @@ import Guestbar from '../../components/navbar/Guestbar';
 import FormLine from '../../components/util/FormLine';
 import { ApiURL } from '../../utils/Server';
 import { checkAuth } from '../../utils/Auth';
+import AuthFooter from './AuthFooter';
 type Props = {}
 
 const Register = (props: Props) => {
@@ -57,7 +58,9 @@ const Register = (props: Props) => {
     }
     
     return (
-        <div> 
+        <div  className="d-flex flex-column justify-between" style={{
+            minHeight: "100vh"
+        }}> 
             <Guestbar/> 
             <div className='center-container'>
                 <h1 style={{fontWeight : "lighter" }}>
@@ -103,6 +106,7 @@ const Register = (props: Props) => {
                     </div>
                 </div>
             </div>
+            <AuthFooter/>
         </div>
     )
 }

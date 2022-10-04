@@ -7,6 +7,8 @@ import FormLine from "../../components/util/FormLine";
 import { ApiURL } from "../../utils/Server";
 import { checkAuth } from "../../utils/Auth";
 import ErrorComponent from "../../components/ErrorComponent";
+import AuthFooter from "./AuthFooter";
+
 interface Props {}
 
 const Login = (props: Props) => {
@@ -67,8 +69,14 @@ const Login = (props: Props) => {
   };
 
   return (
-    <div>
-      <Guestbar/>
+    <div className="d-flex flex-column justify-between" style={{
+      minHeight: "100vh"
+    }}>
+      <div style={{
+        alignSelf: "flex-start"
+      }}>
+        <Guestbar/>
+      </div>
       <div className="center-container">
         <div className="input-form">
           <h1 className="form-title">Sign In</h1>
@@ -116,6 +124,7 @@ const Login = (props: Props) => {
             </Link>
         </div>
       </div>
+      <AuthFooter/>
     </div>
   );
 };

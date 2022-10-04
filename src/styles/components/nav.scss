@@ -23,6 +23,10 @@
     max-width: 32px;
 }
 
+.nav-logo-l{
+    max-width: 96px;
+}
+
 .nav-logo-huge {
     max-width: 128px;
 }
@@ -37,7 +41,7 @@
 }
 
 
-li a {
+.nav-link a {
     display: block;
     color: #595C5F;
     text-align: center;

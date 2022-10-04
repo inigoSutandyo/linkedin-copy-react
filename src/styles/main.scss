@@ -102,3 +102,26 @@ body {
     border-bottom: 1px solid c.$light-line;
 }
 
+.footer {
+    width: 100%;
+    min-height: 64px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+}
+
+.footer-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    > li {
+        display: inline;
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+}
+
+.footer-link {
+    font-size: small;
+    color: c.$accent-gray;    
+}

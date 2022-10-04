@@ -12,9 +12,9 @@ const Guestbar = (props: Props) => {
       marginLeft: "30px"
     }}>
         <ul className="navbar-ul">
-            <li>
+            <li className="nav-link">
                 <Link to={"/"} className="color-blue">
-                  <img className="nav-logo-huge" src={iconImg} alt="" />
+                  <img className="nav-logo-l" src={iconImg} alt="" />
                 </Link>
             </li>
         </ul>

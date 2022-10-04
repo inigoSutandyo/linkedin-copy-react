@@ -89,7 +89,7 @@ const Navbar = (props: Props) => {
       <input type="checkbox" id="check" />
       <div className="nav-drop" id="nav-drop">
         <ul className="navbar-ul drop-ul">
-          <li className="list-hover mx-2 color-black">
+          <li className="list-hover mx-2 color-black nav-link">
             <Link to={"/"}>
               <IconContext.Provider value={{
                 size: "22px"
@@ -99,7 +99,7 @@ const Navbar = (props: Props) => {
               Home
             </Link>
           </li>
-          <li className="list-hover mx-2 color-black">
+          <li className="list-hover mx-2 color-black nav-link">
             <Link to={"/connection"}>
               <IconContext.Provider value={{
                 size: "22px"
@@ -109,7 +109,7 @@ const Navbar = (props: Props) => {
               Connections
             </Link>
           </li>
-          <li className="list-hover mx-2 color-black">
+          <li className="list-hover mx-2 color-black nav-link">
             <Link to={"/jobs"}>
               <IconContext.Provider value={{
                 size: "22px"
@@ -119,7 +119,7 @@ const Navbar = (props: Props) => {
               Jobs
             </Link>
           </li>
-          <li className="list-hover mx-2 color-black">
+          <li className="list-hover mx-2 color-black nav-link">
             <Link to={"/message"}>
             <IconContext.Provider value={{
                 size: "22px"
@@ -129,7 +129,7 @@ const Navbar = (props: Props) => {
               Messages
             </Link>
           </li>
-          <li className="list-hover mx-2 color-black">
+          <li className="list-hover mx-2 color-black nav-link">
             <Link to={"/notifications"}>
               <IconContext.Provider value={{
                   size: "22px"
@@ -139,7 +139,7 @@ const Navbar = (props: Props) => {
               Notifications
             </Link>
           </li>
-          <li className="list-hover mx-2 color-black">
+          <li className="list-hover mx-2 color-black nav-link">
             <Link to={`/profile/${user.ID}`}>
               <div className='user-nav-image' style={{
                   backgroundImage: `url(${user.imageurl})`,
@@ -148,19 +148,19 @@ const Navbar = (props: Props) => {
             </Link>
           </li>
           {auth ? (
-            <li className="list-hover mx-2 color-black">
+            <li className="list-hover mx-2 color-black nav-link">
               <a href="" onClick={logout}>
                 Logout
               </a>
             </li>
           ) : (
             <>
-              <li className="list-hover mx-2 color-black">
+              <li className="list-hover mx-2 color-black nav-link">
                 <Link to={"/auth/login"}>
                   Login
                 </Link>
               </li>
-              <li className="list-hover mx-2 color-black">
+              <li className="list-hover mx-2 color-black nav-link">
                 <Link to={"/auth/register"}>
                   Register
                 </Link>
