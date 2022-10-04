@@ -16,7 +16,6 @@ import { checkAuth } from '../utils/Auth'
 import { Cookies } from 'react-cookie'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/Loading'
-import placeholderProfile from "../assets/placeholders/user.png";
 import { useUser } from '../app/user'
 
 type Props = {}

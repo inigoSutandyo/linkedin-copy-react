@@ -9,6 +9,7 @@ import "../styles/pages/search.scss"
 import PostUser from '../components/post/PostUser'
 import UserComponent from '../components/user/UserComponent'
 import { useAppSelector } from '../app/hooks'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 type Props = {}
 
@@ -17,24 +18,41 @@ const Search = (props: Props) => {
   const user = useAppSelector((state) => state.user.user);
   const [users, setUsers] = useState<Array<User>>()  
   const [posts, setPosts] = useState<Array<Post>>()  
-
+  const [userOffset, setUserOffset] = useState(0)
+  const [postOffset, setPostOffset] = useState(0)
   const [showUser, setShowUser] = useState(true)
   const [showPost, setShowPost] = useState(true)
 
+  const [hasMorePost, setHasMorePost] = useState(false)
+
   useEffect(() => {
-    axios.get(ApiURL("/search"), {
+    axios.get(ApiURL("/search/post"), {
         params: {
-            search: q
+            search: q,
+            offset: postOffset
+        }
+    })
+    .then((response) => {
+        console.log(response.data)
+
+        if (response.data.posts) {
+          setPosts([...response.data.posts])
+        }
+    })
+    .catch((error) => {
+        console.log(error.response)
+    })
+
+    axios.get(ApiURL("/search/user"), {
+        params: {
+            search: q,
+            offset: userOffset,
         }
     })
     .then((response) => {
         console.log(response.data)
         if (response.data.users) {
           setUsers([...response.data.users])
-        }
-
-        if (response.data.posts) {
-          setPosts([...response.data.posts])
         }
     })
     .catch((error) => {
@@ -46,6 +64,8 @@ const Search = (props: Props) => {
     display: "flex",
     flexDirection: "column",
     margin: "5px",
+    overflow: "auto",
+    maxHeight:"640px",
   } as React.CSSProperties
   
 
@@ -78,6 +98,47 @@ const Search = (props: Props) => {
     })
   }
 
+  const fetchMoreUser = () => {
+    setUserOffset(userOffset + 5)
+    axios.get(ApiURL("/search/user"), {
+      params: {
+        search: q,
+        offset: userOffset
+      }
+    })
+    .then((response) => {
+        console.log(response.data)
+        if (response.data.users) {
+          users?.push(response.data.users)
+        }
+    })
+    .catch((error) => {
+        console.log(error.response)
+    })
+  }
+
+  const fetchMorePost = () => {
+    console.log("fetch post")
+    axios.get(ApiURL("/search/post"), {
+      params: {
+        search: q,
+        offset: postOffset+5
+      }
+    })
+    .then((response) => {
+        console.log(response.data)
+        const length = response.data.posts.length
+        if (response.data.posts && posts) {
+          setPosts([...posts, ...response.data.posts])
+        }
+        setHasMorePost(response.data.hasmore)
+        setPostOffset(postOffset + length)
+    })
+    .catch((error) => {
+      console.log(error.response)
+    })
+  }
+
   return (
     <>
       <Navbar/>
@@ -100,37 +161,53 @@ const Search = (props: Props) => {
             <input type="button" value="Filter" className='btn-primary' onClick={filterSearch}/>
           </div>
           {users && users.length !== 0 && showUser ? (
-            <div style={searchContainer}>
+            <div style={searchContainer} id="userDiv">
               <h4>Users</h4>
-              {users.map((u) => (
-                  <div key={u.ID} style={{
-                    backgroundColor: "white",
-                    padding: "5px",
-                    width: "95%",
-                    borderRadius: "12px",
+              <InfiniteScroll
+                dataLength={users.length}
+                next={fetchMoreUser}
+                hasMore={hasMorePost}
+                loader={<h4>Loading...</h4>}
+                scrollableTarget="userDiv"
+              >
+                {users.map((u) => (
+                    <div key={u.ID} style={{
+                      backgroundColor: "white",
+                      padding: "5px",
+                      width: "95%",
+                      borderRadius: "12px",
 
-                  }} className='d-flex flex-row justify-between my-3'>
-                    <div style={{
-                      padding: "20px"
-                    }}>
-                      <UserComponent user={u}/>
+                    }} className='d-flex flex-row justify-between my-3'>
+                      <div style={{
+                        padding: "20px"
+                      }}>
+                        <UserComponent user={u}/>
+                      </div>
+                      <button className='btn-primary-outline mx-1' style={{
+                        borderRadius: "32px"
+                      }} onClick={() => {addConnection(u.ID)}}>Connect</button>
                     </div>
-                    <button className='btn-primary-outline mx-1' style={{
-                      borderRadius: "32px"
-                    }} onClick={() => {addConnection(u.ID)}}>Connect</button>
-                  </div>
-              ))}
+                ))}
+              </InfiniteScroll>
             </div>
           ) : <></>}
           {posts && posts.length !== 0 && showPost ? (
-            <div style={searchContainer}>
+            <>
               <h4>Posts</h4>
-              <div>
-                {posts.map((p, i) =>(
-                  <PostComponent post={p} key={p.ID} index={i} handleOpenModal={undefined} setMovieId={undefined}/>
-                ))}
+              <div style={searchContainer} id="postDiv">
+                <InfiniteScroll
+                  dataLength={posts.length}
+                  next={fetchMorePost}
+                  hasMore={true}
+                  loader={<h4>Loading...</h4>}
+                  scrollableTarget="postDiv"
+                >
+                  {posts.map((p, i) =>(
+                    <PostComponent post={p} key={p.ID} index={i} handleOpenModal={undefined} setMovieId={undefined}/>
+                  ))}
+                </InfiniteScroll>
               </div>
-            </div>
+            </>
           ) : <></>}
         
       </div>

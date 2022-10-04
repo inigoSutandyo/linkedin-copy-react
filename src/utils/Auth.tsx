@@ -33,8 +33,5 @@ export const checkAuth = () => {
         console.log(error.response.data);
         isAuth = error.response.data.status
     })
-    .then(function () {
-        // always executed
-    });
     return isAuth
 }

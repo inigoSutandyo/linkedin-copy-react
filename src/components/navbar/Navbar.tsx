@@ -22,6 +22,7 @@ const Navbar = (props: Props) => {
   const auth = useAppSelector((state) => state.user.isSignedIn)
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch() 
+  
   function logout() {
     const axiosConfig = {
       headers: {

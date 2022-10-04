@@ -19,8 +19,6 @@ const Login = (props: Props) => {
     }
   }, [])
   
-  
-
   const submit = (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -65,11 +63,7 @@ const Login = (props: Props) => {
       })
       .catch(function (error) {
         setError(error.response.data.message);
-        
       })
-      .then(function (response) {
-
-      });
   };
 
   return (
