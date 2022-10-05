@@ -40,29 +40,30 @@ const Home = (props: Props) => {
   const [movieId, setMovieId] = useState(0)
   
   const loadPosts = () => {
-    // console.log(posts.length)
-    axios.get(ApiURL("/home/post"), {
-      withCredentials: true,
-      params: {
-        offset: offset,
-        limit: limit
-      }
-    })
-    .then(function (response) {
-
-      if (posts && posts.length > 0) {
-        dispatch(appendPost(response.data.posts))
-      } else {
-        dispatch(setPosts(response.data.posts))
-      }
-      setOffset(offset + limit)
-      setHasMore(response.data.hasmore)
-    })
-    .catch(function (error) {
-      console.log(error)        
-    })
-    .then(function () {
-    });
+    setTimeout(() => {
+      axios.get(ApiURL("/home/post"), {
+        withCredentials: true,
+        params: {
+          offset: offset,
+          limit: limit
+        }
+      })
+      .then(function (response) {
+  
+        if (posts && posts.length > 0) {
+          dispatch(appendPost(response.data.posts))
+        } else {
+          dispatch(setPosts(response.data.posts))
+        }
+        setOffset(offset + limit)
+        setHasMore(response.data.hasmore)
+      })
+      .catch(function (error) {
+        console.log(error)        
+      })
+      .then(function () {
+      });
+    }, 500);
   }
 
   useUser()

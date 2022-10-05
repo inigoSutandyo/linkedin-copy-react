@@ -12,11 +12,15 @@ type Props = {
 }
 
 const PostComment = (props: Props) => {
-  const [show, setShow] = useState(false)
+  const limit = 5;
+  
+  const [show, setShow] = useState(true)
   const [value, setValue] = useState("")
   const [button, setButton] = useState(false)
   const [error, setError] = useState("")
   const [comments, setComments] = useState<Array<PostComment>>([])
+
+  const [offset, setOffset] = useState(0)
 
   function handleChange(content: any, delta: any, source: any, editor: any) {
     
@@ -44,6 +48,7 @@ const PostComment = (props: Props) => {
     .then((response) => {
       console.log(response.data)
       setComments([...response.data.comments])
+      setOffset(2)
     }) 
     .catch(function (error) {
       console.log(error.response.data);        
@@ -54,14 +59,15 @@ const PostComment = (props: Props) => {
     axios.get(ApiURL("/home/post/comment"), {
       params: {
         id: props.postid,
-        offset: 2,
-        limit: -1,
+        offset: offset,
+        limit: limit,
       }
     })
     .then((response) => {
       console.log(response.data)
       setComments([...comments, ...response.data.comments])
-      setShow(true)
+      setOffset(offset + limit)
+      setShow(response.data.hasmore)
     }) 
     .catch(function (error) {
       console.log(error.response.data);        
@@ -126,7 +132,7 @@ const PostComment = (props: Props) => {
               <Comment comment={c}/>
             </div>
           ))}
-          {show || comments.length === 0 ? <></> : (
+          {!show || comments.length === 0 ? <></> : (
             <div className='mx-2 pointer-cursor color-blue' onClick={showMoreComment}>
               Show More Comments
             </div>
