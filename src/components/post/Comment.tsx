@@ -24,7 +24,7 @@ const Comment = (props: Props) => {
   const [button, setButton] = useState(false)
   const [error, setError] = useState("")
   const [offset, setOffset] = useState(0)
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(true)
   
   useEffect(() => {
     axios.get(ApiURL("/home/post/comment/reply"), {
@@ -53,7 +53,7 @@ const Comment = (props: Props) => {
     })
     .then((response) => {
       setReplies([...replies ,...response.data.replies])
-      setShow(true)
+      setShow(response.data.hasmore)
       setOffset(offset + 5)
     }) 
     .catch(function (error) {

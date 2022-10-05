@@ -4,6 +4,7 @@ import ReactQuill ,{QuillOptions} from 'react-quill'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 
 import { ApiURL } from '../../utils/Server'
+import Loading from '../Loading'
 import Comment from './Comment'
 
 type Props = {
@@ -19,7 +20,7 @@ const PostComment = (props: Props) => {
   const [button, setButton] = useState(false)
   const [error, setError] = useState("")
   const [comments, setComments] = useState<Array<PostComment>>([])
-
+  const [loading, setLoading] = useState(false)
   const [offset, setOffset] = useState(0)
 
   function handleChange(content: any, delta: any, source: any, editor: any) {
@@ -37,7 +38,6 @@ const PostComment = (props: Props) => {
 
 
   useEffect(() => {
-    // console.log(props.postid)
     axios.get(ApiURL("/home/post/comment"), {
       params: {
         id: props.postid,
@@ -56,22 +56,28 @@ const PostComment = (props: Props) => {
   }, [])
   
   const showMoreComment = () => {
-    axios.get(ApiURL("/home/post/comment"), {
-      params: {
-        id: props.postid,
-        offset: offset,
-        limit: limit,
-      }
-    })
-    .then((response) => {
-      console.log(response.data)
-      setComments([...comments, ...response.data.comments])
-      setOffset(offset + limit)
-      setShow(response.data.hasmore)
-    }) 
-    .catch(function (error) {
-      console.log(error.response.data);        
-    })
+    setLoading(true)
+    setTimeout(() => {
+      axios.get(ApiURL("/home/post/comment"), {
+        params: {
+          id: props.postid,
+          offset: offset,
+          limit: limit,
+        }
+      })
+      .then((response) => {
+        console.log(response.data)
+        setComments([...comments, ...response.data.comments])
+        setOffset(offset + limit)
+        setShow(response.data.hasmore)
+      }) 
+      .catch(function (error) {
+        console.log(error.response.data);        
+      })
+      .then(()=>{
+        setLoading(false)
+      })
+    }, 250)
   }
 
   const addComment = () => {
@@ -136,8 +142,12 @@ const PostComment = (props: Props) => {
             <div className='mx-2 pointer-cursor color-blue' onClick={showMoreComment}>
               Show More Comments
             </div>
-
           )}
+          {loading ? (
+            <div className='d-flex justify-center'>
+              <Loading/>
+            </div>
+          ) : <></>}
         </div>
     </div>
   )
