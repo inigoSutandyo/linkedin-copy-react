@@ -8,6 +8,7 @@ import { ApiURL } from "../../utils/Server";
 import { checkAuth } from "../../utils/Auth";
 import ErrorComponent from "../../components/ErrorComponent";
 import AuthFooter from "./AuthFooter";
+import { useGoogleLogin, GoogleLogin  } from "@react-oauth/google";
 
 interface Props {}
 
@@ -20,6 +21,10 @@ const Login = (props: Props) => {
       navigate("/")
     }
   }, [])
+
+  const loginGoogle = useGoogleLogin({
+    onSuccess: tokenResponse => console.log(tokenResponse),
+  });
   
   const submit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -115,8 +120,25 @@ const Login = (props: Props) => {
                 borderRadius: "32px"
               }}/>
             </div>
+            <FormLine/>
+            <div className="input-container">
+              {/* <button className="btn-primary-outline"  style={{
+                width: "100%",
+                borderRadius: "32px"
+              }} onClick={() => loginGoogle()}>
+                Continue with Google
+              </button> */}
+              
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  console.log(credentialResponse);
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+              />
+            </div>
           </form>
-          <FormLine/>
         </div>
         <div className="my-3">
             New to Linked In? <Link to={"/auth/register"} className="text-link">

@@ -88,6 +88,14 @@ const Register = (props: Props) => {
                         </div>
                     </form>
                     <FormLine/>
+                    <div className="input-container">
+                        <button className="btn-primary-outline"  style={{
+                            width: "100%",
+                            borderRadius: "32px"
+                        }}>
+                            Continue with Google
+                        </button>
+                    </div>
                     <div className="my-3" style={{
                         display: "flex",
                         justifyContent: "center",
