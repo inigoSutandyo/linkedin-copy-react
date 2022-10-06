@@ -46,16 +46,26 @@ const Invites = (props: Props) => {
     })
   }
   return (
-    <div className="d-flex flex-row align-center justify-between">
-        <UserComponent user={props.invite.source}/>
+    <div className="d-flex flex-column">
+      <div className="d-flex flex-row align-center justify-between">
+          <UserComponent user={props.invite.source}/>
+          <div>
+              <button className='btn-primary mx-1' style={{
+                  borderRadius: "32px"
+              }} onClick={acceptInvitation}>Accept</button>
+              <button className='btn-primary-outline mx-1' style={{
+                  borderRadius: "32px"
+              }} onClick={ignoreInvitation}>Ignore</button>
+          </div>
+      </div>
+      {!props.invite.note.trim() ? <></> : (
         <div>
-            <button className='btn-primary mx-1' style={{
-                borderRadius: "32px"
-            }} onClick={acceptInvitation}>Accept</button>
-            <button className='btn-primary-outline mx-1' style={{
-                borderRadius: "32px"
-            }} onClick={ignoreInvitation}>Ignore</button>
+          <p>
+            Message : 
+          </p>
+          {props.invite.note}
         </div>
+      )}
     </div>
   )
 }

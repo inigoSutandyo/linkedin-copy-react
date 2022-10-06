@@ -7,6 +7,8 @@ import axios from 'axios';
 import { ApiURL } from '../../utils/Server';
 import ErrorPage from '../ErrorPage';
 import { useAppSelector } from '../../app/hooks';
+import ModalComponent from '../../components/ModalComponent';
+import ConnectPrompt from './ConnectPrompt';
 
 interface Props {
     id: string
@@ -19,6 +21,16 @@ const OtherProfile = (props: Props) => {
     const [connected, setConnected] = useState(false)
     const [invited, setInvited] = useState(false)
     const [followed, setFollowed] = useState(false)
+    const [modal, setModal] = useState(false)
+
+    const openModal = () => {
+      setModal(true)
+    }
+
+    const closeModal = () => {
+      setModal(false)
+    }
+
     useEffect(() => {
       axios.get(ApiURL("/user/otherprofile"), {
         params: {
@@ -96,16 +108,15 @@ const OtherProfile = (props: Props) => {
 
     }, [user, currentUser])
     
-    const inviteConnect = () => {
+    const inviteConnect = (note: string) => {
       if (!user) return
       if (!currentUser) return
       if (user.ID < 1) return
 
-      axios.post(ApiURL("/user/invite"), {}, {
-        params: {
-          source: currentUser.ID,
-          destination: user.ID
-        }
+      axios.post(ApiURL("/user/invite"), {
+        sourceid: currentUser.ID,
+        destinationid: user.ID,
+        note: note
       })
       .then((response) => {
         console.log(response.data)
@@ -153,71 +164,77 @@ const OtherProfile = (props: Props) => {
     }
 
     return (
-        <>
-          {user?.ID == 0 ? (
-            <ErrorPage/>
-          ) : (
-            <div id="profile-page">
-              <Navbar />
-              <div className="profile-layout">
-                <div className="main-container">
-                  <div className="main-content">
-                    <div
-                      className="user-banner"
-                      style={{ backgroundImage: `url(${placeholderBanner})` }}
-                    ></div>
+      <>
+        {user?.ID == 0 ? (
+          <ErrorPage/>
+        ) : (
+          <div id="profile-page">
+            <Navbar />
+            <div className="profile-layout">
+              <div className="main-container">
+                <div className="main-content">
+                  <div
+                    className="user-banner"
+                    style={{ backgroundImage: `url(${placeholderBanner})` }}
+                  ></div>
 
-                    <div
-                      className="user-img"
-                      style={{ backgroundImage: `url(${imageUrl})` }}
-                    ></div>
-                    <div
-                      className="edit-profile"
-                    >
-                      {!followed ? (
-                        <button className='btn-primary-outline mx-2' style={{
+                  <div
+                    className="user-img"
+                    style={{ backgroundImage: `url(${imageUrl})` }}
+                  ></div>
+                  <div
+                    className="edit-profile"
+                  >
+                    {!followed ? (
+                      <button className='btn-primary-outline mx-2' style={{
+                        borderRadius : "16px"
+                      }} onClick={followUser}>
+                        Follow
+                      </button>
+                    ) : (
+                      <button className='btn-primary-outline mx-2' style={{
+                        borderRadius : "16px"
+                      }} onClick={unfollowUser}>
+                        Unfollow
+                      </button>
+                    )}
+                    {!connected && !invited ? (
+                      <>
+                        <button className='btn-primary' style={{
                           borderRadius : "16px"
-                        }} onClick={followUser}>
-                          Follow
-                        </button>
-                      ) : (
-                        <button className='btn-primary-outline mx-2' style={{
-                          borderRadius : "16px"
-                        }} onClick={unfollowUser}>
-                          Unfollow
-                        </button>
-                      )}
-                      {!connected && !invited ? (
-                        <>
-                          <button className='btn-primary' style={{
-                            borderRadius : "16px"
-                          }} onClick={inviteConnect}>Connect</button>
-                        </>
-                      ) : invited ? (
-                          <div className='btn-primary-outline' style={{
-                            borderRadius : "16px",
-                            cursor: "default"
-                          }}>Pending</div>
-                      ) : <></>}
-                    </div>
-                    
-                    <div className="p-4">
-                      <div className="user-info">
-                        <h1>
-                          {user?.firstname} {user?.lastname}
-                        </h1>
-                        <h3>{user?.headline}</h3>
-                        <p>{user?.email}</p>
-                      </div>
+                        }} onClick={openModal}>Connect</button>
+                      </>
+                    ) : invited ? (
+                        <div className='btn-primary-outline' style={{
+                          borderRadius : "16px",
+                          cursor: "default"
+                        }}>Pending</div>
+                    ) : <></>}
+                  </div>
+                  
+                  <div className="p-4">
+                    <div className="user-info">
+                      <h1>
+                        {user?.firstname} {user?.lastname}
+                      </h1>
+                      <h3>{user?.headline}</h3>
+                      <p>{user?.email}</p>
                     </div>
                   </div>
                 </div>
-                <div className="secondary-container profile-section">Hello</div>
               </div>
+              <div className="secondary-container profile-section">Hello</div>
             </div>
-          )}
-        </>
-      );
+
+            {user ? (
+              <ModalComponent isOpen={modal} appElement={"#profile-page"} closeModal={closeModal} contentLabel={"Connect"}>
+                <ConnectPrompt inviteConnect={inviteConnect} destination={user} closeModal={closeModal}/>
+              </ModalComponent>
+            ) : <></>}
+          </div>
+        )}
+      </>
+    );
 }
 
 export default OtherProfile
