@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import iconImg from "../../assets/logos/linkedin_main.png"
+import iconImg from "../assets/logos/linkedin_main.png"
 type Props = {}
 
-const AuthFooter = (props: Props) => {
+const Footer = (props: Props) => {
   return (
     <div className="footer d-flex justify-center">
         <ul className="footer-list">
@@ -42,4 +42,4 @@ const AuthFooter = (props: Props) => {
   )
 }
 
-export default AuthFooter
+export default Footer

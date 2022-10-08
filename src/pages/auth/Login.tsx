@@ -7,9 +7,9 @@ import FormLine from "../../components/util/FormLine";
 import { ApiURL } from "../../utils/Server";
 import { checkAuth, useAuth } from "../../utils/Auth";
 import ErrorComponent from "../../components/ErrorComponent";
-import AuthFooter from "./AuthFooter";
 import { useGoogleLogin, GoogleLogin, CredentialResponse  } from "@react-oauth/google";
 import { decodeToken } from "react-jwt";
+import Footer from "../Footer";
 
 interface Props {}
 
@@ -176,7 +176,7 @@ const Login = (props: Props) => {
             </Link>
         </div>
       </div>
-      <AuthFooter/>
+      <Footer/>
     </div>
   );
 };

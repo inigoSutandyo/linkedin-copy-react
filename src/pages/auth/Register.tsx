@@ -6,7 +6,8 @@ import Guestbar from '../../components/navbar/Guestbar';
 import FormLine from '../../components/util/FormLine';
 import { ApiURL } from '../../utils/Server';
 import { checkAuth } from '../../utils/Auth';
-import AuthFooter from './AuthFooter';
+import AuthFooter from '../Footer';
+import Footer from '../Footer';
 type Props = {}
 
 const Register = (props: Props) => {
@@ -114,7 +115,7 @@ const Register = (props: Props) => {
                     </div>
                 </div>
             </div>
-            <AuthFooter/>
+            <Footer/>
         </div>
     )
 }

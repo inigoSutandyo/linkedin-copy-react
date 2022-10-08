@@ -11,6 +11,7 @@ import Notification from './pages/Notification'
 import Jobs from './pages/job/Jobs'
 import AddJob from './pages/job/AddJob'
 import Message from './pages/message/Message'
+import ResetPassword from './pages/auth/ResetPassword'
 
 
 function App() {  
@@ -19,6 +20,7 @@ function App() {
       <Routes>
           <Route path='/' element={<Home/>}/> 
           <Route path='/profile/:id' element={<Profile/>}/> 
+          <Route path='/reset/:token' element={<ResetPassword/>}/> 
           <Route path='/connection' element={<Connection/>}/> 
           <Route path='/search/:q' element={<Search/>}/> 
           <Route path='/notifications' element={<Notification/>}/> 
