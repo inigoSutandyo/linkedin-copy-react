@@ -5,27 +5,37 @@ import "../../styles/forms/form.scss";
 import Guestbar from "../../components/navbar/Guestbar";
 import FormLine from "../../components/util/FormLine";
 import { ApiURL } from "../../utils/Server";
-import { checkAuth } from "../../utils/Auth";
+import { checkAuth, useAuth } from "../../utils/Auth";
 import ErrorComponent from "../../components/ErrorComponent";
 import AuthFooter from "./AuthFooter";
-import { useGoogleLogin, GoogleLogin  } from "@react-oauth/google";
+import { useGoogleLogin, GoogleLogin, CredentialResponse  } from "@react-oauth/google";
+import { decodeToken } from "react-jwt";
 
 interface Props {}
+
+interface Google {
+  email: string
+  given_name: string
+  family_name: string
+  picture: string
+}
 
 const Login = (props: Props) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
-  useEffect(() => {
-    if (checkAuth()) {
-      navigate("/")
-    }
-  }, [])
 
-  const loginGoogle = useGoogleLogin({
-    onSuccess: tokenResponse => console.log(tokenResponse),
-  });
-  
+  const auth = useAuth()
+
+  useEffect(() => {
+    console.log(auth)
+    if (auth == undefined) return
+
+    if (auth == true) {
+      navigate('/')
+      return
+    }
+  }, [auth])
+
   const submit = (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -72,6 +82,34 @@ const Login = (props: Props) => {
         setError(error.response.data.message);
       })
   };
+
+  const loginGoogle = (credentialResponse: CredentialResponse) => {
+    console.log(credentialResponse);
+    if (credentialResponse.credential) {
+
+      const user = decodeToken(credentialResponse.credential) as Google
+      if (!user) return
+      const axiosConfig = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      };
+      axios.post(ApiURL("/auth/google/login"),  {
+        email: user.email,
+        given_name: user.given_name,
+        family_name: user.family_name,
+        picture: user.picture
+      }, axiosConfig)
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+      })
+    }
+  }
+  
 
   return (
     <div className="d-flex flex-column justify-between" style={{
@@ -122,17 +160,9 @@ const Login = (props: Props) => {
             </div>
             <FormLine/>
             <div className="input-container">
-              {/* <button className="btn-primary-outline"  style={{
-                width: "100%",
-                borderRadius: "32px"
-              }} onClick={() => loginGoogle()}>
-                Continue with Google
-              </button> */}
               
               <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
+                onSuccess={loginGoogle}
                 onError={() => {
                   console.log('Login Failed');
                 }}

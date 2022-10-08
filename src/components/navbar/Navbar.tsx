@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import { generatePath, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../../styles/components/nav.scss'
 import '../../styles/forms/form.scss'
 import iconImg from "../../assets/logos/linkedin_secondary.png"
@@ -10,11 +10,13 @@ import { logoutUser } from "../../features/user/userSlice"
 import { FaBell, FaBriefcase, FaHome, FaRegCommentDots, FaUserFriends } from "react-icons/fa";
 import { FiMenu } from 'react-icons/fi'
 import { IconContext } from "react-icons";
+import { googleLogout } from "@react-oauth/google";
+import { Cookies } from 'react-cookie'
 
 type Props = {};
 
 const Navbar = (props: Props) => {
-
+  const cookie = new Cookies()
   const navigate = useNavigate()
 
   const [queryParam, setQueryParam] = useState("")
@@ -37,6 +39,10 @@ const Navbar = (props: Props) => {
     )
     .then((response) => {
       console.log(response.data)
+      cookie.remove('auth')
+      if (response.data.isgoogle) {
+        googleLogout()
+      }
       dispatch(logoutUser())
       navigate("/auth/login")
     })

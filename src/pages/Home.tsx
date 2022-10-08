@@ -1,11 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import Modal from '../components/ModalComponent'
 import Navbar from '../components/navbar/Navbar'
 import AddPost from '../components/post/AddPost'
 import '../styles/pages/home.scss'
 import { ApiURL } from '../utils/Server'
-import { setLikedPost, setUser } from '../features/user/userSlice'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { useNavigate } from 'react-router-dom'
 import PostComponent from '../components/post/PostComponent'
@@ -69,8 +67,9 @@ const Home = (props: Props) => {
   useUser()
 
   useEffect(() => {
+    checkAuth()
     const cookie = new Cookies()
-
+    console.log(cookie.get("auth"))
     if (!cookie.get("auth")) {
       navigate("/auth/login")
     }
