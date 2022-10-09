@@ -5,6 +5,7 @@ import { useAppSelector } from "../../app/hooks";
 import MyProfile from "./MyProfile";
 import OtherProfile from "./OtherProfile";
 import { useUser } from "../../app/user";
+import Footer from "../Footer";
 interface Props {}
 
 const Profile = (props: Props) => {
@@ -34,6 +35,7 @@ const Profile = (props: Props) => {
           User Not Found 
         </div>
       )}
+      <Footer/>
     </>
   );
 };

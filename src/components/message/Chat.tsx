@@ -98,7 +98,7 @@ const Chat = (props: Props) => {
             <UserSmallComponent user={other}/>
         ) : <></>}
         <div style={{
-            height: "480px",
+            height: "360px",
             overflow: "auto"
         }} className="bg-primary py-2">
             {messages ? (

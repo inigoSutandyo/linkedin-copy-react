@@ -15,6 +15,7 @@ import { Cookies } from 'react-cookie'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/Loading'
 import { useUser } from '../app/user'
+import Footer from './Footer'
 
 type Props = {}
 
@@ -178,6 +179,7 @@ const Home = (props: Props) => {
           <p>Empty</p>
         )}
       </div>
+      <Footer/>
     </div>
   )
 }

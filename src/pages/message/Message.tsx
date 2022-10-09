@@ -8,6 +8,7 @@ import Navbar from '../../components/navbar/Navbar'
 import UserComponent from '../../components/user/UserComponent'
 import UserSmallComponent from '../../components/user/UserSmallComponent'
 import { ApiURL } from '../../utils/Server'
+import Footer from '../Footer'
 
 type Props = {}
 
@@ -54,17 +55,17 @@ const Message = (props: Props) => {
   }
 
   return (
-    <>
+    <div className='main-page-layout'>
         <Navbar/>
-        <div className='layout-secondary'>
+        <div className='layout-secondary main-body'>
             <div className='layout-nav'>
               <ul>
                 {chats?.map((c) => (
                   <li key={c.ID} onClick={() => changeChat(c)} className="pointer-cursor list-style-none border-bottom-light">
-                    {c.users.map((u) => (
+                    {c.users.map((u, i) => (
                       <>
                         {u.ID != user.ID ? (
-                          <div className='my-3' key={u.ID}>
+                          <div className='my-3' key={i}>
                             <UserSmallComponent user={u}/>
                           </div>
                         ) : (<></>)}
@@ -74,7 +75,7 @@ const Message = (props: Props) => {
                 ))}
               </ul>
             </div>
-            <div className='layout-main'>
+            <div className='layout-main my-2'>
               {/* <button onClick={create}>Create</button> */}
               {selectedChat ? (
                 <Chat chat={selectedChat}/>
@@ -83,7 +84,8 @@ const Message = (props: Props) => {
               )}
             </div>
         </div>
-    </>
+        <Footer/>
+    </div>
   )
 }
 

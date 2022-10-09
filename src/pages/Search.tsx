@@ -10,6 +10,7 @@ import PostUser from '../components/post/PostUser'
 import UserComponent from '../components/user/UserComponent'
 import { useAppSelector } from '../app/hooks'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Footer from './Footer'
 
 type Props = {}
 
@@ -140,9 +141,9 @@ const Search = (props: Props) => {
   }
 
   return (
-    <>
+    <div className='main-page-layout'>
       <Navbar/>
-      <div style={{
+      <div className='main-body' style={{
         display: "flex",
         flexDirection: "column",
         margin: "36px"
@@ -211,7 +212,8 @@ const Search = (props: Props) => {
           ) : <></>}
         
       </div>
-    </>
+      <Footer/>
+    </div>
   )
 }
 

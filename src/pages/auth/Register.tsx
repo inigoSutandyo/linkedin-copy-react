@@ -59,7 +59,7 @@ const Register = (props: Props) => {
     }
     
     return (
-        <div  className="d-flex flex-column justify-between" style={{
+        <div className="d-flex flex-column justify-between" style={{
             minHeight: "100vh"
         }}> 
             <Guestbar/> 

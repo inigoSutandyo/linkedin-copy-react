@@ -9,6 +9,7 @@ import { ApiURL } from '../utils/Server'
 import '../styles/components/user.scss'
 import '../styles/pages/layout.scss'
 import NotificationComponent from '../components/notification/NotificationComponent'
+import Footer from './Footer'
 
 type Props = {}
 
@@ -54,9 +55,9 @@ const Notification = (props: Props) => {
   }
 
   return (
-    <>
+    <div className='main-page-layout'>
         <Navbar/>
-        <div className='d-flex flex-row layout-page'>
+        <div className='d-flex flex-row layout-page main-body'>
             <div className='layout-side'>
               Your Notifications
             </div>
@@ -66,7 +67,8 @@ const Notification = (props: Props) => {
               ))}
             </div>
         </div>
-    </>
+        <Footer/>
+    </div>
   )
 }
 

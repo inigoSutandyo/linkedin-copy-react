@@ -102,12 +102,26 @@ body {
     border-bottom: 1px solid c.$light-line;
 }
 
+.main-page-layout {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-body {
+    min-height: 70vh;
+    margin-bottom: 32px;
+}
+
 .footer {
     width: 100%;
     min-height: 64px;
     background-color: white;
     display: flex;
     align-items: center;
+    justify-content: center;
+    justify-self: end;
 }
 
 .footer-list {

@@ -9,6 +9,7 @@ import Navbar from '../../components/navbar/Navbar';
 import UserComponent from '../../components/user/UserComponent';
 import "../../styles/pages/connection.scss"
 import { ApiURL } from '../../utils/Server';
+import Footer from '../Footer';
 type Props = {}
 
 const Connection = (props: Props) => {
@@ -63,9 +64,9 @@ const Connection = (props: Props) => {
   }
 
   return (
-    <>
+    <div className='main-page-layout'>
       <Navbar/>
-      <div className='connection-layout'>
+      <div className='connection-layout main-body'>
         <ul className='navigation'>
           <li onClick={() => setDisplay("Connection")}>
             Connection
@@ -154,7 +155,8 @@ const Connection = (props: Props) => {
           </div>
         </div>
       </div>
-    </>
+      <Footer/>
+    </div>
   )
 }
 

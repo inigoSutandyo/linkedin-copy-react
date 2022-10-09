@@ -5,6 +5,7 @@ import Navbar from '../../components/navbar/Navbar'
 
 import '../../styles/pages/layout.scss'
 import { ApiURL } from '../../utils/Server'
+import Footer from '../Footer'
 
 type Props = {}
 
@@ -24,9 +25,9 @@ const Jobs = (props: Props) => {
   }, [])
   
   return (
-    <>
+    <div className='main-page-layout'>
         <Navbar/>
-        <div className='d-flex flex-row layout-page'>
+        <div className='d-flex flex-row layout-page main-body'>
             <div className='layout-side'>
               <button className='btn-primary-outline' onClick={() => {
                 navigate("/jobs/add")
@@ -46,7 +47,8 @@ const Jobs = (props: Props) => {
               ) : <></>}
             </div>
         </div>
-    </>
+        <Footer/>
+    </div>
   )
 }
 

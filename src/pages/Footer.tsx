@@ -5,7 +5,7 @@ type Props = {}
 
 const Footer = (props: Props) => {
   return (
-    <div className="footer d-flex justify-center">
+    <div className="footer">
         <ul className="footer-list">
           <li>
             <img style={{
