@@ -12,6 +12,7 @@ import Jobs from './pages/job/Jobs'
 import AddJob from './pages/job/AddJob'
 import Message from './pages/message/Message'
 import ResetPassword from './pages/auth/ResetPassword'
+import VerifPage from './pages/VerifPage'
 
 
 function App() {  
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' element={<Home/>}/> 
           <Route path='/profile/:id' element={<Profile/>}/> 
           <Route path='/reset/:token' element={<ResetPassword/>}/> 
+          <Route path='/verification/:token' element={<VerifPage/>}/> 
           <Route path='/connection' element={<Connection/>}/> 
           <Route path='/search/:q' element={<Search/>}/> 
           <Route path='/notifications' element={<Notification/>}/> 
