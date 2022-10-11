@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { addPost } from "../../features/post/postSlice";
 import "../../styles/forms/form.scss";
-import { ApiURL, CloudinaryURL } from "../../utils/Server";
+import { ApiURL, CloudinaryURL, HasWhiteSpace } from "../../utils/Server";
 import { BsImageFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { BiVideoPlus } from "react-icons/bi";
@@ -29,9 +29,21 @@ const AddPost = (props: Props) => {
   const [error, setError] = useState("");
   const [file, setFile] = useState<Blob>();
   const [imageUrl, setImageUrl] = useState("");
+  
+  const [reactQuillRef, setReactQuillRef] = useState<any>()
+  const [quillRef, setQuillRef] = useState<any>()
 
   const posts = useAppSelector((state) => state.post);
   const dispatch = useAppDispatch();
+  const regex = /https?:\/\/[^\s]+$/;
+
+  useEffect(() => {
+    if (!reactQuillRef) return 
+  
+    if (typeof reactQuillRef.getEditor !== 'function') return;
+    setQuillRef(reactQuillRef.getEditor())
+  }, [reactQuillRef])
+  
 
   function handleChange(content: any, delta: any, source: any, editor: any) {
     if (editor.getLength() > 255) {
@@ -39,6 +51,40 @@ const AddPost = (props: Props) => {
     } else {
       setError("");
     }
+
+    // if (!reactQuillRef) return
+    // setQuillRef(reactQuillRef.getEditor())
+    
+    if (delta.ops.length == 2 && delta.ops[0].retain && HasWhiteSpace(delta.ops[1].insert)) {
+      const endRetain = delta.ops[0].retain;
+      const text = content.substr(3, endRetain);
+      const match = text.match(regex);
+
+      if (match !== null) {
+        console.log(text)
+        const url = match[0];
+        if (HasWhiteSpace(url)) {
+          return
+        }
+        var ops = [] as Array<Object>;
+        if(endRetain > url.length) {
+          ops.push({ retain: endRetain - url.length});
+        }
+
+        console.log(url)
+
+        ops = ops.concat([
+          { delete: url.length },
+          { insert: url, attributes: { link: url } }
+        ])
+        // console.log(quillRef.getContents())
+        quillRef.updateContents({
+          ops: ops
+        });
+        // console.log(quillRef.getContents())
+      }
+    }
+    console.log(quillRef.getContents())
     // console.log(content)
     setValue(content);
   }
@@ -129,13 +175,16 @@ const AddPost = (props: Props) => {
 
   return (
     <form action="POST" onSubmit={handleAddPost}>
-      <div id="editor-container" className="editor-container">
+      <div id="editor-container" className="editor-container quill-editor">
         <ReactQuill
           id="quill"
           theme="bubble"
-          value={value}
+          defaultValue={value}
           onChange={handleChange}
           bounds={"#editor-container"}
+          ref={(el) => {
+            setReactQuillRef(el)
+          }}
           style={{
             overflow: "auto",
             width: "95%",
@@ -184,6 +233,17 @@ const AddPost = (props: Props) => {
             />
           </label>
         </IconContext.Provider>
+        <button className="btn-primary" onClick={() => {
+          const image = document.getElementById('image') as HTMLInputElement
+          const video = document.getElementById('video') as HTMLInputElement
+
+          image.value = ''
+          video.value = ''
+          setFile(undefined)
+          setImageUrl('')
+        }}>
+          Remove Attachments
+        </button>
         <input
           type="file"
           name="image"

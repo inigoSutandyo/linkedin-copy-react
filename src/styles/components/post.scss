@@ -1,3 +1,6 @@
+@use "../color.scss" as c;
+@use "../mixin" as m;
+
 * {
     margin: 0;
     padding: 0;
@@ -15,6 +18,11 @@
     align-items: flex-start;
     background-color: white;
     border-radius: 12px;
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+        color: c.$accent-blue
+    }
 }
 
 .post-header {

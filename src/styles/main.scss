@@ -139,3 +139,11 @@ body {
     font-size: small;
     color: c.$accent-gray;    
 }
+
+.quill-editor {
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+        color: c.$accent-blue
+    }
+}
