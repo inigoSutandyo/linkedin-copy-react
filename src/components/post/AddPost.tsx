@@ -28,6 +28,7 @@ const AddPost = (props: Props) => {
   const [error, setError] = useState("");
   const [file, setFile] = useState<Blob>();
   const [imageUrl, setImageUrl] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
   
   const [reactQuillRef, setReactQuillRef] = useState<any>()
   const [quillRef, setQuillRef] = useState<any>()
@@ -60,7 +61,7 @@ const AddPost = (props: Props) => {
       const match = text.match(regex);
 
       if (match !== null) {
-        console.log(text)
+        // console.log(text)
         const url = match[0];
         if (HasWhiteSpace(url)) {
           return
@@ -70,7 +71,7 @@ const AddPost = (props: Props) => {
           ops.push({ retain: endRetain - url.length});
         }
 
-        console.log(url)
+        // console.log(url)
 
         ops = ops.concat([
           { delete: url.length },
@@ -83,12 +84,12 @@ const AddPost = (props: Props) => {
         // console.log(quillRef.getContents())
       }
     }
-    console.log(quillRef.getContents())
+    // console.log(quillRef.getContents())
     // console.log(content)
     setValue(content);
   }
 
-  const uploadPost = (url: string, publicid: string) => {
+  const uploadPost = (url: string, publicid: string, filetype: string) => {
     const axiosConfig = {
       headers: {
         "Content-Type": "application/json",
@@ -106,6 +107,7 @@ const AddPost = (props: Props) => {
           likes: 0,
           fileurl: url,
           fileid: publicid,
+          filetype: filetype,
         },
         axiosConfig
       )
@@ -121,6 +123,7 @@ const AddPost = (props: Props) => {
   };
 
   const handleAddPost = (e: SyntheticEvent) => {
+    console.log("uploading")
     e.preventDefault();
     if (error !== "") return;
     if (value.replace(/<(.|\n)*?>/g, "").trim().length < 1 && !file) return;
@@ -141,36 +144,68 @@ const AddPost = (props: Props) => {
         .then((response) => {
           const secureUrl = response.data.secure_url;
           const publicId = response.data.public_id;
-          uploadPost(secureUrl, publicId);
+          uploadPost(secureUrl, publicId, response.data.resource_type);
         })
         .catch((error) => {
           console.log(error);
         });
     } else {
-      uploadPost("", "");
+      uploadPost("", "", "");
     }
   };
+
+  const matchFile = (input: HTMLInputElement, allowedExtensions: RegExp, error: string, type: string) => {  
+    setError("")
+
+    if (!allowedExtensions.exec(input.value)) {
+      input.value = "";
+      setError(error)
+      return false;
+    }
+
+    if (!input.files) {
+      setError("File input is empty...");
+      return false;
+    }
+
+    const lastIdx = input.files.length - 1;
+    setFile(input.files[lastIdx]);
+    if (type == 'image') {
+      
+      setImageUrl(URL.createObjectURL(input.files[lastIdx]));
+    } else {
+      setVideoUrl(URL.createObjectURL(input.files[lastIdx]))
+    }
+    return true
+  }
 
   const handleImageUpload = (e: SyntheticEvent) => {
+    setError("")
     const target = e.target as HTMLInputElement;
-
     const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-    setError("");
-    if (!allowedExtensions.exec(target.value)) {
-      target.value = "";
-      setError("File type must be JPG/JPEG/PNG");
-      return;
-    }
-    if (!target.files) {
-      return;
-    }
-
-    const lastIdx = target.files.length - 1;
-    setFile(target.files[lastIdx]);
-    setImageUrl(URL.createObjectURL(target.files[lastIdx]));
+    matchFile(target, allowedExtensions, "File type must be JPG/JPEG/PNG", "image")
+    console.log(target.files)
   };
 
-  const handleVideoUpload = () => {};
+  const handleVideoUpload = (e: SyntheticEvent) => {
+    setError("")
+    const target = e.target as HTMLInputElement;
+    console.log(target)
+    const allowedExtensions = /(\.mp4|\.wav)$/i;
+    matchFile(target, allowedExtensions, "File type must be WAV/MP4", "video")
+    console.log(target.files)
+  };
+
+  const removeImage = () => {
+    const image = document.getElementById('image') as HTMLInputElement
+    image.value = ''
+  }
+
+  const removeVideo = () => {
+    const video = document.getElementById('video') as HTMLInputElement
+    video.value = ''
+  }
+
 
   return (
     <form action="POST" onSubmit={handleAddPost}>
@@ -203,6 +238,20 @@ const AddPost = (props: Props) => {
           }}
         />
       </div>
+      {videoUrl == '' ? <></> : (
+        <div className="form-preview-image">
+          <video
+            style={{
+              width: "95%",
+              maxHeight: "300px",
+            }}
+            controls
+          >
+            <source src={videoUrl}/>
+          </video>
+        </div>
+      )}
+   
 
       <div className="input-container-row">
         <IconContext.Provider
@@ -233,13 +282,11 @@ const AddPost = (props: Props) => {
           </label>
         </IconContext.Provider>
         <button className="btn-primary" onClick={() => {
-          const image = document.getElementById('image') as HTMLInputElement
-          const video = document.getElementById('video') as HTMLInputElement
-
-          image.value = ''
-          video.value = ''
+          removeVideo()
+          removeImage()
           setFile(undefined)
           setImageUrl('')
+          setVideoUrl('')
         }}>
           Remove Attachments
         </button>
@@ -260,7 +307,7 @@ const AddPost = (props: Props) => {
           style={{
             display: "none",
           }}
-          onClick={handleVideoUpload}
+          onChange={handleVideoUpload}
         />
       </div>
 

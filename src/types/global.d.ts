@@ -31,6 +31,7 @@ declare global {
     user: User,
     fileurl: string
     fileid: string
+    filetype: string 
     mime: string,
     comments: Array<PostComment>
   }

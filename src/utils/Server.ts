@@ -8,7 +8,7 @@ export const WsUrl = (path: string) => {
 }
 
 export const CloudinaryURL = () => {
-    return `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_NAME}/image/upload`
+    return `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_NAME}/auto/upload`
 }
 
 export const HasWhiteSpace = (str: string) => {

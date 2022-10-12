@@ -44,7 +44,7 @@ const PostComponent = (props: Props) => {
       setImageUrl(props.post.fileurl)
     }
 
-  }, [])
+  }, [props.post])
   
 
   const handleOpenComment = () => {
@@ -163,10 +163,22 @@ const PostComponent = (props: Props) => {
             width: "100%",
             margin: "8px"
           }}>
-            <img src={imageUrl} alt="" style={{
-              width: "95%",
-              maxWidth: "300px"
-            }}/>
+            {props.post.filetype == "image" ? (
+              <img src={imageUrl} alt="" style={{
+                width: "95%",
+                maxWidth: "300px"
+              }}/>
+            ) : props.post.filetype == "video" ? (
+              <video
+                style={{
+                  width: "95%",
+                  maxHeight: "300px",
+                }}
+                controls
+                src={imageUrl}
+              >
+              </video>
+            ) : <></>}
           </div>
           <div className='like-count border-bottom-light w-10'>
             <IconContext.Provider value={{
