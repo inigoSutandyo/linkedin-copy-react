@@ -10,6 +10,7 @@ import Comment from './Comment'
 type Props = {
   postid: number,
   index: number,
+  setCommentCount: any,
 }
 
 const PostComment = (props: Props) => {
@@ -36,8 +37,14 @@ const PostComment = (props: Props) => {
     setValue(content)
   }
 
+  useEffect(() => {
+    
+  }, [comments])
+  
+
 
   useEffect(() => {
+
     axios.get(ApiURL("/home/post/comment"), {
       params: {
         id: props.postid,

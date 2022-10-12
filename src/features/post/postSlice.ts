@@ -1,26 +1,46 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-const initialState : Array<Post> = [] as Array<Post>
+interface PostState {
+    posts: Array<Post>,
+    comment_count: Array<number>
+}
+
+const initialState : PostState = {
+    posts: [],
+    comment_count: [],
+}
 
 export const postSlice = createSlice({
     name: 'posts',
     initialState: initialState,
     reducers: {
-        setPosts: (state, action: PayloadAction<Array<Post>>) => {
-            return [...action.payload ] as Array<Post>
+        setPosts: (state: PostState, action: PayloadAction<PostState>) => {
+            return {
+                posts: [...action.payload.posts],
+                comment_count: [...action.payload.comment_count]
+            } as PostState
         },
-        addPost: (state: Array<Post>, action: PayloadAction<Post>) => {
-            state.push(action.payload)
+        addPost: (state: PostState, action: PayloadAction<Post>) => {
+            state.posts.push(action.payload)
         },
         updateSinglePost: (state, action: PayloadAction<Post>) => {
-            const newState = state.map(p => p.ID === action.payload.ID ? {...action.payload} : p)
-            return [...newState] as Array<Post>
+            const newPosts = state.posts.map(p => p.ID === action.payload.ID ? {...action.payload} : p)
+            return {
+                ...state,
+                posts: newPosts,
+            }
         },
-        appendPost: (state, action: PayloadAction<Array<Post>>) => {
-            return [...state, ...action.payload] as Array<Post>
+        appendPost: (state: PostState, action: PayloadAction<PostState>) => {
+            return {
+                posts: [...state.posts, ...action.payload.posts],
+                comment_count: [...state.comment_count, ...action.payload.comment_count]
+            } as PostState
         },
         removePost: (state, action: PayloadAction<number>) => {
-            return state.filter((p) => {return p.ID != action.payload})
+            return {
+                ...state,
+                posts: state.posts.filter((p) => {return p.ID != action.payload})
+            }
         }
     }
 })

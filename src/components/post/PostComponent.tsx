@@ -20,6 +20,7 @@ import "../../styles/components/post.scss"
 
 type Props = {
   post: Post,
+  commentCount: number,
   index: number,
   handleOpenModal: any,
   setMovieId: any,
@@ -31,8 +32,10 @@ const PostComponent = (props: Props) => {
   const [processing, setProcessing] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
   const [imageUrl, setImageUrl] = useState("")
+  const [commentCount, setCommentCount] = useState(0)
 
   const user = useAppSelector((state) => state.user.user)
+  
   const dispatch = useAppDispatch() 
 
   useEffect(() => {
@@ -127,7 +130,6 @@ const PostComponent = (props: Props) => {
       setIsLiked(false)
     }
   }, [user])
-  
 
   const onClickRemove = () => {
     const post = props.post
@@ -173,7 +175,7 @@ const PostComponent = (props: Props) => {
               <AiFillLike/>
             </IconContext.Provider>
             <div className='likes'>
-              : {props.post.likes}
+              {props.post.likes}
             </div>
           </div>
 
@@ -188,7 +190,7 @@ const PostComponent = (props: Props) => {
             </div>
             <div className='post-actions' onClick={()=>handleOpenComment()}>
               <FaRegCommentDots/>
-              <p>Comment</p>
+              <p>{props.commentCount}</p>
             </div>
             <div className='post-actions action-hide'>
               <RiShareForwardLine/>
@@ -204,7 +206,7 @@ const PostComponent = (props: Props) => {
           </div>
           {comment ? (
             <div className='comment-container'>
-              <PostComment postid={props.post.ID} index={props.index}/>
+              <PostComment postid={props.post.ID} index={props.index} setCommentCount={setCommentCount}/>
             </div>
           ) : <></>}
         </div>

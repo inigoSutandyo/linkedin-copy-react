@@ -9,7 +9,6 @@ import { ApiURL, CloudinaryURL, HasWhiteSpace } from "../../utils/Server";
 import { BsImageFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { BiVideoPlus } from "react-icons/bi";
-import { stringify } from "querystring";
 
 type User = {
   ID: number;
