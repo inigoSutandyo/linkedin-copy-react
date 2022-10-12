@@ -38,6 +38,8 @@ const Home = (props: Props) => {
   const [modalTitle, setModalTitle] = useState("");
   const [movieId, setMovieId] = useState(0);
 
+  const [loading, setLoading] = useState(false)  
+
   const loadPosts = () => {
     setTimeout(() => {
       axios
@@ -110,116 +112,125 @@ const Home = (props: Props) => {
     setModal(false);
   };
 
+  const handleLoading = (flag: boolean) => {
+    setLoading(flag)
+  }
+
   return (
     <div id="home-page">
-      <Navbar />
-      <div className="my-3 home-layout">
-        {user ? (
-          <>
-            <div
-              className="container-grow-2 home-container bg-white"
-              id="profile-preview"
-              style={{
-                maxHeight: "256px",
-                position: "sticky",
-              }}
-            >
-              <ProfileDisplay />
-            </div>
-
-            <div className="container-grow-5 home-container ">
-              <div className="container-header bg-white">
-                <button
-                  className="btn-primary-outline"
+      {!loading ? (
+        <>
+        
+          <Navbar />
+          <div className="my-3 home-layout">
+            {user ? (
+              <>
+                <div
+                  className="container-grow-2 home-container bg-white"
+                  id="profile-preview"
                   style={{
-                    marginTop: "10px",
-                    borderRadius: "8px",
+                    maxHeight: "256px",
+                    position: "sticky",
                   }}
-                  onClick={() => handleOpenModal("Add Post")}
                 >
-                  Add Post
-                </button>
-              </div>
-              <div className="home-main-content">
-                <InfiniteScroll
-                  dataLength={posts.length}
-                  next={loadPosts}
-                  hasMore={hasMore}
-                  loader={<Loading />}
-                  style={{
-                    minWidth: "100%",
-                  }}
-                  endMessage={
-                    <p style={{ textAlign: "center" }}>
-                      <b>Congratulations! You have seen it all</b>
-                    </p>
-                  }
-                >
-                  {posts ? (
-                    <>
-                      {posts.map((p, i) => {
-                        return (
-                          <PostComponent
-                            post={p}
-                            key={i}
-                            index={i}
-                            handleOpenModal={handleOpenModal}
-                            setMovieId={setMovieId}
-                            commentCount={comment_count[i]}
-                          />
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <>No Post</>
-                  )}
-                </InfiniteScroll>
-              </div>
-            </div>
-
-            <div
-              className="container-grow-3 home-container bg-white"
-              id="others-preview"
-            >
-              <p>Hei</p>
-            </div>
-
-            <ModalComponent
-              isOpen={modal}
-              closeModal={closeModal}
-              contentLabel={modalTitle}
-              appElement={"#home-page"}
-            >
-              {modalTitle == "Add Post" ? (
-                <AddPost user={user} closeModal={closeModal} />
-              ) : modalTitle == "Delete Post" ? (
-                <div className="d-flex flex-column align-center">
-                  <h3>Do You really want to delete this post?</h3>
-                  <div className="d-flex my-5">
+                  <ProfileDisplay />
+                </div>
+    
+                <div className="container-grow-5 home-container ">
+                  <div className="container-header bg-white">
                     <button
-                      className="btn-primary mx-2"
-                      onClick={handleRemovePost}
+                      className="btn-primary-outline"
+                      style={{
+                        marginTop: "10px",
+                        borderRadius: "8px",
+                      }}
+                      onClick={() => handleOpenModal("Add Post")}
                     >
-                      Yes
-                    </button>
-                    <button
-                      className="btn-primary-outline mx-2"
-                      onClick={closeModal}
-                    >
-                      No
+                      Add Post
                     </button>
                   </div>
+                  <div className="home-main-content">
+                    <InfiniteScroll
+                      dataLength={posts.length}
+                      next={loadPosts}
+                      hasMore={hasMore}
+                      loader={<Loading />}
+                      style={{
+                        minWidth: "100%",
+                      }}
+                      endMessage={
+                        <p style={{ textAlign: "center" }}>
+                          <b>Congratulations! You have seen it all</b>
+                        </p>
+                      }
+                    >
+                      {posts ? (
+                        <>
+                          {posts.map((p, i) => {
+                            return (
+                              <PostComponent
+                                post={p}
+                                key={i}
+                                index={i}
+                                handleOpenModal={handleOpenModal}
+                                setMovieId={setMovieId}
+                                commentCount={comment_count[i]}
+                              />
+                            );
+                          })}
+                        </>
+                      ) : (
+                        <>No Post</>
+                      )}
+                    </InfiniteScroll>
+                  </div>
                 </div>
-              ) : (
-                <></>
-              )}
-            </ModalComponent>
-          </>
-        ) : (
-          <p>Empty</p>
-        )}
-      </div>
-      <Footer />
+    
+                <div
+                  className="container-grow-3 home-container bg-white"
+                  id="others-preview"
+                >
+                  <p>Hei</p>
+                </div>
+    
+                <ModalComponent
+                  isOpen={modal}
+                  closeModal={closeModal}
+                  contentLabel={modalTitle}
+                  appElement={"#home-page"}
+                >
+                  {modalTitle == "Add Post" ? (
+                    <AddPost user={user} closeModal={closeModal} handleLoading={handleLoading}/>
+                  ) : modalTitle == "Delete Post" ? (
+                    <div className="d-flex flex-column align-center">
+                      <h3>Do You really want to delete this post?</h3>
+                      <div className="d-flex my-5">
+                        <button
+                          className="btn-primary mx-2"
+                          onClick={handleRemovePost}
+                        >
+                          Yes
+                        </button>
+                        <button
+                          className="btn-primary-outline mx-2"
+                          onClick={closeModal}
+                        >
+                          No
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </ModalComponent>
+              </>
+            ) : (
+              <p>Empty</p>
+            )}
+          </div>
+          <Footer />
+        </>
+      ) : <Loading/>}
     </div>
   );
 };

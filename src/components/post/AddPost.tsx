@@ -21,6 +21,7 @@ type User = {
 interface Props {
   user: User;
   closeModal: any;
+  handleLoading: any;
 }
 
 const AddPost = (props: Props) => {
@@ -119,6 +120,9 @@ const AddPost = (props: Props) => {
       })
       .catch(function (error) {
         console.log(error.response.data);
+      })
+      .then(()=>{
+        props.handleLoading(false)
       });
   };
 
@@ -129,6 +133,7 @@ const AddPost = (props: Props) => {
     if (value.replace(/<(.|\n)*?>/g, "").trim().length < 1 && !file) return;
 
     if (file) {
+      props.handleLoading(true)
       const bodyFormData = new FormData();
       bodyFormData.append("file", file);
       bodyFormData.append(
@@ -180,6 +185,7 @@ const AddPost = (props: Props) => {
   }
 
   const handleImageUpload = (e: SyntheticEvent) => {
+    removeVideo()
     setError("")
     const target = e.target as HTMLInputElement;
     const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
@@ -188,6 +194,7 @@ const AddPost = (props: Props) => {
   };
 
   const handleVideoUpload = (e: SyntheticEvent) => {
+    removeImage()
     setError("")
     const target = e.target as HTMLInputElement;
     console.log(target)
@@ -199,11 +206,13 @@ const AddPost = (props: Props) => {
   const removeImage = () => {
     const image = document.getElementById('image') as HTMLInputElement
     image.value = ''
+    setImageUrl('')
   }
 
   const removeVideo = () => {
     const video = document.getElementById('video') as HTMLInputElement
     video.value = ''
+    setVideoUrl('')
   }
 
 
@@ -285,8 +294,7 @@ const AddPost = (props: Props) => {
           removeVideo()
           removeImage()
           setFile(undefined)
-          setImageUrl('')
-          setVideoUrl('')
+          
         }}>
           Remove Attachments
         </button>
