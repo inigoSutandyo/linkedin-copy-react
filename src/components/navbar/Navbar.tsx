@@ -12,6 +12,8 @@ import { FiMenu } from 'react-icons/fi'
 import { IconContext } from "react-icons";
 import { googleLogout } from "@react-oauth/google";
 import { Cookies } from 'react-cookie'
+import { BsMoon, BsSun } from "react-icons/bs";
+import { setTheme } from "../../features/theme/themeSlice";
 
 type Props = {};
 
@@ -19,10 +21,12 @@ const Navbar = (props: Props) => {
   const cookie = new Cookies()
   const navigate = useNavigate()
 
-  const [queryParam, setQueryParam] = useState("")
+  const [queryParam, setQueryParam] = useState("")  
 
   const auth = useAppSelector((state) => state.user.isSignedIn)
   const user = useAppSelector((state) => state.user.user);
+  const theme = useAppSelector((state) => state.theme);
+
   const dispatch = useAppDispatch() 
   
   function logout() {
@@ -66,6 +70,15 @@ const Navbar = (props: Props) => {
     window.location.reload()
   }
 
+  const changeTheme = (e: SyntheticEvent) => {
+    const target = document.getElementById("theme") as HTMLInputElement
+    if (target.checked == true) {
+      dispatch(setTheme("dark"))
+    } else {
+      dispatch(setTheme("light"))
+    }
+  }
+
 
   return (
     <nav className="py-3 bg-white navbar">
@@ -80,6 +93,22 @@ const Navbar = (props: Props) => {
             <li className="list-hover mx-2 color-black">
               <input type="text" name="" id="" placeholder="Search" className="search-nav" onKeyDown={search} onChange={onChange}/>
             </li>
+            <li className="list-hover mx-2 pointer-cursor">
+              <label htmlFor="theme" onClick={changeTheme}>
+                <IconContext.Provider value={{
+                  size: "25px"
+                }} >
+                  {theme == "light" ? (
+                    <BsSun/>
+                  ) : (
+                    <BsMoon/>
+                  )}
+                </IconContext.Provider>
+              </label>
+              <input type="checkbox" name="theme" id="theme"  style={{
+                display: "none"
+              }}/>
+            </li>
           </ul>
         </div>
         <label htmlFor="check" className="toggle">
@@ -89,8 +118,7 @@ const Navbar = (props: Props) => {
             < FiMenu/>
           </IconContext.Provider>
         </label>
-        {/* <ul className="toggle">
-        </ul> */}
+        
       </div>
       <input type="checkbox" id="check" />
       <div className="nav-drop" id="nav-drop">

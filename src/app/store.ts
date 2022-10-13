@@ -3,6 +3,7 @@ import userReducer from '../features/user/userSlice'
 import postReducer from '../features/post/postSlice'
 import notificationReducer from '../features/notification/notificationSlice'
 import messageReducer from '../features/message/messageSlice'
+import themeReducer from '../features/theme/themeSlice'
 
 
 
@@ -11,7 +12,8 @@ export const store = configureStore({
         user: userReducer,
         post: postReducer,
         notficiation: notificationReducer,
-        message: messageReducer
+        message: messageReducer,
+        theme: themeReducer,
     }
 })
 
