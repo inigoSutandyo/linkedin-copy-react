@@ -14,6 +14,7 @@ import { googleLogout } from "@react-oauth/google";
 import { Cookies } from 'react-cookie'
 import { BsMoon, BsSun } from "react-icons/bs";
 import { setTheme } from "../../features/theme/themeSlice";
+import ReactTooltip from 'react-tooltip';
 
 type Props = {};
 
@@ -97,7 +98,7 @@ const Navbar = (props: Props) => {
               <input type="text" name="" id="" placeholder="Search" className="search-nav" onKeyDown={search} onChange={onChange}/>
             </li>
             <li className="list-hover mx-2 pointer-cursor">
-              <label htmlFor="theme" onClick={changeTheme}>
+              <label htmlFor="theme" onClick={changeTheme} data-tip data-for="tooltip">
                 <IconContext.Provider value={{
                   size: "25px"
                 }} >
@@ -108,6 +109,9 @@ const Navbar = (props: Props) => {
                   )}
                 </IconContext.Provider>
               </label>
+              <ReactTooltip id="tooltip" place="bottom">
+                <p>Toggle Theme</p>
+              </ReactTooltip>
               <input type="checkbox" name="theme" id="theme"  style={{
                 display: "none"
               }}/>
@@ -207,6 +211,7 @@ const Navbar = (props: Props) => {
         </ul>
 
       </div>
+      
     </nav>
   );
 };

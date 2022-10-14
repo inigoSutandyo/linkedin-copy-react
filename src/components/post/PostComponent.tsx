@@ -17,6 +17,8 @@ import { Link } from 'react-router-dom';
 import { FiMoreVertical } from 'react-icons/fi';
 import { HiTrash } from 'react-icons/hi'
 import "../../styles/components/post.scss"
+import ReactTooltip from 'react-tooltip';
+import ProfileTooltip from '../user/ProfileTooltip';
 
 type Props = {
   post: Post,
@@ -136,12 +138,25 @@ const PostComponent = (props: Props) => {
     props.setMovieId(post.ID)
     props.handleOpenModal("Delete Post")
   }
+
+  useEffect(() => {
+    ReactTooltip.rebuild()
+  }, [props])
+  
+
   return (
     <>
       {props.post && props.post.content ? (
         <div className='post-container'>
           <div className='d-flex flex-row align-center justify-between w-10 border-bottom-light'>
-            <PostUser user={props.post.user} imageSize="35px"/>
+            <div data-tip={`${props.index}`} data-for={`${props.index}`}>
+              <PostUser user={props.post.user} imageSize="35px" />
+            </div>
+
+            <ReactTooltip id={`${props.index}`} place='right' type='light'>
+              <ProfileTooltip user={props.post.user}/>
+            </ReactTooltip>
+
             {props.post.user.ID == user.ID ? (
               <div className='mx-2 pointer-cursor' onClick={onClickRemove}>
                 <IconContext.Provider value={{
@@ -223,6 +238,7 @@ const PostComponent = (props: Props) => {
           ) : <></>}
         </div>
       ) : <></>}
+      
     </>
   )
 }
