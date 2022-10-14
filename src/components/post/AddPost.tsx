@@ -9,6 +9,7 @@ import { ApiURL, CloudinaryURL, HasWhiteSpace } from "../../utils/Server";
 import { BsImageFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { BiVideoPlus } from "react-icons/bi";
+import Tribute from "tributejs";
 
 type User = {
   ID: number;
@@ -17,6 +18,12 @@ type User = {
   email: string;
   phone: string;
 };
+
+type Mention = {
+  key: string
+  value: string
+  id: number
+}
 
 interface Props {
   user: User;
@@ -37,13 +44,45 @@ const AddPost = (props: Props) => {
   const posts = useAppSelector((state) => state.post);
   const dispatch = useAppDispatch();
   const regex = /https?:\/\/[^\s]+$/;
+  
+  const userList = useAppSelector((state) => state.list)
+
+  const [data, setData] = useState<Tribute<Object>>()
 
   useEffect(() => {
     if (!reactQuillRef) return 
-  
-    if (typeof reactQuillRef.getEditor !== 'function') return;
+    
+    console.log(reactQuillRef.getEditor())
+    if (typeof reactQuillRef.getEditor() !== 'function') return;
     setQuillRef(reactQuillRef.getEditor())
+    
   }, [reactQuillRef])
+  
+  useEffect(() => {
+    if (userList.length == 0) return
+
+    const datas = []
+    for (let i = 0; i < userList.length; i++) {
+      const element = userList[i];
+      datas.push({
+        id: element.ID,
+        value: element.firstname + ' ' + element.lastname,
+        key: element.email
+      })
+    }
+    console.log(datas)
+    const tribute = new Tribute({
+      values: [...datas]
+    })
+    setData(tribute)
+  }, [userList])
+
+  useEffect(() => {
+    if (data) {
+      const el = document.getElementsByClassName('ql-editor')
+      data.attach(el[0])
+    }
+  }, [data])
   
 
   function handleChange(content: any, delta: any, source: any, editor: any) {
@@ -220,14 +259,14 @@ const AddPost = (props: Props) => {
     <form action="POST" onSubmit={handleAddPost}>
       <div id="editor-container" className="editor-container quill-editor">
         <ReactQuill
-          id="quill"
+          // id="quill"
+          ref={(el) => {
+            setReactQuillRef(el)
+          }}
           theme="bubble"
           defaultValue={value}
           onChange={handleChange}
           bounds={"#editor-container"}
-          ref={(el) => {
-            setReactQuillRef(el)
-          }}
           style={{
             overflow: "auto",
             width: "95%",
@@ -235,7 +274,10 @@ const AddPost = (props: Props) => {
             maxHeight: "250px",
           }}
           placeholder={"What are you thinking about?"}
+          className="ql-editor"
         />
+          {/* <div id="editable-div"></div> */}
+        {/* </ReactQuill> */}
       </div>
       <div className="form-preview-image">
         <img

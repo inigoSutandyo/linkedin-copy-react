@@ -71,17 +71,20 @@ const Navbar = (props: Props) => {
   }
 
   const changeTheme = (e: SyntheticEvent) => {
+    const cookie = new Cookies()
     const target = document.getElementById("theme") as HTMLInputElement
     if (target.checked == true) {
       dispatch(setTheme("dark"))
+      cookie.set("theme", "dark")
     } else {
       dispatch(setTheme("light"))
+      cookie.set("theme", "light")
     }
   }
 
 
   return (
-    <nav className="py-3 bg-white navbar">
+    <nav className="py-3 navbar">
       <div className="nav-main">
         <div>
           <ul className="navbar-ul">

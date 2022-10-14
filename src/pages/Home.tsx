@@ -14,7 +14,7 @@ import { checkAuth } from "../utils/Auth";
 import { Cookies } from "react-cookie";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../components/Loading";
-import { useUser } from "../app/user";
+import { useList, useUser } from "../app/user";
 import Footer from "./Footer";
 
 type Props = {};
@@ -39,6 +39,8 @@ const Home = (props: Props) => {
   const [movieId, setMovieId] = useState(0);
 
   const [loading, setLoading] = useState(false)  
+  
+  
 
   const loadPosts = () => {
     setTimeout(() => {
@@ -71,6 +73,7 @@ const Home = (props: Props) => {
   };
 
   useUser();
+  useList();
 
   useEffect(() => {
     checkAuth();

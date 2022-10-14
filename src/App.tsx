@@ -16,6 +16,7 @@ import VerifPage from './pages/VerifPage'
 import { useAppDispatch, useAppSelector } from './app/hooks'
 import {useEffect, useState} from 'react'
 import { setTheme } from './features/theme/themeSlice'
+import { Cookies } from 'react-cookie'
 
 
 function App() {  
@@ -24,7 +25,8 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const t = window.localStorage.getItem('theme') 
+    const c = new Cookies()
+    const t = c.get("theme")
     if (t != null) {
       dispatch(setTheme(t))
     }

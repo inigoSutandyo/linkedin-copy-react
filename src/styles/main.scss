@@ -25,11 +25,23 @@ body {
 }
 
 .dark-theme {
-    background-color: c.$primary-black;
+    background-color: black;
+    .navbar {
+        background-color: c.$primary-black;
+        .nav-link a {
+            color: white
+        }
+    }
 }
 
 .light-theme {
     background-color: c.$primary-light;
+    .navbar {
+        background-color: white;
+        .nav-link a {
+            color: #595C5F;
+        }
+    }
 }
 
 :root {

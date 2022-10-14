@@ -5,6 +5,7 @@ import placeholderProfile from "../assets/placeholders/user.png";
 import { useAppDispatch, useAppSelector } from './hooks';
 import { setLikedPost, setUser } from '../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { setList } from '../features/user/listSlice';
 
 export const useUser = () => {
     const dispatch = useAppDispatch();
@@ -33,6 +34,25 @@ export const useUser = () => {
             })
         };
         loadUser()
+    }, [])
+    
+}
+
+export const useList = () => {
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        const loadList = () => {
+            axios.get(ApiURL("/user/all"))
+            .then((response) => {
+                console.log(response.data)
+                dispatch(setList(response.data.users))
+            })
+            .catch((error) => {
+                console.log(error.response)
+            })
+        }
+        loadList()
+      
     }, [])
     
 }
