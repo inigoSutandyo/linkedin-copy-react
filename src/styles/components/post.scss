@@ -25,6 +25,13 @@
     }
 }
 
+.message-container {
+    max-width: 320px;
+    .content-container {
+        color: black
+    }
+}
+
 .post-header {
     font-size: small;
     display: flex;
@@ -195,5 +202,9 @@
 
     .action-drop {
         display: flex;
+    }
+
+    .message-container {
+        max-width: 210px;
     }
 }

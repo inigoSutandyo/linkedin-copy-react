@@ -16,6 +16,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../components/Loading";
 import { useList, useUser } from "../app/user";
 import Footer from "./Footer";
+import SendPost from "../components/post/SendPost";
 
 type Props = {};
 
@@ -222,6 +223,8 @@ const Home = (props: Props) => {
                         </button>
                       </div>
                     </div>
+                  ) : modalTitle == "Send Post" ? (
+                    <SendPost post_id={movieId}/>
                   ) : (
                     <></>
                   )}

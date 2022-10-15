@@ -63,13 +63,13 @@ const Message = (props: Props) => {
                 {chats?.map((c) => (
                   <li key={c.ID} onClick={() => changeChat(c)} className="pointer-cursor list-style-none border-bottom-light">
                     {c.users.map((u, i) => (
-                      <>
+                      <div key={i}>
                         {u.ID != user.ID ? (
-                          <div className='my-3' key={i}>
+                          <div className='my-3'>
                             <UserSmallComponent user={u}/>
                           </div>
                         ) : (<></>)}
-                      </>
+                      </div>
                     ))}
                   </li>
                 ))}

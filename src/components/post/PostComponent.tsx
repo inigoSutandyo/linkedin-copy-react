@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import parse from 'html-react-parser';
-import { AiFillLike, AiOutlineLike, AiOutlineMore } from 'react-icons/ai'
+import { AiFillLike, AiOutlineLike } from 'react-icons/ai'
 import { FaRegCommentDots } from 'react-icons/fa'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { IoIosSend } from 'react-icons/io'
@@ -9,11 +9,10 @@ import 'react-quill/dist/quill.bubble.css';
 import PostComment from './PostComment';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import axios from 'axios';
-import { addLikedPost, removeLikedPost, setLikedPost, setUser } from '../../features/user/userSlice';
+import { addLikedPost, removeLikedPost } from '../../features/user/userSlice';
 import { ApiURL } from '../../utils/Server';
 import { updateSinglePost } from '../../features/post/postSlice';
 import PostUser from './PostUser';
-import { Link } from 'react-router-dom';
 import { FiMoreVertical } from 'react-icons/fi';
 import { HiTrash } from 'react-icons/hi'
 import "../../styles/components/post.scss"
@@ -143,7 +142,6 @@ const PostComponent = (props: Props) => {
     ReactTooltip.rebuild()
   }, [props])
   
-
   return (
     <>
       {props.post && props.post.content ? (
@@ -223,7 +221,10 @@ const PostComponent = (props: Props) => {
               <RiShareForwardLine/>
               <p>Share</p>
             </div>
-            <div className='post-actions action-hide'>
+            <div className='post-actions action-hide' onClick={() => {
+              props.setMovieId(props.post.ID)
+              props.handleOpenModal("Send Post")
+            }}>
               <IoIosSend/>
               <p>Send</p>
             </div>

@@ -117,6 +117,8 @@ declare global {
     CreatedAt: Date
     user: User
     content: string
+    post: Post
+    postid: number
   }
 
   type MessageState = {
