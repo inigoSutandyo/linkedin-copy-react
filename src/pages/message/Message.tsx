@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useAppSelector } from '../../app/hooks'
-import { connect, sendMsg } from '../../app/socket'
 import { useUser } from '../../app/user'
 import Chat from '../../components/message/Chat'
 import Navbar from '../../components/navbar/Navbar'
@@ -65,7 +64,7 @@ const Message = (props: Props) => {
                     {c.users.map((u, i) => (
                       <div key={i}>
                         {u.ID != user.ID ? (
-                          <div className='my-3'>
+                          <div className='my-1'>
                             <UserSmallComponent user={u}/>
                           </div>
                         ) : (<></>)}

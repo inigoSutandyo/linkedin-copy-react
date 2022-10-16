@@ -21,7 +21,7 @@ const ProfileTooltip = (props: Props) => {
     } else {
       setImageUrl(user.imageurl);
     }
-    console.log(user.experiences)
+    // console.log(user.experiences)
     
     fetchExperience()
   }, [props.user]);

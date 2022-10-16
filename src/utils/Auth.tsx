@@ -41,12 +41,11 @@ export const checkAuth = () => {
 
 export const useAuth = () => { 
     const [auth, setAuth] = useState()
-    const axiosConfig = {
-        withCredentials: false
-    }
 
     useEffect(() => {
-        axios.get(ApiURL("/auth/isauth"), axiosConfig)
+        axios.get(ApiURL("/auth/isauth"), {
+            withCredentials: true
+        })
         .then(function (response) {
             console.log(response.data)
             setAuth(response.data.status)

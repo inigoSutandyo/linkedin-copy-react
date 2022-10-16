@@ -66,14 +66,16 @@ const AddPost = (props: Props) => {
       const element = userList[i];
       datas.push({
         id: element.ID,
-        value: element.firstname + ' ' + element.lastname,
-        key: element.email
+        value: element.firstname + element.lastname,
+        key: element.email 
       })
     }
     console.log(datas)
+
     const tribute = new Tribute({
       values: [...datas]
     })
+    
     setData(tribute)
   }, [userList])
 
@@ -93,14 +95,14 @@ const AddPost = (props: Props) => {
     }
 
     // if (!reactQuillRef) return
-    // setQuillRef(reactQuillRef.getEditor())
+    setQuillRef(reactQuillRef.getEditor())
     
     if (delta.ops.length == 2 && delta.ops[0].retain && HasWhiteSpace(delta.ops[1].insert)) {
       const endRetain = delta.ops[0].retain;
-      const text = content.substr(3, endRetain);
+      const text = quillRef.getText().substr(0, endRetain);
       const match = text.match(regex);
 
-      if (match !== null) {
+      if (match !== null && quillRef) {
         // console.log(text)
         const url = match[0];
         if (HasWhiteSpace(url)) {
@@ -124,7 +126,6 @@ const AddPost = (props: Props) => {
         // console.log(quillRef.getContents())
       }
     }
-    // console.log(quillRef.getContents())
     // console.log(content)
     setValue(content);
   }

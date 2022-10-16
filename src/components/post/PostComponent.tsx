@@ -226,7 +226,7 @@ const PostComponent = (props: Props) => {
               props.handleOpenModal("Send Post")
             }}>
               <IoIosSend/>
-              <p>Send</p>
+              <p>{props.post.sendcount}</p>
             </div>
             <div className='post-actions action-drop'>
                 <FiMoreVertical/>

@@ -26,15 +26,17 @@
 .layout-nav {
     @include m.beautiful-boxes;
     flex-shrink: 3;
-    background-color: white;
     margin-right: 5%;
+    background-color: white;
     max-width: 256px;
-    height: 240px;
+    min-height: 240px;
+    max-height: 360px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 32px;
+    overflow: auto;
 }
 
 .layout-main {

@@ -5,16 +5,27 @@ import "../../styles/forms/form.scss";
 import Guestbar from '../../components/navbar/Guestbar';
 import FormLine from '../../components/util/FormLine';
 import { ApiURL } from '../../utils/Server';
-import { checkAuth } from '../../utils/Auth';
+import { checkAuth, useAuth } from '../../utils/Auth';
 import AuthFooter from '../Footer';
 import Footer from '../Footer';
+import ErrorComponent from '../../components/ErrorComponent';
 type Props = {}
 
 const Register = (props: Props) => {
     const [error, setError] = useState("")
 
     const navigate = useNavigate()
-    checkAuth()
+    const auth = useAuth()
+
+    useEffect(() => {
+        console.log(auth)
+        if (auth == undefined) return
+
+        if (auth == true) {
+        navigate('/')
+        return
+        }
+    }, [auth])
 
 
     const axiosConfig = {
@@ -25,6 +36,7 @@ const Register = (props: Props) => {
 
     const submit = (e: SyntheticEvent) => {
         e.preventDefault();
+        setError('')
         const target = e.target as typeof e.target & {
             email: { value: string };
             password: { value: string };
@@ -51,7 +63,7 @@ const Register = (props: Props) => {
             
         }).catch(function (error) {
             console.log(error);
-            setError(error)
+            setError(error.response.data.message)
         }).then(function (response) {
             // always executed
         
@@ -81,6 +93,9 @@ const Register = (props: Props) => {
                         <div className='input-container'>
                             
                         </div>
+                        {error != '' ? (
+                            <ErrorComponent message={error}/>
+                        ) : <></>}
                         <div className='input-container'>
                             <input type="submit" value="Agree & Join" className="btn-primary" style={{
                                 width: "100%",

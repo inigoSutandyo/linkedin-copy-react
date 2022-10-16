@@ -34,6 +34,7 @@ declare global {
     filetype: string 
     mime: string,
     comments: Array<PostComment>
+    sendcount: number
   }
 
   type PostComment = {
@@ -54,6 +55,7 @@ declare global {
     user: User,
     comment: Comment
     mention: User
+    
   }
 
   type Invitation = {

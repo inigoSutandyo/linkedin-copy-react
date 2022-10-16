@@ -1,8 +1,10 @@
 import axios from 'axios';
-import React, { SyntheticEvent, useState } from 'react'
+import React, { SyntheticEvent, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import ErrorComponent from '../../components/ErrorComponent';
 import Guestbar from '../../components/navbar/Guestbar';
 import "../../styles/forms/form.scss";
+import { useAuth } from '../../utils/Auth';
 import { ApiURL } from '../../utils/Server';
 import Footer from '../Footer';
 type Props = {}
@@ -10,13 +12,26 @@ type Props = {}
 const ForgetPassword = (props: Props) => {
     const [email, setEmail] = useState("")
     const [error, setError] = useState("")
+    const [sent, setSent] = useState(false)
     const navigate = useNavigate()
+    const auth = useAuth()
 
+    useEffect(() => {
+        console.log(auth)
+        if (auth == undefined) return
+
+        if (auth == true) {
+        navigate('/')
+        return
+        }
+    }, [auth])
+    
     function handleBack() {
         navigate('/auth/login')
     }
 
     const checkEmail = () => {
+        setError('')
         if (!email.trim()) {
             setError("Email cannot be empty!")
             return
@@ -29,11 +44,11 @@ const ForgetPassword = (props: Props) => {
         })
         .then((response) => {
             console.log(response.data)
-            const target = document.getElementById('input') as HTMLInputElement
-            target.value = ""
+            setSent(true)
         })
         .catch((error) => {
             console.log(error.response.data)
+            setError(error.response.data.message)
         })
     }
 
@@ -62,13 +77,28 @@ const ForgetPassword = (props: Props) => {
                                 onChange={(e: SyntheticEvent) => {
                                     const target = e.target as HTMLInputElement
                                     setEmail(target.value)
+                                    if (sent) {
+                                        setSent(false)
+                                    }
                                     // console.log(email)
                                 }}
                             />
                         </div>
-
+                        {error != "" ? (
+                            <ErrorComponent message={error}/>
+                        ) : <></>}
                         <div className="input-container">
-                            <button className='btn-primary' onClick={checkEmail}>Reset Password</button>
+                            <button className='btn-primary' onClick={checkEmail}>
+                                {sent == true ? (
+                                    <>
+                                        Resend Link
+                                    </>
+                                ) : 
+                                    <>
+                                        Reset Password
+                                    </>
+                                }
+                            </button>
                         </div>
                         <div className="input-container">
                             <div style={{
@@ -79,6 +109,13 @@ const ForgetPassword = (props: Props) => {
                                 <label style={{cursor: 'pointer'}} onClick = {handleBack}>Back</label>
                             </div>
                         </div>
+                        {sent ? (
+                            <div className='d-flex justify-center' style={{
+                                textAlign: "center",
+                            }}>
+                                Reset password link has been sent to your inbox.
+                            </div>
+                        ) : <></>}
                     </form>
                 </div>
             </div>

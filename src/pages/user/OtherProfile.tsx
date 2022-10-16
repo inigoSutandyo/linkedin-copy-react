@@ -9,6 +9,7 @@ import ErrorPage from '../ErrorPage';
 import { useAppSelector } from '../../app/hooks';
 import ModalComponent from '../../components/ModalComponent';
 import ConnectPrompt from './ConnectPrompt';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     id: string
@@ -22,6 +23,7 @@ const OtherProfile = (props: Props) => {
     const [invited, setInvited] = useState(false)
     const [followed, setFollowed] = useState(false)
     const [modal, setModal] = useState(false)
+    const navigate = useNavigate()
 
     const openModal = () => {
       setModal(true)
@@ -163,6 +165,22 @@ const OtherProfile = (props: Props) => {
       })
     }
 
+    const createMessage = () => {
+      axios.post(ApiURL("/chats/create"), {}, {
+        withCredentials: true,
+        params: {
+          id: user?.ID
+        }
+      })
+      .then((response) => {
+        console.log(response.data)
+        navigate('/message')
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+      })
+    }
+
     return (
       <>
         {user?.ID == 0 ? (
@@ -185,6 +203,11 @@ const OtherProfile = (props: Props) => {
                   <div
                     className="edit-profile"
                   >
+                    <button className='btn-primary-outline mx-2' style={{
+                        borderRadius : "16px"
+                      }} onClick={createMessage}>
+                        Message
+                    </button>
                     {!followed ? (
                       <button className='btn-primary-outline mx-2' style={{
                         borderRadius : "16px"

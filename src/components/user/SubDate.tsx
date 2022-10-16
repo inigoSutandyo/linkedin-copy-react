@@ -28,7 +28,7 @@ const SubDate = (props: Props) => {
       setStart(props.start)
     }
 
-    console.log(start)
+    // console.log(start)
     if (props.end && props.end.getFullYear() >= 1922)  {
       setEnd(props.end)
     }
