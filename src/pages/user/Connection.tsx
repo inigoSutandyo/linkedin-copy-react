@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useUser } from '../../app/user';
 import Following from '../../components/connection/Following';
@@ -17,7 +17,10 @@ const Connection = (props: Props) => {
   const user = useAppSelector((state) => state.user.user);
   const [invitations, setInvitations] = useState<Array<Invitation>>()
   const [connections, setConnections] = useState<Array<User>>()
+  const [fixedConnections, setFixedConnections] = useState<Array<User>>()
   const [display, setDisplay] = useState("Invitations")
+  const [search, setSearch] = useState("")
+
   useEffect(() => {
     if (!user) return
 
@@ -27,12 +30,24 @@ const Connection = (props: Props) => {
 
     if (user.connections && user.connections.length > 0) {
       setConnections(user.connections)
+      setFixedConnections(user.connections)
     }
-    
-  
     
   }, [user])
   
+  useEffect(() => {
+    if (search == "") {
+      setConnections(fixedConnections)
+    }
+
+    const f = fixedConnections?.filter((u) => {
+      return u.firstname.startsWith(search)
+    })
+
+    setConnections(f)
+  }, [search])
+  
+
   const removeInvitation = (id: number) => {
     if (!user) return
     if (!user.invitations) return
@@ -110,21 +125,29 @@ const Connection = (props: Props) => {
             {display == "Connection" ? (
               <div>
                 {connections && connections.length > 0 ? (
-                  connections.map((c) => (
-                    <div className='d-flex flex-column justify-center my-3 w-9' key={c.ID} style={{
-                      border: "solid 1px rgb(221, 221, 221)",
-                      padding: "12px"
-                    }}>
-                      <div className='d-flex flex-row justify-between align-center'>
-                        <UserComponent user={c}/> 
-                        <div>
-                          <button className='btn-primary-outline mx-1' style={{
-                              borderRadius: "32px"
-                          }} onClick={() => {removeConnection(c.ID)}}>Remove</button>
+                  <>
+                    <div>
+                      <input type="search" name="search" id="search" onChange={(e: SyntheticEvent) => {
+                        const input = e.target as HTMLInputElement
+                        setSearch(input.value.trim())
+                      }} />
+                    </div>
+                    {connections.map((c) => (
+                      <div className='d-flex flex-column justify-center my-3 w-9' key={c.ID} style={{
+                        border: "solid 1px rgb(221, 221, 221)",
+                        padding: "12px"
+                      }}>
+                        <div className='d-flex flex-row justify-between align-center'>
+                          <UserComponent user={c}/> 
+                          <div>
+                            <button className='btn-primary-outline mx-1' style={{
+                                borderRadius: "32px"
+                            }} onClick={() => {removeConnection(c.ID)}}>Remove</button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))
+                    ))}
+                  </>
                 ) : (
                   <div>
                     No connections yet..
