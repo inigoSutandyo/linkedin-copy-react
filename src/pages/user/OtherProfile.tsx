@@ -10,6 +10,7 @@ import { useAppSelector } from '../../app/hooks';
 import ModalComponent from '../../components/ModalComponent';
 import ConnectPrompt from './ConnectPrompt';
 import { useNavigate } from 'react-router-dom';
+import SendProfile from '../../components/user/SendProfile';
 
 interface Props {
     id: string
@@ -23,9 +24,11 @@ const OtherProfile = (props: Props) => {
     const [invited, setInvited] = useState(false)
     const [followed, setFollowed] = useState(false)
     const [modal, setModal] = useState(false)
+    const [label, setLabel] = useState("")
     const navigate = useNavigate()
 
-    const openModal = () => {
+    const openModal = (lbl: string) => {
+      setLabel(lbl)
       setModal(true)
     }
 
@@ -181,6 +184,7 @@ const OtherProfile = (props: Props) => {
       })
     }
 
+
     return (
       <>
         {user?.ID == 0 ? (
@@ -205,6 +209,11 @@ const OtherProfile = (props: Props) => {
                   >
                     <button className='btn-primary-outline mx-2' style={{
                         borderRadius : "16px"
+                      }} onClick={() => openModal("Send")}>
+                        Send
+                    </button>
+                    <button className='btn-primary-outline mx-2' style={{
+                        borderRadius : "16px"
                       }} onClick={createMessage}>
                         Message
                     </button>
@@ -225,7 +234,7 @@ const OtherProfile = (props: Props) => {
                       <>
                         <button className='btn-primary' style={{
                           borderRadius : "16px"
-                        }} onClick={openModal}>Connect</button>
+                        }} onClick={() => openModal("Connect")}>Connect</button>
                       </>
                     ) : invited ? (
                         <div className='btn-primary-outline' style={{
@@ -250,8 +259,12 @@ const OtherProfile = (props: Props) => {
             </div>
 
             {user ? (
-              <ModalComponent isOpen={modal} appElement={"#profile-page"} closeModal={closeModal} contentLabel={"Connect"}>
-                <ConnectPrompt inviteConnect={inviteConnect} destination={user} closeModal={closeModal}/>
+              <ModalComponent isOpen={modal} appElement={"#profile-page"} closeModal={closeModal} contentLabel={label}>
+                {label == "Connect" ? (
+                  <ConnectPrompt inviteConnect={inviteConnect} destination={user} closeModal={closeModal}/>
+                ) : label == "Send" ? (
+                  <SendProfile profile_id={user.ID}/>
+                ) : <></>}
               </ModalComponent>
             ) : <></>}
           </div>
