@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { ApiURL } from '../../utils/Server'
 import Loading from '../Loading'
 import Comment from './Comment'
+import QuillComponent from './QuillComponent'
 
 type Props = {
   postid: number,
@@ -24,24 +25,12 @@ const PostComment = (props: Props) => {
   const [loading, setLoading] = useState(false)
   const [offset, setOffset] = useState(0)
 
-  function handleChange(content: any, delta: any, source: any, editor: any) {
-    
-    if (content.replace(/<(.|\n)*?>/g, '').trim().length > 1) setButton(true)
-    else setButton(false)
-
-    if (editor.getLength() > 255) {
-        setError("Length of comment exceeded limit of 255 characters")
-    } else {
-        setError("")
-    }
-    setValue(content)
-  }
-
   useEffect(() => {
-    
-  }, [comments])
+    if (value !== '') {
+      setButton(true)
+    }
+  }, [value])
   
-
 
   useEffect(() => {
 
@@ -116,19 +105,21 @@ const PostComment = (props: Props) => {
     setValue("")
   }
 
+  const style = {
+    border: "1px solid rgba(0,0,0,.15)",
+    overflow: "auto",
+    minHeight: "28px",
+    maxHeight: "250px",
+    borderRadius: "32px"
+  }
+
   return (
     <div style={{
       width: "100%"
     }}>
         <div className='comment-header'>
          <div id='editor-container' className='input-container'>
-            <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} bounds={"#editor-container"} style = {{
-              border: "1px solid rgba(0,0,0,.15)",
-              overflow: "auto",
-              minHeight: "28px",
-              maxHeight: "250px",
-              borderRadius: "32px"
-            }} placeholder={"What are you thinking about?"}/>
+          <QuillComponent id={props.postid + '-quill'} setError={setError} setValue={setValue} style={style}/>
          </div>
           {button ? (
             <div>

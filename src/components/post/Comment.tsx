@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { ApiURL } from '../../utils/Server'
 import CommentActions from './CommentActions'
 import PostUser from './PostUser'
+import QuillComponent from './QuillComponent'
 
 type Props = {
     comment: PostComment
@@ -26,6 +27,13 @@ const Comment = (props: Props) => {
   const [offset, setOffset] = useState(0)
   const [show, setShow] = useState(true)
   
+  useEffect(() => {
+    if (value !== "") {
+      setButton(true)
+    }
+  }, [value])
+  
+
   useEffect(() => {
     axios.get(ApiURL("/home/post/comment/reply"), {
       params: {
@@ -69,19 +77,6 @@ const Comment = (props: Props) => {
     })
   }
 
-  function handleChange(content: any, delta: any, source: any, editor: any) {
-    
-    if (content.replace(/<(.|\n)*?>/g, '').trim().length > 1) setButton(true)
-    else setButton(false)
-
-    if (editor.getLength() > 255) {
-        setError("Length of comment exceeded limit of 255 characters")
-    } else {
-        setError("")
-    }
-    setValue(content)
-  }
-
   const handleAddReply = () => {
     if (error !== "") return
     if (value.replace(/<(.|\n)*?>/g, '').trim().length < 1) return 
@@ -110,6 +105,14 @@ const Comment = (props: Props) => {
     })
     setValue("")
   }
+
+  const style = {
+    border: "1px solid rgba(0,0,0,.15)",
+    overflow: "auto",
+    minHeight: "28px",
+    maxHeight: "250px",
+    borderRadius: "32px"
+  }
   return (
     <>
       <div className='comment-card'>
@@ -123,13 +126,7 @@ const Comment = (props: Props) => {
         {openReply ? (
           <div>
             <div id='editor-container' className='input-container'>
-              <ReactQuill id='quill' theme='bubble' value={value} onChange={handleChange} bounds={"#editor-container"} style = {{
-                border: "1px solid rgba(0,0,0,.15)",
-                overflow: "auto",
-                minHeight: "28px",
-                maxHeight: "250px",
-                borderRadius: "32px"
-              }} placeholder={"Reply here"}/>
+              <QuillComponent setError={setError} setValue={setValue} style={style} id={props.comment.ID + 'reply'} />
             </div>
             {button ? (
               <div>

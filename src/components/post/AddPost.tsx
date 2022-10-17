@@ -10,6 +10,8 @@ import { BsImageFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { BiVideoPlus } from "react-icons/bi";
 import Tribute from "tributejs";
+import QuillComponent from "./QuillComponent";
+import ErrorComponent from "../ErrorComponent";
 
 type User = {
   ID: number;
@@ -34,102 +36,14 @@ interface Props {
 const AddPost = (props: Props) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
+
   const [file, setFile] = useState<Blob>();
   const [imageUrl, setImageUrl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
-  
-  const [reactQuillRef, setReactQuillRef] = useState<any>()
-  const [quillRef, setQuillRef] = useState<any>()
 
   const posts = useAppSelector((state) => state.post);
   const dispatch = useAppDispatch();
-  const regex = /https?:\/\/[^\s]+$/;
   
-  const userList = useAppSelector((state) => state.list)
-
-  const [data, setData] = useState<Tribute<Object>>()
-
-  useEffect(() => {
-    if (!reactQuillRef) return 
-    
-    console.log(reactQuillRef.getEditor())
-    if (typeof reactQuillRef.getEditor() !== 'function') return;
-    setQuillRef(reactQuillRef.getEditor())
-    
-  }, [reactQuillRef])
-  
-  useEffect(() => {
-    if (userList.length == 0) return
-
-    const datas = []
-    for (let i = 0; i < userList.length; i++) {
-      const element = userList[i];
-      datas.push({
-        id: element.ID,
-        value: element.firstname + element.lastname,
-        key: element.email 
-      })
-    }
-    console.log(datas)
-
-    const tribute = new Tribute({
-      values: [...datas]
-    })
-    
-    setData(tribute)
-  }, [userList])
-
-  useEffect(() => {
-    if (data) {
-      const el = document.getElementsByClassName('ql-editor')
-      data.attach(el[0])
-    }
-  }, [data])
-  
-
-  function handleChange(content: any, delta: any, source: any, editor: any) {
-    if (editor.getLength() > 255) {
-      setError("Length of post exceeded limit of 255 characters");
-    } else {
-      setError("");
-    }
-
-    // if (!reactQuillRef) return
-    setQuillRef(reactQuillRef.getEditor())
-    
-    if (delta.ops.length == 2 && delta.ops[0].retain && HasWhiteSpace(delta.ops[1].insert)) {
-      const endRetain = delta.ops[0].retain;
-      const text = quillRef.getText().substr(0, endRetain);
-      const match = text.match(regex);
-
-      if (match !== null && quillRef) {
-        // console.log(text)
-        const url = match[0];
-        if (HasWhiteSpace(url)) {
-          return
-        }
-        var ops = [] as Array<Object>;
-        if(endRetain > url.length) {
-          ops.push({ retain: endRetain - url.length});
-        }
-
-        // console.log(url)
-
-        ops = ops.concat([
-          { delete: url.length },
-          { insert: url, attributes: { link: url } }
-        ])
-        // console.log(quillRef.getContents())
-        quillRef.updateContents({
-          ops: ops
-        });
-        // console.log(quillRef.getContents())
-      }
-    }
-    // console.log(content)
-    setValue(content);
-  }
-
   const uploadPost = (url: string, publicid: string, filetype: string) => {
     const axiosConfig = {
       headers: {
@@ -167,11 +81,15 @@ const AddPost = (props: Props) => {
   };
 
   const handleAddPost = (e: SyntheticEvent) => {
-    console.log("uploading")
+    console.log(value)
     e.preventDefault();
-    if (error !== "") return;
-    if (value.replace(/<(.|\n)*?>/g, "").trim().length < 1 && !file) return;
+    setError("")
 
+    if (value.replace(/<(.|\n)*?>/g, "").trim().length < 1 ) {
+      setError("Cannot be empty!!")
+      return
+    };
+    console.log("uploading")
     if (file) {
       props.handleLoading(true)
       const bodyFormData = new FormData();
@@ -255,30 +173,21 @@ const AddPost = (props: Props) => {
     setVideoUrl('')
   }
 
+  const style = {
+    overflow: "auto",
+    width: "95%",
+    height: "128px",
+    maxHeight: "250px",
+  }
 
   return (
     <form action="POST" onSubmit={handleAddPost}>
+      {error != "" ? (
+        <ErrorComponent message={error} />
+      ) : <></>}
       <div id="editor-container" className="editor-container quill-editor">
-        <ReactQuill
-          // id="quill"
-          ref={(el) => {
-            setReactQuillRef(el)
-          }}
-          theme="bubble"
-          defaultValue={value}
-          onChange={handleChange}
-          bounds={"#editor-container"}
-          style={{
-            overflow: "auto",
-            width: "95%",
-            height: "128px",
-            maxHeight: "250px",
-          }}
-          placeholder={"What are you thinking about?"}
-          className="ql-editor"
-        />
-          {/* <div id="editable-div"></div> */}
-        {/* </ReactQuill> */}
+        <QuillComponent setError={setError} setValue={setValue} style={style} id={'ql-editor'}/>
+        
       </div>
       <div className="form-preview-image">
         <img
@@ -372,7 +281,6 @@ const AddPost = (props: Props) => {
           }}
         />
       </div>
-      <div style={{ color: "red" }}>{error}</div>
     </form>
   );
 };
