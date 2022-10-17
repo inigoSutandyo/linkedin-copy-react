@@ -121,6 +121,7 @@ declare global {
     content: string
     post: Post
     postid: number
+    fileurl: string
   }
 
   type MessageState = {

@@ -14,6 +14,14 @@ const MyMessage = (props: Props) => {
           <>
             <SharedPost post_id={props.message.postid}/>
           </>
+        ) : props.message.fileurl != '' ? (
+          <>
+            <div className='w-8'>
+              <img src={props.message.fileurl} alt="" style={{
+                maxWidth: "240px"
+              }}/>
+            </div>
+          </>
         ) : (
           <>
             {props.message.content}
