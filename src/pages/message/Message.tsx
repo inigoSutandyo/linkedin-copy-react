@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { useAppSelector } from '../../app/hooks'
 import { useUser } from '../../app/user'
 import Chat from '../../components/message/Chat'
@@ -8,6 +8,8 @@ import UserComponent from '../../components/user/UserComponent'
 import UserSmallComponent from '../../components/user/UserSmallComponent'
 import { ApiURL } from '../../utils/Server'
 import Footer from '../Footer'
+
+import '../../styles/forms/form.scss'
 
 type Props = {}
 
@@ -19,6 +21,8 @@ const Message = (props: Props) => {
   const user = useAppSelector((state) => state.user.user)
   const [selectedChat, setSelectedChat] = useState<Chats>()
   const [chats, setChats] = useState<Array<Chats>>()
+  const [fixed, setFixed] = useState<Array<Chats>>()
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     axios.get(ApiURL("/chats"), {
@@ -27,11 +31,40 @@ const Message = (props: Props) => {
     .then((response) => {
       console.log(response.data.chats)
       setChats(response.data.chats)
+      setFixed(response.data.chats)
     })
     .catch((error) => {
       console.log(error.response.data)
     })
   }, [])
+  
+  const hasUser = (users: Array<User>, search: string) => {
+    for (let i = 0; i < users.length; i++) {
+      const u = users[i];
+      if (u.ID == user.ID ) {
+        continue;
+      }
+      if (u.firstname.startsWith(search)) {
+        console.log(u)
+        return true
+      }
+    }
+    return false
+  }
+
+  useEffect(() => {
+    if (search == "") {
+      setChats(fixed)
+      return
+    }
+    if (fixed != undefined) {
+      const c = fixed.filter((chat) => {
+        return hasUser(chat.users, search) == true
+      })
+
+      setChats(c)
+    }
+  }, [search])
   
 
   const create = () => {
@@ -51,6 +84,7 @@ const Message = (props: Props) => {
   
   const changeChat = (c: Chats) => {
     setSelectedChat(c)
+    console.log(selectedChat)
   }
 
   return (
@@ -58,6 +92,13 @@ const Message = (props: Props) => {
         <Navbar/>
         <div className='layout-secondary main-body'>
             <div className='layout-nav'>
+              <div className='d-flex my-1'>
+                <input type="text" name="search" id="search" onChange={(e: SyntheticEvent) => {
+                  const target = e.target as HTMLInputElement
+                  setSearch(target.value.trim())
+                }}/>
+                {/* <button className='btn-primary px-1'>Search</button> */}
+              </div>
               <ul>
                 {chats?.map((c) => (
                   <li key={c.ID} onClick={() => changeChat(c)} className="pointer-cursor list-style-none border-bottom-light">
@@ -74,7 +115,7 @@ const Message = (props: Props) => {
                 ))}
               </ul>
             </div>
-            <div className='layout-main my-2'>
+            <div className='layout-main'>
               {/* <button onClick={create}>Create</button> */}
               {selectedChat ? (
                 <Chat chat={selectedChat}/>

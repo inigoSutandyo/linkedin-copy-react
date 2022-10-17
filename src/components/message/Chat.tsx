@@ -49,7 +49,7 @@ const Chat = (props: Props) => {
         }
     })
     .then((response) => {
-        // console.log(response.data.messages)
+        console.log(response.data)
         dispatch(setMessages(response.data.messages))
     })
     .catch((error) => {
@@ -87,7 +87,7 @@ const Chat = (props: Props) => {
   }
 
   useEffect(() => {
-    // console.log(messages)
+    console.log(messages)
     scrollToBottom()
   }, [messages])
   
