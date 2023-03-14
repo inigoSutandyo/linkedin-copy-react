@@ -4,7 +4,7 @@ import ReactQuill ,{QuillOptions} from 'react-quill'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 
 import { ApiURL } from '../../utils/Server'
-import Loading from '../Loading'
+import Loading from '../util/Loading'
 import Comment from './Comment'
 import QuillComponent from './QuillComponent'
 

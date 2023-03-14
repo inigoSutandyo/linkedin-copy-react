@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import "../../styles/components/user.scss"
-import placheholderProfile from '../../assets/placeholders/user.png'
-import { Link } from 'react-router-dom'
-import ExperienceComponent from './experience/ExperienceComponent';
+import "../../../styles/components/user.scss"
+import placheholderProfile from '../../../assets/placeholders/user.png'
+import ExperienceComponent from '../experience/ExperienceComponent';
 import axios from 'axios';
-import { ApiURL } from '../../utils/Server';
+import { ApiURL } from '../../../utils/Server';
 
 type Props = {
   user: User;

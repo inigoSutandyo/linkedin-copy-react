@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect, SyntheticEvent } from "react";
-import { useAppSelector } from "../../app/hooks";
-import { ApiURL } from "../../utils/Server";
+import { useAppSelector } from "../../../app/hooks";
+import { ApiURL } from "../../../utils/Server";
 
 type Props = {
   profile_id: number

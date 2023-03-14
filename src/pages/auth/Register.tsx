@@ -8,7 +8,7 @@ import { ApiURL } from '../../utils/Server';
 import { checkAuth, useAuth } from '../../utils/Auth';
 import AuthFooter from '../Footer';
 import Footer from '../Footer';
-import ErrorComponent from '../../components/ErrorComponent';
+import ErrorComponent from '../../components/util/ErrorComponent';
 type Props = {}
 
 const Register = (props: Props) => {

@@ -3,7 +3,7 @@ import React, { SyntheticEvent, useState, useEffect } from "react";
 import { IconContext } from "react-icons";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import ModalComponent from "../../components/ModalComponent";
+import ModalComponent from "../../components/util/ModalComponent";
 import Navbar from "../../components/navbar/Navbar";
 import "../../styles/forms/form.scss";
 import { ApiURL } from "../../utils/Server";

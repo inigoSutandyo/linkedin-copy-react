@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { SyntheticEvent, useState } from "react";
-import "../../styles/forms/form.scss";
-import { ApiURL } from "../../utils/Server";
+import "../../../styles/forms/form.scss";
+import { ApiURL } from "../../../utils/Server";
 import { useSelector, useDispatch } from 'react-redux' 
-import { setUser } from '../../features/user/userSlice'
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { setUser } from '../../../features/user/userSlice'
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
 interface Props {
 }

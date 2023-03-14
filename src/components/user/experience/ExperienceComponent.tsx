@@ -1,6 +1,6 @@
 import React from 'react'
-import SubDate from '../SubDate'
-import SubDetail from '../SubDetail'
+import SubDate from '../profile/SubDate'
+import SubDetail from '../profile/SubDetail'
 
 type Props = {
     experience: Experience

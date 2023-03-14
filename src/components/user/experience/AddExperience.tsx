@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import "../../../styles/forms/form.scss";
 import { ApiURL } from "../../../utils/Server";
-import ErrorComponent from "../../ErrorComponent";
+import ErrorComponent from "../../util/ErrorComponent";
 
 type Props = {
   closeModal: any

@@ -6,7 +6,7 @@ import Guestbar from "../../components/navbar/Guestbar";
 import FormLine from "../../components/util/FormLine";
 import { ApiURL } from "../../utils/Server";
 import { checkAuth, useAuth } from "../../utils/Auth";
-import ErrorComponent from "../../components/ErrorComponent";
+import ErrorComponent from "../../components/util/ErrorComponent";
 import { useGoogleLogin, GoogleLogin, CredentialResponse  } from "@react-oauth/google";
 import { decodeToken } from "react-jwt";
 import Footer from "../Footer";

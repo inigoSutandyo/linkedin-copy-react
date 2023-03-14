@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import ErrorComponent from '../../components/ErrorComponent'
+import ErrorComponent from '../../components/util/ErrorComponent'
 import Guestbar from '../../components/navbar/Guestbar'
 import { ApiURL } from '../../utils/Server'
 import Footer from '../Footer'

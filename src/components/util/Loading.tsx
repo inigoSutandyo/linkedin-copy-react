@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/components/spinner.scss'
+import '../../styles/components/spinner.scss'
 type Props = {}
 
 const Loading = (props: Props) => {

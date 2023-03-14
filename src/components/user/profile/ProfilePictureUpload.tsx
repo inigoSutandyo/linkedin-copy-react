@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { SyntheticEvent, useState } from 'react'
-import "../../styles/forms/form.scss";
-import { ApiURL, CloudinaryURL } from '../../utils/Server';
+import "../../../styles/forms/form.scss";
+import { ApiURL, CloudinaryURL } from '../../../utils/Server';
 
 type Props = {}
 

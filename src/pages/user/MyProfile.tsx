@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import ProfileForm from "../../components/user/ProfileForm";
+import ProfileForm from "../../components/user/profile/ProfileForm";
 import { useAppSelector } from "../../app/hooks";
 import Navbar from "../../components/navbar/Navbar";
 import { MdModeEditOutline } from "react-icons/md";
 import { IconContext } from "react-icons";
-import ModalComponent from "../../components/ModalComponent";
+import ModalComponent from "../../components/util/ModalComponent";
 import placeholderBanner from "../../assets/placeholders/banner.jpg";
-import ProfilePictureUpload from "../../components/user/ProfilePictureUpload";
+import ProfilePictureUpload from "../../components/user/profile/ProfilePictureUpload";
 import "../../styles/pages/profile.scss";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddEducation from "../../components/user/education/AddEducation";

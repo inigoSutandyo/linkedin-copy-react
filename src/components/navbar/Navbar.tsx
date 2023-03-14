@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../../styles/components/nav.scss'
+import '../../styles/components/search.scss'
 import '../../styles/forms/form.scss'
 import iconImg from "../../assets/logos/linkedin_secondary.png"
 import { ApiURL } from "../../utils/Server";
@@ -95,7 +96,7 @@ const Navbar = (props: Props) => {
               </Link>
             </li>
             <li className="list-hover mx-2 color-black">
-              <input type="text" name="" id="" placeholder="Search" className="search-nav" onKeyDown={search} onChange={onChange}/>
+              <input type="text" name="" id="" placeholder="Search" className="search-field" onKeyDown={search} onChange={onChange}/>
             </li>
             <li className="list-hover mx-2 pointer-cursor">
               <label htmlFor="theme" onClick={changeTheme} data-tip data-for="tooltip">

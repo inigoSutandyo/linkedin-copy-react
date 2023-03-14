@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { SyntheticEvent, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import ErrorComponent from '../../components/ErrorComponent';
+import ErrorComponent from '../../components/util/ErrorComponent';
 import Guestbar from '../../components/navbar/Guestbar';
 import "../../styles/forms/form.scss";
 import { useAuth } from '../../utils/Auth';

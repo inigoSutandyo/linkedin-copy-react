@@ -4,12 +4,12 @@ import { useAppSelector } from '../../app/hooks'
 import { useUser } from '../../app/user'
 import Chat from '../../components/message/Chat'
 import Navbar from '../../components/navbar/Navbar'
-import UserComponent from '../../components/user/UserComponent'
 import UserSmallComponent from '../../components/user/UserSmallComponent'
 import { ApiURL } from '../../utils/Server'
 import Footer from '../Footer'
 
 import '../../styles/forms/form.scss'
+import '../../styles/components/search.scss'
 
 type Props = {}
 
@@ -92,12 +92,12 @@ const Message = (props: Props) => {
         <Navbar/>
         <div className='layout-secondary main-body'>
             <div className='layout-nav'>
-              <div className='d-flex my-1'>
-                <input type="text" name="search" id="search" onChange={(e: SyntheticEvent) => {
+              <div className='d-flex my-1 px-4'>
+                {/* <span className='mx-2'>Search</span> */}
+                <input type="text" className='search-field' name="search" id="search" placeholder='Search Name' onChange={(e: SyntheticEvent) => {
                   const target = e.target as HTMLInputElement
                   setSearch(target.value.trim())
                 }}/>
-                {/* <button className='btn-primary px-1'>Search</button> */}
               </div>
               <ul>
                 {chats?.map((c) => (

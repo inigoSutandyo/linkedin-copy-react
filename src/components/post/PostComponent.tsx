@@ -17,7 +17,7 @@ import { FiMoreVertical } from 'react-icons/fi';
 import { HiTrash } from 'react-icons/hi'
 import "../../styles/components/post.scss"
 import ReactTooltip from 'react-tooltip';
-import ProfileTooltip from '../user/ProfileTooltip';
+import ProfileTooltip from '../user/profile/ProfileTooltip';
 
 type Props = {
   post: Post,

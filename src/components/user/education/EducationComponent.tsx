@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import SubDate from '../SubDate'
-import EducationDate from '../SubDate'
-import SubDetail from '../SubDetail'
+import SubDate from '../profile/SubDate'
+import EducationDate from '../profile/SubDate'
+import SubDetail from '../profile/SubDetail'
 
 type Props = {
   education: Education

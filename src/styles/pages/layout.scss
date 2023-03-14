@@ -4,8 +4,8 @@
     margin: 32px 10% 0px 10%;
 }
 .layout-secondary {
-    margin: 32px 10% 0px 10%;
-    display: flex;
+    margin: 32px 0px 0px 0px;
+    padding: 2rem;    display: flex;
     flex-direction: row;
 }
 
@@ -33,9 +33,9 @@
     max-height: 360px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    padding: 32px;
+    padding: 1.5rem 1rem;
     overflow: auto;
 }
 

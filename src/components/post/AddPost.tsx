@@ -11,7 +11,7 @@ import { IconContext } from "react-icons";
 import { BiVideoPlus } from "react-icons/bi";
 import Tribute from "tributejs";
 import QuillComponent from "./QuillComponent";
-import ErrorComponent from "../ErrorComponent";
+import ErrorComponent from "../util/ErrorComponent";
 
 type User = {
   ID: number;

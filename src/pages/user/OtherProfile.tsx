@@ -7,10 +7,10 @@ import axios from 'axios';
 import { ApiURL } from '../../utils/Server';
 import ErrorPage from '../ErrorPage';
 import { useAppSelector } from '../../app/hooks';
-import ModalComponent from '../../components/ModalComponent';
+import ModalComponent from '../../components/util/ModalComponent';
 import ConnectPrompt from './ConnectPrompt';
 import { useNavigate } from 'react-router-dom';
-import SendProfile from '../../components/user/SendProfile';
+import SendProfile from '../../components/user/profile/SendProfile';
 
 interface Props {
     id: string
